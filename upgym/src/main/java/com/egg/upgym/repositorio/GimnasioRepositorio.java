@@ -9,10 +9,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GimnasioRepositorio extends JpaRepository<Gimnasio, String> {
-    
+
+    @Query("SELECT g FROM Gimnasio g WHERE direccion.provincia=:provincia")
+    List<Gimnasio> buscarPorProvincia(@Param("provincia") String provincia);
+
     @Query("SELECT g FROM Gimnasio g WHERE direccion.ciudad=:ciudad")
-    List<Gimnasio> buscarPorCiudad(@Param("ciudad")String ciudad); 
-    
-   
-    
+    List<Gimnasio> buscarPorCiudad(@Param("ciudad") String ciudad);
+
 }

@@ -24,8 +24,31 @@ public class GimnasioControlador {
     
       @GetMapping
     public ModelAndView mostrarTodos() {
-        ModelAndView mav = new ModelAndView("gimnasio");
+        ModelAndView mav = new ModelAndView("gimnasios");
         mav.addObject("gimnasios", gimnasioServicio.buscarTodos());
+        return mav;
+    }
+    @GetMapping("/buscar/nombre")
+    public ModelAndView mostrarPorNombre(@RequestParam String nombre) {
+        ModelAndView mav = new ModelAndView("gimnasios");
+        mav.addObject("gimnasios", gimnasioServicio.buscarPorNombre(nombre));
+
+        return mav;
+    }
+
+    @GetMapping("/buscar/provincia")
+    public ModelAndView mostrarPorProvincia(@RequestParam("direccion.provincia") String provincia) {
+        ModelAndView mav = new ModelAndView("gimnasios");
+        mav.addObject("gimnasios", gimnasioServicio.buscarPorProvincia(provincia));
+
+        return mav;
+    }
+    
+    @GetMapping("/buscar/ciudad")
+    public ModelAndView mostrarPorCiudad(@RequestParam("direccion.ciudad") String ciudad) {
+        ModelAndView mav = new ModelAndView("gimnasios");
+        mav.addObject("gimnasios", gimnasioServicio.buscarPorCiudad(ciudad));
+
         return mav;
     }
    
@@ -48,15 +71,15 @@ public class GimnasioControlador {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String id,@RequestParam String nombre,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro,@RequestParam("direccion.telefono") Long telefono,@RequestParam String estado) {
-        gimnasioServicio.crear(id,nombre,capacidad,email, clave, ciudad, calleNro,telefono,estado);
+    public RedirectView guardar(@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro,@RequestParam String estado) {
+        gimnasioServicio.crear(nombre,telefono,capacidad,email, clave,provincia, ciudad, calleNro,estado);
         return new RedirectView("/gimnasios");
     }
     
 
     @PostMapping("/modificar")
-     public RedirectView modificar(@RequestParam String id,@RequestParam String nombre,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro,@RequestParam("direccion.telefono") Long telefono,@RequestParam String estado) {
-        gimnasioServicio.modificar(id,nombre,capacidad,email, clave, ciudad, calleNro,telefono,estado);
+     public RedirectView modificar(@RequestParam String id,@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idD,@RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro,@RequestParam String estado) {
+        gimnasioServicio.modificar(id,nombre,telefono,capacidad,email,clave,idD,provincia, ciudad, calleNro,estado);
         return new RedirectView("/gimnasios");
     }
 
