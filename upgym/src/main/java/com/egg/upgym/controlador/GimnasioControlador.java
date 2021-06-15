@@ -41,7 +41,7 @@ public class GimnasioControlador {
     @GetMapping("/editar/{id}")
     public ModelAndView editarGimnasio(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("gimnasioFormulario");
-        mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(id));      
+        mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));      
         mav.addObject("title", "Editar Gimnasio");
         mav.addObject("action", "modificar");
         return mav;
