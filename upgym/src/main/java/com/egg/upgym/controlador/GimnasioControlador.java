@@ -78,8 +78,8 @@ public class GimnasioControlador {
     
 
     @PostMapping("/modificar")
-     public RedirectView modificar(@RequestParam String id,@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idD,@RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro,@RequestParam String estado) {
-        gimnasioServicio.modificar(id,nombre,telefono,capacidad,email,clave,idD,provincia, ciudad, calleNro,estado);
+     public RedirectView modificar(@RequestParam String id,@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion,@RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro,@RequestParam String estado) {
+        gimnasioServicio.modificar(id,nombre,telefono,capacidad,email,clave,idDireccion,provincia, ciudad, calleNro,estado);
         return new RedirectView("/gimnasios");
     }
 
