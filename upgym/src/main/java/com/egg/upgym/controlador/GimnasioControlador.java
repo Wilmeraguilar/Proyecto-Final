@@ -72,7 +72,7 @@ public class GimnasioControlador {
     
     @PostMapping("/guardar")
     public RedirectView guardar(@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro,@RequestParam String estado) {
-        gimnasioServicio.crear(nombre,telefono,capacidad,email, clave,provincia, ciudad, calleNro,estado);
+        gimnasioServicio.crear(nombre,telefono,capacidad,email,clave,provincia, ciudad, calleNro,estado);
         return new RedirectView("/gimnasios");
     }
     
