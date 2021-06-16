@@ -34,6 +34,12 @@ body {
   height: 32rem;
 }
 
+/*para el tamaño de las imagenes*/
+.formatoimagen {
+  width: 500px;
+  height: 500px;
+}
+
 
 /* MARKETING CONTENT
 -------------------------------------------------- */
@@ -89,5 +95,11 @@ body {
 @media (min-width: 62em) {
   .featurette-heading {
     margin-top: 7rem;
+  }
+}
+/*media queries pasra pantalla cel*/
+@media (max-width: 375px) {
+  .formatoimagen {
+    width: 100vw;
   }
 }
