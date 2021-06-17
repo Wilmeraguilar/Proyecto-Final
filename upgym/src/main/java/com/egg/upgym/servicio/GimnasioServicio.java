@@ -3,6 +3,7 @@ package com.egg.upgym.servicio;
 import com.egg.upgym.entidades.Direccion;
 import com.egg.upgym.entidades.Gimnasio;
 import com.egg.upgym.entidades.Reservas;
+import com.egg.upgym.repositorio.DireccionRepositorio;
 import com.egg.upgym.repositorio.GimnasioRepositorio;
 import java.util.List;
 import java.util.Optional;
@@ -16,15 +17,22 @@ public class GimnasioServicio {
     @Autowired
     GimnasioRepositorio gimrep;
     
+    @Autowired
+    DireccionRepositorio dirrep;
+    
     @Transactional
-    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, Direccion direccion){
+    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String ciudad, String provincia, String calleNro){
         Gimnasio gimnasio = new Gimnasio();
+        Direccion direccion = new Direccion();
         
         gimnasio.setNombre(nombre);
         gimnasio.setTelefono(telefono);
         gimnasio.setCapacidad(capacidad);
         gimnasio.setEmail(email);
         gimnasio.setClave(clave);
+        direccion.setCiudad(ciudad);
+        direccion.setProvincia(provincia);
+        direccion.setCalleNro(calleNro);
         gimnasio.setDireccion(direccion);
 
         gimrep.save(gimnasio);
@@ -43,13 +51,15 @@ public class GimnasioServicio {
     }
     
     @Transactional
-    public void modificar(String id, String nombre, String telefono, Integer capacidad, String email, String clave, List<Reservas> reservas, String idDireccion, String provincia, String ciudad, String calleNro) {
+    public void modificar(String id, String nombre, String telefono, Integer capacidad, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro) {
 
         Optional<Gimnasio> gimnasio = gimrep.findById(id);
+        Optional<Direccion> direccion = dirrep.findById(id);
+        
 
         if (gimnasio.isPresent()) {
             Gimnasio g = gimnasio.get();
-            Direccion d = new Direccion();
+            Direccion d = direccion.get();
 
             if (g.getEstado().equalsIgnoreCase("ACTIVO")) {
                 g.setNombre(nombre);
@@ -80,6 +90,20 @@ public class GimnasioServicio {
     
     @Transactional
     public void eliminar(String id) {
-        gimrep.deleteById(id);
+        Optional<Gimnasio> gimnasio = gimrep.findById(id);
+        
+        if (gimnasio.isPresent()) {
+            Gimnasio g = gimnasio.get();
+
+            if (g.getEstado().equalsIgnoreCase("ACTIVO")) {
+                g.setEstado("INACTIVO");
+                
+                gimrep.save(g);
+            }else{
+                
+                System.out.println("El gimnasio se encuentra INACTIVO. No se puede eliminar");
+                
+            }
+        }
     }
 }
