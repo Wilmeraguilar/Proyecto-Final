@@ -36,13 +36,7 @@ public class GimnasioControlador {
         return mav;
     }
 
-    @GetMapping("/buscar/provincia")
-    public ModelAndView mostrarPorProvincia(@RequestParam("direccion.provincia") String provincia) {
-        ModelAndView mav = new ModelAndView("gimnasios");
-        mav.addObject("gimnasios", gimnasioServicio.buscarPorProvincia(provincia));
-
-        return mav;
-    }
+ 
     
     @GetMapping("/buscar/ciudad")
     public ModelAndView mostrarPorCiudad(@RequestParam("direccion.ciudad") String ciudad) {
