@@ -12,44 +12,45 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Registro de Usuario</title>
+    <title>Registro de Gimnasio</title>
 
     <!-- Icons font CSS-->
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
     <!-- Font special for pages-->
     <link
         href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/" />
     <!-- Vendor CSS-->
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/datepicker/daterangepicker.css}" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="css/main.css" rel="stylesheet" media="all">
+    <link th:href="@{css/formulario.css}" rel="stylesheet" media="all">
 </head>
 
 <body>
-    <div class="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">
+    <div class="page-wrapper bg-gra-02 p-t-180 p-b-100 font-poppins">
         <div class="wrapper wrapper--w780">
             <div class="card card-3">
-                <div class="card-heading"></div>
+                <div class="card-heading1"></div>
                 <div class="card-body">
-                    <h2 class="title">REGISTRO</h2>
-                    <form th:action="@{/usuarios/__${action}__}" method="POST" th:object="${usuarios}" autocomplete="on"
-                        novalidate>
+                    <h2 class="title">REGISTRO DEL GIMNASIO</h2>
+                    <form th:action="@{/gimnasios/__${action}__}" method="POST" th:object="${gimnasio}"
+                        autocomplete="on" novalidate>
+
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="DNI" name="dni">
+                            <input class="input--style-3" type="text" placeholder="Nombre" name="nombre"
+                                th:field="*{nombre}" required>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Nombre" name="nombre">
+                            <input class="input--style-3" type="text" placeholder="Capacidad Máxima" name="capacidad"
+                                th:field="*{capacidad}" required>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Apellido" name="apellido">
-                        </div>
-                        <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Telefono" name="telefono">
+                            <input class="input--style-3" type="text" placeholder="Telefono" name="telefono"
+                                th:field="*{telefono}" required>
                         </div>
                         <div class="input-group rs-select2 js-select-simple select--no-search">
                             <select name="gender">
@@ -69,15 +70,20 @@
                             <input class="input--style-3" type="text" placeholder="Dirección" name="dirección">
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="email" placeholder="Email" name="email">
+                            <input class="input--style-3" type="email" placeholder="Email" name="usarname"
+                                th:field="*{email}" required>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="password" placeholder="Clave" name="password">
+                            <input class="input--style-3" type="password" placeholder="Clave" name="password"
+                                th:field="*{clave}" required>
                         </div>
 
+
+
                         <div class="p-t-10">
-                            <button class="btn btn--pill btn--green" type="submit">Guardar</button>
+                            <button class="btn btn--pill btn--green" type="submit"> Guardar</button>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -85,14 +91,14 @@
     </div>
 
     <!-- Jquery JS-->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <script th:src="@{/vendor/jquery/jquery.min.js"></script>
     <!-- Vendor JS-->
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="vendor/datepicker/moment.min.js"></script>
-    <script src="vendor/datepicker/daterangepicker.js"></script>
+    <script th:src="@{/vendor/select2/select2.min.js}"></script>
+    <script th:src="@{/vendor/datepicker/moment.min.js}"></script>
+    <script th:src="@{/vendor/datepicker/daterangepicker.js}"></script>
 
     <!-- Main JS-->
-    <script src="js/global.js"></script>
+    <script th:src="@{/js/global.js}"></script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
