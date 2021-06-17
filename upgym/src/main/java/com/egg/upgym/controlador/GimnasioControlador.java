@@ -80,7 +80,7 @@ public class GimnasioControlador {
     @PostMapping("/eliminar/{id}")
     public RedirectView eliminar(@PathVariable String id) {
        gimnasioServicio.eliminar(id);
-        return new RedirectView("/gimansios");
+        return new RedirectView("/gimnasios");
     }
     
 }
