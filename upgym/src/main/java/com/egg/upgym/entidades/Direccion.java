@@ -14,16 +14,16 @@ public class Direccion implements Serializable{
     private String id;
     private String provincia;
     private String ciudad;
-    private String callenro;
+    private String calleNro;
 
     public Direccion() {
     }
 
-    public Direccion(String id, String provincia, String ciudad, String callenro) {
+    public Direccion(String id, String provincia, String ciudad, String calleNro) {
         this.id = id;
         this.provincia = provincia;
         this.ciudad = ciudad;
-        this.callenro = callenro;
+        this.calleNro = calleNro;
     }
 
     public String getCiudad() {
@@ -34,12 +34,12 @@ public class Direccion implements Serializable{
         this.ciudad = ciudad;
     }
 
-    public String getCallenro() {
-        return callenro;
+    public String getCalleNro() {
+        return calleNro;
     }
 
-    public void setCallenro(String callenro) {
-        this.callenro = callenro;
+    public void setCalleNro(String calleNro) {
+        this.calleNro = calleNro;
     }
 
     public String getId() {
