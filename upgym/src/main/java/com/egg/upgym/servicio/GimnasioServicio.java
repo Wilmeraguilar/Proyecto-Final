@@ -51,7 +51,7 @@ public class GimnasioServicio {
     }
     
     @Transactional
-    public void modificar(String id, String nombre, String telefono, Integer capacidad, String email, String clave, List<Reservas> reservas, String idDireccion, String provincia, String ciudad, String calleNro) {
+    public void modificar(String id, String nombre, String telefono, Integer capacidad, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro) {
 
         Optional<Gimnasio> gimnasio = gimrep.findById(id);
         Optional<Direccion> direccion = dirrep.findById(id);
