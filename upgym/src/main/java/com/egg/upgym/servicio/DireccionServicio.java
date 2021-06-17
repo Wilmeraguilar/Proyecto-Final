@@ -15,12 +15,12 @@ public class DireccionServicio {
     DireccionRepositorio dirrep;
     
     @Transactional
-    public void crear(String provincia, String ciudad, String callenro){
+    public void crear(String provincia, String ciudad, String calleNro){
         Direccion direccion = new Direccion();
         
         direccion.setProvincia(provincia);
         direccion.setCiudad(ciudad);
-        direccion.setCallenro(callenro);
+        direccion.setCallenro(calleNro);
 
         dirrep.save(direccion);
     }

@@ -2,6 +2,7 @@ package com.egg.upgym.servicio;
 
 import com.egg.upgym.entidades.Direccion;
 import com.egg.upgym.entidades.Gimnasio;
+import com.egg.upgym.entidades.Reservas;
 import com.egg.upgym.repositorio.GimnasioRepositorio;
 import java.util.List;
 import java.util.Optional;
@@ -42,9 +43,40 @@ public class GimnasioServicio {
     }
     
     @Transactional
-    public void editar(String nombre, String telefono, Integer capacidad, String email, String clave, Direccion direccion) {
-        gimrep.editar(nombre, telefono, capacidad, email, clave, direccion);
+    public void modificar(String id, String nombre, String telefono, Integer capacidad, String email, String clave, List<Reservas> reservas, String idDireccion, String provincia, String ciudad, String calleNro) {
+
+        Optional<Gimnasio> gimnasio = gimrep.findById(id);
+
+        if (gimnasio.isPresent()) {
+            Gimnasio g = gimnasio.get();
+            Direccion d = new Direccion();
+
+            if (g.getEstado().equalsIgnoreCase("ACTIVO")) {
+                g.setNombre(nombre);
+                g.setTelefono(telefono);
+                g.setCapacidad(capacidad);
+                g.setEmail(email);
+                g.setClave(clave);
+                d.setProvincia(provincia);
+                d.setCiudad(ciudad);
+                d.setCalleNro(calleNro);
+                g.setDireccion(d);
+                
+                gimrep.save(g);
+            }else{
+                
+                System.out.println("El gimnasio se encuentra INACTIVO. No se puede modificar");
+                
+            } 
+
+        }
+
     }
+    
+//    @Transactional
+//    public void editar(String nombre, String telefono, Integer capacidad, String email, String clave, Direccion direccion) {
+//        gimrep.editar(nombre, telefono, capacidad, email, clave, direccion);
+//    }
     
     @Transactional
     public void eliminar(String id) {
