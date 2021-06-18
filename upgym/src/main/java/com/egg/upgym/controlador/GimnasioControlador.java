@@ -48,7 +48,7 @@ public class GimnasioControlador {
    
     @GetMapping("/crear")
     public ModelAndView crearGimnasio() {
-        ModelAndView mav = new ModelAndView("gimnasioFormulario");
+        ModelAndView mav = new ModelAndView("gimnasio-registro");
         mav.addObject("gimnasio", new Gimnasio()); 
         mav.addObject("title", "Crear Gimnasio");
         mav.addObject("action", "guardar");
@@ -57,7 +57,7 @@ public class GimnasioControlador {
     }
     @GetMapping("/editar/{id}")
     public ModelAndView editarGimnasio(@PathVariable String id) {
-        ModelAndView mav = new ModelAndView("gimnasioFormulario");
+        ModelAndView mav = new ModelAndView("gimnasio-registro");
         mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));      
         mav.addObject("title", "Editar Gimnasio");
         mav.addObject("action", "modificar");
@@ -80,7 +80,7 @@ public class GimnasioControlador {
     @PostMapping("/eliminar/{id}")
     public RedirectView eliminar(@PathVariable String id) {
        gimnasioServicio.eliminar(id);
-        return new RedirectView("/gimansios");
+        return new RedirectView("/gimnasios");
     }
     
 }
