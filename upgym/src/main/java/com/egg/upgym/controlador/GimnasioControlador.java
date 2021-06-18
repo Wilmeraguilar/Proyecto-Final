@@ -24,13 +24,13 @@ public class GimnasioControlador {
     
       @GetMapping
     public ModelAndView mostrarTodos() {
-        ModelAndView mav = new ModelAndView("gimnasios");
+        ModelAndView mav = new ModelAndView("gimnasio");
         mav.addObject("gimnasios", gimnasioServicio.buscarTodos());
         return mav;
     }
     @GetMapping("/buscar/nombre")
     public ModelAndView mostrarPorNombre(@RequestParam String nombre) {
-        ModelAndView mav = new ModelAndView("gimnasios");
+        ModelAndView mav = new ModelAndView("gimnasio");
         mav.addObject("gimnasios", gimnasioServicio.buscarPorNombre(nombre));
 
         return mav;
@@ -40,7 +40,7 @@ public class GimnasioControlador {
     
     @GetMapping("/buscar/ciudad")
     public ModelAndView mostrarPorCiudad(@RequestParam("direccion.ciudad") String ciudad) {
-        ModelAndView mav = new ModelAndView("gimnasios");
+        ModelAndView mav = new ModelAndView("gimnasio");
         mav.addObject("gimnasios", gimnasioServicio.buscarPorCiudad(ciudad));
 
         return mav;
