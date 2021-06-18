@@ -51,7 +51,7 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public void modificar(Long dni, String nombre, String apellido, String telefono, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro) {
+    public void modificar(Long dni, String nombre, String apellido, String telefono, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado) {
 
         Optional<Usuario> usuario = usurep.findById(dni);
         Optional<Direccion> direccion = dirrep.findById(idDireccion);
@@ -66,6 +66,7 @@ public class UsuarioServicio {
                 u.setTelefono(telefono);
                 u.setEmail(email);
                 u.setClave(clave);
+                u.setEstado(estado);
                 d.setProvincia(provincia);
                 d.setCiudad(ciudad);
                 d.setCalleNro(calleNro);

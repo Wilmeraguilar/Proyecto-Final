@@ -510,13 +510,13 @@ input {
 }
 
 .card-3 .card-heading {
-  background: url("../imagenes/Gym_Usuario2.jpg") top left/cover no-repeat;
+  background: url("../imagenes/usuario-registro/Gym_Usuario2.jpg") top left/cover no-repeat;
   display: table-cell;
   width: 50%;
 }
 
 .card-3 .card-heading1 {
-  background: url("../imagenes/Gimnasio.jpg") top right/cover no-repeat;
+  background: url("../imagenes/gimnasio-registro/Gimnasio.jpg") top right/cover no-repeat;
   display: table-cell;
   width: 50%;
 }
