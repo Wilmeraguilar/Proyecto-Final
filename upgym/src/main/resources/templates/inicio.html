@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
  <!-- Bootstrap core CSS -->
-        <link th:href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="@{assets/dist/css/bootstrap.min.css" rel="stylesheet}"/>
 
         <style>
             .bd-placeholder-img {
@@ -55,7 +55,7 @@
             <a class="nav-link" th:href="@{/login}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/gimnasios/crear}">Crear cuenta</a>
+            <a class="nav-link" th:href="@{/gimnasio/crear}">Crear cuenta</a>
           </li>
          </ul>
         <form class="d-flex">
@@ -245,10 +245,9 @@
         <div class="col-sm-4 offset-md-1 py-4">
           <h4 class="text-black">Contact</h4>
           <ul class="list-unstyled">
-            <li><a href="#" class="text-black">Follow on Instagram</a></li>
-           <!--   https://www.instagram.com/upgym_arg/?hl=es-la -->
-           <li><a href="#" class="text-black">Like on Spotify</a></li> 
-          <!--   https://open.spotify.com/playlist/5UF7vvIRJ38uDrgffvFhxY?si=f806a0d9431247bd -->
+            <li><a href="https://www.instagram.com/upgym_arg/?hl=es-la" class="text-black">Follow on Instagram</a></li>
+           <li><a href="https://open.spotify.com/playlist/5UF7vvIRJ38uDrgffvFhxY?si=f806a0d9431247bd" class="text-black">Like on Spotify</a></li> 
+        
            <li><a href="#" class="text-black">Email me</a></li>
           </ul>
         </div>
