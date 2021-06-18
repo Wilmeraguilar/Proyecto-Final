@@ -30,7 +30,7 @@ public class UsuarioControlador {
     @GetMapping("/buscar/dni")
     public ModelAndView mostrarPorDni(@RequestParam Long dni) {
         ModelAndView mav = new ModelAndView("usuario");
-        mav.addObject("usuario", usuarioServicio.buscarPorDni(dni));
+        mav.addObject("usuario", usuarioServicio.buscarPorId(dni));
 
         return mav;
     }
@@ -56,30 +56,30 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/editar/{dni}")
-    public ModelAndView editarGimnasio(@PathVariable Long dni) {
+    public ModelAndView editarUsuario(@PathVariable Long dni) {
         ModelAndView mav = new ModelAndView("usuario-Formulario");
-        mav.addObject("usuario", usuarioServicio.buscarPorDni(dni));
+        mav.addObject("usuario", usuarioServicio.buscarPorId(dni));
         mav.addObject("title", "Editar Usuario");
         mav.addObject("action", "modificar");
         return mav;
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro) {
-        usuarioServicio.crear(nombre, telefono, capacidad, email, clave, provincia, ciudad, calleNro);
-        return new RedirectView("/gimnasios");
+    public RedirectView guardar(@RequestParam Long dni,@RequestParam String nombre,@RequestParam String apellido, @RequestParam String telefono,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro) {
+        usuarioServicio.crear(dni,nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro);
+        return new RedirectView("/usuarios");
     }
 
-    @PostMapping("/modificar")
-    public RedirectView modificar(@RequestParam String id, @RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado) {
-        gimnasioServicio.modificar(id, nombre, telefono, capacidad, email, clave, idDireccion, provincia, ciudad, calleNro, estado);
-        return new RedirectView("/gimnasios");
+    @PostMapping("/guardar")
+    public RedirectView modificar(@RequestParam Long dni,@RequestParam String nombre,@RequestParam String apellido, @RequestParam String telefono,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro,@RequestParam String estado) {
+        usuarioServicio.modificar(dni,nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro,estado);
+        return new RedirectView("/usuarios");
     }
 
-    @PostMapping("/eliminar/{id}")
-    public RedirectView eliminar(@PathVariable String id) {
-        gimnasioServicio.eliminar(id);
-        return new RedirectView("/gimansios");
+    @PostMapping("/eliminar/{dni}")
+    public RedirectView eliminar(@PathVariable Long dni) {
+        usuarioServicio.eliminar(dni);
+        return new RedirectView("/usuarios");
     }
 
 }
