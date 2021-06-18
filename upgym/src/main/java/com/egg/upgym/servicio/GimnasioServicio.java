@@ -5,6 +5,7 @@ import com.egg.upgym.entidades.Gimnasio;
 import com.egg.upgym.entidades.Reservas;
 import com.egg.upgym.repositorio.DireccionRepositorio;
 import com.egg.upgym.repositorio.GimnasioRepositorio;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class GimnasioServicio {
     }
     
     @Transactional
-    public void modificar(String id, String nombre, String telefono, Integer capacidad, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro) {
+    public void modificar(String id, String nombre, String telefono, Integer capacidad, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado) {
 
         Optional<Gimnasio> gimnasio = gimrep.findById(id);
         Optional<Direccion> direccion = dirrep.findById(id);
@@ -67,6 +68,7 @@ public class GimnasioServicio {
                 g.setCapacidad(capacidad);
                 g.setEmail(email);
                 g.setClave(clave);
+                g.setEstado(estado);
                 d.setProvincia(provincia);
                 d.setCiudad(ciudad);
                 d.setCalleNro(calleNro);
@@ -87,6 +89,25 @@ public class GimnasioServicio {
 //    public void editar(String nombre, String telefono, Integer capacidad, String email, String clave, Direccion direccion) {
 //        gimrep.editar(nombre, telefono, capacidad, email, clave, direccion);
 //    }
+    
+    @Transactional
+    public List<Gimnasio> buscarPorCiudad(String ciudad){
+        List<Gimnasio> gimnasio = gimrep.buscarPorCiudad(ciudad);
+        return gimnasio;
+    }
+    
+    @Transactional
+    public List<Gimnasio> buscarPorNombre(String nombre){
+        List<Gimnasio> gimnasios = gimrep.findAll();
+        List <Gimnasio> g = new ArrayList<Gimnasio>();
+        
+        for (Gimnasio gimnasio1 : gimnasios) {
+            if (gimnasio1.getNombre().equalsIgnoreCase(nombre)) {
+                g.add(gimnasio1);
+            }
+        }
+        return g;
+    }
     
     @Transactional
     public void eliminar(String id) {
