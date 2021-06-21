@@ -1,5 +1,6 @@
 package com.egg.upgym.servicio;
 
+import com.egg.upgym.entidades.Direccion;
 import com.egg.upgym.entidades.Gimnasio;
 import com.egg.upgym.entidades.Reservas;
 import com.egg.upgym.entidades.Usuario;
@@ -42,13 +43,56 @@ public class ReservasServicio {
         return reservas;
     }
     
-    @Transactional
-    public void editar(Date fecha, String turno, Gimnasio gimnasio, Usuario usuario) {
-        resrep.editar(fecha, turno, gimnasio, usuario);
+     @Transactional
+    public void modificar(String id, Date fecha, String turno, String idGimnasio, Long idDni, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado) {
+
+        Optional<Gimnasio> gimnasio = gimrep.findById(id);
+        Optional<Direccion> direccion = dirrep.findById(id);
+        
+
+        if (gimnasio.isPresent()) {
+            Gimnasio g = gimnasio.get();
+            Direccion d = direccion.get();
+
+            if (g.getEstado().equalsIgnoreCase("ACTIVO")) {
+                g.setNombre(nombre);
+                g.setTelefono(telefono);
+                g.setCapacidad(capacidad);
+                g.setEmail(email);
+                g.setClave(clave);
+                g.setEstado(estado);
+                d.setProvincia(provincia);
+                d.setCiudad(ciudad);
+                d.setCalleNro(calleNro);
+                g.setDireccion(d);
+                
+                gimrep.save(g);
+            }else{
+                
+                System.out.println("El gimnasio se encuentra INACTIVO. No se puede modificar");
+                
+            } 
+
+        }
+
     }
     
     @Transactional
     public void eliminar(String id) {
-        resrep.deleteById(id);
+        Optional<Gimnasio> gimnasio = gimrep.findById(id);
+        
+        if (gimnasio.isPresent()) {
+            Gimnasio g = gimnasio.get();
+
+            if (g.getEstado().equalsIgnoreCase("ACTIVO")) {
+                g.setEstado("INACTIVO");
+                
+                gimrep.save(g);
+            }else{
+                
+                System.out.println("El gimnasio se encuentra INACTIVO. No se puede eliminar");
+                
+            }
+        }
     }
 }
