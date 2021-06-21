@@ -17,7 +17,7 @@ public class Reservas implements Serializable{
     private String id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fecha;
-    private String turno;
+    private String horario;
     
     @ManyToOne
     Gimnasio gimnasio;
@@ -30,10 +30,10 @@ public class Reservas implements Serializable{
     public Reservas() {
     }
 
-    public Reservas(String id, Date fecha, String turno, Gimnasio gimnasio, Usuario usuario, String estado) {
+    public Reservas(String id, Date fecha, String horario, Gimnasio gimnasio, Usuario usuario, String estado) {
         this.id = id;
         this.fecha = fecha;
-        this.turno = turno;
+        this.horario = horario;
         this.gimnasio = gimnasio;
         this.usuario = usuario;
         this.estado = estado;
@@ -55,12 +55,12 @@ public class Reservas implements Serializable{
         this.fecha = fecha;
     }
 
-    public String getTurno() {
-        return turno;
+    public String getHorario() {
+        return horario;
     }
 
-    public void setTurno(String turno) {
-        this.turno = turno;
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 
     public Gimnasio getGimnasio() {
@@ -91,7 +91,7 @@ public class Reservas implements Serializable{
     
     @Override
     public String toString() {
-        return "Reservas{" + "id=" + id + ", fecha=" + fecha + ", turno=" + turno + '}';
+        return "Reservas{" + "id=" + id + ", fecha=" + fecha + ", horario=" + horario + '}';
     }
     
     

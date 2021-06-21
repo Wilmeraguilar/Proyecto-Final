@@ -4,6 +4,7 @@ import com.egg.upgym.entidades.Direccion;
 import com.egg.upgym.entidades.Gimnasio;
 import com.egg.upgym.entidades.Reservas;
 import com.egg.upgym.entidades.Usuario;
+import com.egg.upgym.repositorio.GimnasioRepositorio;
 import com.egg.upgym.repositorio.ReservasRepositorio;
 import com.egg.upgym.repositorio.UsuarioRepositorio;
 import java.util.Date;
@@ -19,14 +20,25 @@ public class ReservasServicio {
     @Autowired
     ReservasRepositorio resrep;
     
+    @Autowired
+    UsuarioRepositorio usurep;
+    
+    @Autowired
+    GimnasioRepositorio gimrep;
+    
     @Transactional
-    public void crear(Date fecha, String turno, Gimnasio gimnasio, Usuario usuario){
+    public void crear(Date fecha, String horario, String idGimnasio,Long dniUsuario){
         Reservas reservas = new Reservas();
+        Optional<Usuario> usuario = usurep.findById(dniUsuario);
+        Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
+        
+        Usuario u = usuario.get();
+        Gimnasio g = gimnasio.get();
         
         reservas.setFecha(fecha);
-        reservas.setTurno(turno);
-        reservas.setGimnasio(gimnasio);
-        reservas.setUsuario(usuario);
+        reservas.setHorario(horario);
+        reservas.setGimnasio(g);
+        reservas.setUsuario(u);
 
         resrep.save(reservas);
     }
@@ -44,7 +56,7 @@ public class ReservasServicio {
     }
     
      @Transactional
-    public void modificar(String id, Date fecha, String turno, String idGimnasio, Long idDni, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado) {
+    public void modificar(String id, Date fecha, String horario, String idGimnasio, Long idDni, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado) {
 
         Optional<Gimnasio> gimnasio = gimrep.findById(id);
         Optional<Direccion> direccion = dirrep.findById(id);
