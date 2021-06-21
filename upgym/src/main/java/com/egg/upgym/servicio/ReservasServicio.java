@@ -56,32 +56,29 @@ public class ReservasServicio {
     }
     
      @Transactional
-    public void modificar(String id, Date fecha, String horario, String idGimnasio, Long idDni, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado) {
+    public void modificar(String id, Date fecha, String horario, String idGimnasio, Long idUsuario, String estado) {
 
-        Optional<Gimnasio> gimnasio = gimrep.findById(id);
-        Optional<Direccion> direccion = dirrep.findById(id);
+        Optional<Reservas> reserva = resrep.findById(id);
+        Optional<Usuario> usuario = usurep.findById(idUsuario);
+        Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
         
 
-        if (gimnasio.isPresent()) {
+        if (reserva.isPresent()) {
+            Reservas r = reserva.get();
             Gimnasio g = gimnasio.get();
-            Direccion d = direccion.get();
+            Usuario u = usuario.get();
 
-            if (g.getEstado().equalsIgnoreCase("ACTIVO")) {
-                g.setNombre(nombre);
-                g.setTelefono(telefono);
-                g.setCapacidad(capacidad);
-                g.setEmail(email);
-                g.setClave(clave);
-                g.setEstado(estado);
-                d.setProvincia(provincia);
-                d.setCiudad(ciudad);
-                d.setCalleNro(calleNro);
-                g.setDireccion(d);
+            if (r.getEstado().equalsIgnoreCase("ACTIVO")) {
+                r.setFecha(fecha);
+                r.setHorario(horario);
+                r.setGimnasio(g);
+                r.setUsuario(u);
+                r.setEstado(estado);
                 
-                gimrep.save(g);
+                resrep.save(r);
             }else{
                 
-                System.out.println("El gimnasio se encuentra INACTIVO. No se puede modificar");
+                System.out.println("La reserva se encuentra INACTIVA o TERMINADA. No se puede modificar");
                 
             } 
 
@@ -91,18 +88,18 @@ public class ReservasServicio {
     
     @Transactional
     public void eliminar(String id) {
-        Optional<Gimnasio> gimnasio = gimrep.findById(id);
+        Optional<Reservas> reserva = resrep.findById(id);
         
-        if (gimnasio.isPresent()) {
-            Gimnasio g = gimnasio.get();
+        if (reserva.isPresent()) {
+            Reservas r = reserva.get();
 
-            if (g.getEstado().equalsIgnoreCase("ACTIVO")) {
-                g.setEstado("INACTIVO");
+            if (r.getEstado().equalsIgnoreCase("ACTIVO")) {
+                r.setEstado("INACTIVO");
                 
-                gimrep.save(g);
+                resrep.save(r);
             }else{
                 
-                System.out.println("El gimnasio se encuentra INACTIVO. No se puede eliminar");
+                System.out.println("La reserva se encuentra INACTIVA o TERMINADA. No se puede eliminar");
                 
             }
         }
