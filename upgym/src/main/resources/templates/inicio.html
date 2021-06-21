@@ -1,267 +1,298 @@
 <!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Proyecto UPGYM">
-        <meta name="author" content="Carla-Wilmer-Eze-Gonza-Edgardo">
-        <meta name="generator" content="Hugo 0.83.1">
-        <title>UPGYM</title>
-        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous"> 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
-        <link rel="stylesheet" th:href="@{/css/carousel.css}"/>
-        <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
- <!-- Bootstrap core CSS -->
-        <link href="@{assets/dist/css/bootstrap.min.css" rel="stylesheet}"/>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Proyecto UPGYM">
+  <meta name="author" content="Carla-Wilmer-Eze-Gonza-Edgardo">
+  <meta name="generator" content="Hugo 0.83.1">
+  <title>UPGYM</title>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/css/carousel.css}" />
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
 
-        <style>
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                user-select: none;
-            }
+  <!-- Bootstrap core CSS -->
+  <link href="@{assets/dist/css/bootstrap.min.css" rel="stylesheet}" />
 
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
-            }
-        </style>
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
 
-
-        <!-- Custom styles for this template -->
-        <link href="carousel.css" rel="stylesheet">
-    </head>
-  <body>
-    
-<header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" th:href="@{/}">UPGYM</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/login}">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/gimnasio/crear}">Crear cuenta</a>
-          </li>
-         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Busqueda" aria-label="Busqueda">
-          <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-</header>
-
-<main>
-
-  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="/imagenes/carousel/gym_0.png" alt="">
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>Disfruta de amplios espacios para tu entrenamiento al mejor precio de Argentina.</h1>
-            <p>Aprovechá y no te quedes sin entrenar.</p>
-           <!--<p><a class="btn btn-lg btn-success" href="#">Sign up today</a></p>-->
-          </div>
-        </div>
-      </div>
-      
-      <div class="carousel-item">
-        <img src="/imagenes/carousel/gym_1.jpg" alt="">
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>Se parte de UPGYM </h1>
-            <p>12 MESES EN UN PAGO DE</p>
-            <p>$1.490 POR MES</p>
-            <p> TOTAL PLAN ANUAL $17880 + INSCRIPCIÓN DE $600</p>
-            <!--   <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>-->
-          </div>
-        </div>
-      </div>
-      
-      <div class="carousel-item">
-        <img src="/imagenes/carousel/gym_6.jpg" alt=""> 
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>Busca la sucursal</h1>
-            <h1>mas cercana</h1>
-            <p>Venite a UPGYM</p>
-           <!-- <p><a class="btn btn-lg btn-primary" href="#">Galería de imagenes UPGYM</a></p>-->
-          </div>
-        </div>
-      </div>
- 
-      <div class="carousel-item">
-        <img src="/imagenes/carousel/gym_3.jpg" alt=""> 
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>No te quedes atrás con tus entrenamientos rutinarios y volvé a tu club junto</h1>
-            <p>con Mi Turno UPGYM!</p>
-           <p><a class="btn btn-lg btn-danger" href="#">Login</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <img src="/imagenes/carousel/gym_4.jpg" alt=""> 
-        <div class="container">
-          <div class="carousel-caption">
-            <h1>Seguinos en Instagram</h1>
-            <p>y mantenete informado.</p>
-           <p><a class="btn btn-lg btn-danger" href="#">UPGYM</a></p>
-           <!--https://www.instagram.com/upgym_arg/?hl=es-la-->
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
 
 
-  <!-- Marketing messaging and featurettes
-  ================================================== -->
-  <!-- Wrap the rest of the page in another container to center all the content. -->
+  <!-- Custom styles for this template -->
+  <link href="carousel.css" rel="stylesheet">
+</head>
 
-  <div class="container marketing">
+<body>
 
-    <!-- Three columns of text below the carousel -->
-    <div class="row">
-      <div class="col-lg-4">
-        <img class="rounded-circle"  width="140" height="140" src="/imagenes/logos/horarios.jpg" alt="">
-        
-        <h2>HORARIOS</h2>
-        <p>Conoce los horarios por actividad</p>
-        <p><a class="btn btn-secondary" href="#">Go!! &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img class="rounded-circle"  width="140" height="140" src="/imagenes/logos/sucursales.png" alt="">
-
-        <h2>SUCURSALES</h2>
-        <p>Busca la sucursal mas cercana</p>
-        <p><a class="btn btn-secondary" href="#">Go!! &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img class="rounded-circle"  width="140" height="140" src="/imagenes/logos/actividades_4.jpg" alt="">
-
-        <h2>ACTIVIDADES</h2>
-        <p>Mira las actividades que tenemos para vos</p>
-        <p><a class="btn btn-secondary" href="#">Go!! &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-    </div><!-- /.row -->
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">UPGYM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/login}">Login</a>
+            </li>
 
 
-    <!-- START THE FEATURETTES -->
 
-    <hr class="featurette-divider">
+            <li class="nav-item dropdown">
+              <a id="dropdown-autores" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">Crear Cuenta</a>
 
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">Nosotros. <span class="text-muted"></span></h2>
-        <p class="lead">Somos UPGYM, tenemos 20 años de trayectoria en esta industria, y estamos presentes en Argentina.</p> 
-        <p class="lead">¿Cuándo empezó nuestra historia? El 05 de julio de 2001 en la ciudad de Mendoza, Argentina. </p> 
-        <p class="lead">Desde la fundación nos fuimos perfeccionando hasta convertirnos en referentes y líderes del segmento en distintas regiones.</p> 
-       </div>
-      <div class="col-md-5">
-        <img class="formatoimagen" src="/imagenes/nosotros/nosotros.jpeg" alt="">
-        
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-autores">
+                <li>
+                  <a class="dropdown-item" th:href="@{/autores}">Soy Cliente</a>
+                </li>
 
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Nuestra misión. <span class="text-muted"></span></h2>
-        <p class="lead">Mejorar la calidad de vida de las personas a través de la actividad física, el desarrollo de vínculos sociales y la promoción de hábitos saludables.</p>
-          </div>
-      <div class="col-md-5 order-md-1">
-        <img class="formatoimagen" src="/imagenes/nosotros/mision.jpg" alt="">
-
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">Nuestros valores. <span class="text-muted"></span></h2>
-        <p class="lead">* Promovemos la participación de todos los miembros del equipo y nos potenciamos unos a otros.</p>
-        <p class="lead">* Valoramos los buenos vínculos y la interacción armoniosa y diversa en la comunidad UPGYM.</p>
-        <p class="lead">* Celebramos nuestros logros en equipo.</p>
-      </div>
-      <div class="col-md-5">
-        <img class="formatoimagen" src="/imagenes/nosotros/valores.jpg" alt="">
-
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <!-- /END THE FEATURETTES -->
-
-  </div><!-- /.container -->
-
-
-  <!-- FOOTER -->
-  <footer class="container">
-    <p class="float-end"><a href="#">Volver al Inicio</a></p>
-    
-    <span class="copyright">En UpGym cuidamos tu salud, por eso te recordamos que tu apto médico es indispensable al momento de iniciar una actividad física (leyes nº 139 y 12329) <br>
-      Copyright (c) 2021 UPGYM Todos los derechos reservados.
-      <br>
-      <div class="text-left">
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-black">Contact</h4>
-          <ul class="list-unstyled">
-            <li><a href="https://www.instagram.com/upgym_arg/?hl=es-la" class="text-black">Follow on Instagram</a></li>
-           <li><a href="https://open.spotify.com/playlist/5UF7vvIRJ38uDrgffvFhxY?si=f806a0d9431247bd" class="text-black">Like on Spotify</a></li> 
-        
-           <li><a href="#" class="text-black">Email me</a></li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/autores/crear}">Soy Gimnasio</a>
+                </li>
+              </ul>
+            </li>
           </ul>
+
+
+          
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Busqueda" aria-label="Busqueda">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
         </div>
-      <a href="" style="margin-right:10px;">Términos y condiciones</a>
-      <a href="">Solicitar Baja</a>
       </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+          aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="/imagenes/carousel/gym_0.png" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Disfruta de amplios espacios para tu entrenamiento al mejor precio de Argentina.</h1>
+              <p>Aprovechá y no te quedes sin entrenar.</p>
+              <!--<p><a class="btn btn-lg btn-success" href="#">Sign up today</a></p>-->
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="/imagenes/carousel/gym_1.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Se parte de UPGYM </h1>
+              <p>12 MESES EN UN PAGO DE</p>
+              <p>$1.490 POR MES</p>
+              <p> TOTAL PLAN ANUAL $17880 + INSCRIPCIÓN DE $600</p>
+              <!--   <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>-->
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="/imagenes/carousel/gym_6.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Busca la sucursal</h1>
+              <h1>mas cercana</h1>
+              <p>Venite a UPGYM</p>
+              <!-- <p><a class="btn btn-lg btn-primary" href="#">Galería de imagenes UPGYM</a></p>-->
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="/imagenes/carousel/gym_3.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>No te quedes atrás con tus entrenamientos rutinarios y volvé a tu club junto</h1>
+              <p>con Mi Turno UPGYM!</p>
+              <p><a class="btn btn-lg btn-danger" href="#">Login</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <img src="/imagenes/carousel/gym_4.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Seguinos en Instagram</h1>
+              <p>y mantenete informado.</p>
+              <p><a class="btn btn-lg btn-danger" href="#">UPGYM</a></p>
+              <!--https://www.instagram.com/upgym_arg/?hl=es-la-->
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+
+    <!-- Marketing messaging and featurettes
+  ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="rounded-circle" width="140" height="140" src="/imagenes/logos/horarios.jpg" alt="">
+
+          <h2>HORARIOS</h2>
+          <p>Conoce los horarios por actividad</p>
+          <p><a class="btn btn-secondary" href="#">Go!! &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="rounded-circle" width="140" height="140" src="/imagenes/logos/sucursales.png" alt="">
+
+          <h2>SUCURSALES</h2>
+          <p>Busca la sucursal mas cercana</p>
+          <p><a class="btn btn-secondary" href="#">Go!! &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="rounded-circle" width="140" height="140" src="/imagenes/logos/actividades_4.jpg" alt="">
+
+          <h2>ACTIVIDADES</h2>
+          <p>Mira las actividades que tenemos para vos</p>
+          <p><a class="btn btn-secondary" href="#">Go!! &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Nosotros. <span class="text-muted"></span></h2>
+          <p class="lead">Somos UPGYM, tenemos 20 años de trayectoria en esta industria, y estamos presentes en
+            Argentina.</p>
+          <p class="lead">¿Cuándo empezó nuestra historia? El 05 de julio de 2001 en la ciudad de Mendoza, Argentina.
+          </p>
+          <p class="lead">Desde la fundación nos fuimos perfeccionando hasta convertirnos en referentes y líderes del
+            segmento en distintas regiones.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="formatoimagen" src="/imagenes/nosotros/nosotros.jpeg" alt="">
+
+
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading">Nuestra misión. <span class="text-muted"></span></h2>
+          <p class="lead">Mejorar la calidad de vida de las personas a través de la actividad física, el desarrollo de
+            vínculos sociales y la promoción de hábitos saludables.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <img class="formatoimagen" src="/imagenes/nosotros/mision.jpg" alt="">
+
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Nuestros valores. <span class="text-muted"></span></h2>
+          <p class="lead">* Promovemos la participación de todos los miembros del equipo y nos potenciamos unos a otros.
+          </p>
+          <p class="lead">* Valoramos los buenos vínculos y la interacción armoniosa y diversa en la comunidad UPGYM.
+          </p>
+          <p class="lead">* Celebramos nuestros logros en equipo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="formatoimagen" src="/imagenes/nosotros/valores.jpg" alt="">
+
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+    </div><!-- /.container -->
+
+
+    <!-- FOOTER -->
+    <footer class="container">
+      <p class="float-end"><a href="#">Volver al Inicio</a></p>
+
+      <span class="copyright">En UpGym cuidamos tu salud, por eso te recordamos que tu apto médico es indispensable al
+        momento de iniciar una actividad física (leyes nº 139 y 12329) <br>
+        Copyright (c) 2021 UPGYM Todos los derechos reservados.
+        <br>
+        <div class="text-left">
+          <div class="col-sm-4 offset-md-1 py-4">
+            <h4 class="text-black">Contact</h4>
+            <ul class="list-unstyled">
+              <li><a href="https://www.instagram.com/upgym_arg/?hl=es-la" class="text-black">Follow on Instagram</a>
+              </li>
+              <li><a href="https://open.spotify.com/playlist/5UF7vvIRJ38uDrgffvFhxY?si=f806a0d9431247bd"
+                  class="text-black">Like on Spotify</a></li>
+
+              <li><a href="#" class="text-black">Email me</a></li>
+            </ul>
+          </div>
+          <a href="" style="margin-right:10px;">Términos y condiciones</a>
+          <a href="">Solicitar Baja</a>
+        </div>
       </span>
- 
-  </footer>
-</main>
+
+    </footer>
+  </main>
 
 
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-      
-  </body>
+
+</body>
+
 </html>
