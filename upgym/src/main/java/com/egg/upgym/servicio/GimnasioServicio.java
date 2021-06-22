@@ -22,7 +22,7 @@ public class GimnasioServicio {
     DireccionRepositorio dirrep;
     
     @Transactional
-    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String ciudad, String provincia, String calleNro){
+    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro){
         Gimnasio gimnasio = new Gimnasio();
         Direccion direccion = new Direccion();
         
@@ -36,6 +36,7 @@ public class GimnasioServicio {
         direccion.setCalleNro(calleNro);
         gimnasio.setDireccion(direccion);
 
+        dirrep.save(direccion);
         gimrep.save(gimnasio);
     }
     
@@ -74,6 +75,7 @@ public class GimnasioServicio {
                 d.setCalleNro(calleNro);
                 g.setDireccion(d);
                 
+                dirrep.save(d);
                 gimrep.save(g);
             }else{
                 

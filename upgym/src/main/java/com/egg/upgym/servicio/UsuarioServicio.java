@@ -21,7 +21,7 @@ public class UsuarioServicio {
     DireccionRepositorio dirrep;
 
     @Transactional
-    public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String ciudad, String provincia, String calleNro) {
+    public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String provincia, String ciudad, String calleNro) {
         Usuario usuario = new Usuario();
         Direccion direccion = new Direccion();
 
@@ -35,7 +35,7 @@ public class UsuarioServicio {
         direccion.setCalleNro(calleNro);
         usuario.setDireccion(direccion);
         
-
+        dirrep.save(direccion);
         usurep.save(usuario);
     }
 
@@ -85,7 +85,8 @@ public class UsuarioServicio {
                 d.setCiudad(ciudad);
                 d.setCalleNro(calleNro);
                 u.setDireccion(d);
-
+                
+                dirrep.save(d);
                 usurep.save(u);
             } else {
 

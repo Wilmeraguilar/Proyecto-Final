@@ -52,10 +52,10 @@
                             <input class="input--style-3" type="text" placeholder="Telefono" name="telefono"
                                 th:field="*{telefono}" required>
                         </div>
-                        <div class="input-group rs-select2 js-select-simple select--no-search">
+                        <div class="input-group rs-select2 js-select-simple select--no-search ">
                             <select name="provincia" id="provincias" class="form-select" aria-label="Elegir Provincia"
-                                field="*{provincia}" required>
-                                <option>Elige una opción</option>
+                                th:field="*{direccion.provincia}" required>
+                                <option value="" disabled selected>Elegir Provincia</option>
                                 <option value="Buenos Aires">Buenos Aires</option>
                                 <option value="Catamarca">Catamarca</option>
                                 <option value="Chaco">Chaco</option>
@@ -83,14 +83,14 @@
                             <div class="select-dropdown"></div>
                         </div>
                         <div class="input-group rs-select2 js-select-simple select--no-search">
-                            <select name="ciudad" id="ciudad" class="form-select"  aria-label="Elegir Ciudad" th:field="*{ciudad}" required>
-                                <option disabled="disabled" selected="selected">Ciudad</option>
+                            <select name="ciudad" id="municipios" class="form-select"  aria-label="Elegir Ciudad" th:field="*{direccion.ciudad}" required>
                                 <option value="" disabled selected>Elegir Ciudad</option>
+                                <option value="ciudad1">Ciudad1</option>
                             </select>
                             <div class="select-dropdown"></div>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Dirección" name="dirección" th:field="*{calleNro}" required>
+                            <input class="input--style-3" type="text" placeholder="Dirección" name="dirección" th:field="*{direccion.calleNro}" required>
                         </div>
                         <div class="input-group">
                             <input class="input--style-3" type="email" placeholder="Email" name="usarname"
@@ -114,14 +114,14 @@
     </div>
 
     <!-- Jquery JS-->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <!-- Vendor JS-->
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="vendor/datepicker/moment.min.js"></script>
-    <script src="vendor/datepicker/daterangepicker.js"></script>
+    <script th:src="@{/vendor/select2/select2.min.js}"></script>
+    <script th:src="@{/vendor/datepicker/moment.min.js}"></script>
+    <script th:src="@{/vendor/datepicker/daterangepicker.js}"></script>
 
     <!-- Main JS--src="js/global.js"-->
-    <script src="js/global.js" ></script>
+<!--    <script src="js/global.js" ></script>-->
     <script type="text/javascript" th:src="@{/js/global.js}"></script>
     
 
@@ -152,7 +152,7 @@
         provincias.addEventListener("change", () => buscarProvincias(provincias.value));
 
         async function buscar(provincia) {
-            const url = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&campos=nombre&max=200`;
+            const url = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&campos=nombre&max=200&order=nombre`;
             const response = await fetch(url);
             return response.json();
         }
