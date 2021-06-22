@@ -4,6 +4,7 @@ import com.egg.upgym.entidades.Direccion;
 import com.egg.upgym.entidades.Usuario;
 import com.egg.upgym.repositorio.DireccionRepositorio;
 import com.egg.upgym.repositorio.UsuarioRepositorio;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,19 @@ public class UsuarioServicio {
     public List<Usuario> buscarTodos() {
         List<Usuario> usuarios = usurep.findAll();
         return usuarios;
+    }
+    
+    @Transactional
+    public List<Usuario> buscarPorApellido(String apellido){
+        List<Usuario> usuarios = usurep.findAll();
+        List <Usuario> u = new ArrayList<Usuario>();
+        
+        for (Usuario usuario1 : usuarios) {
+            if (usuario1.getNombre().equalsIgnoreCase(apellido)) {
+                u.add(usuario1);
+            }
+        }
+        return u;
     }
 
     @Transactional
