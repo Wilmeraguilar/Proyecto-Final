@@ -47,7 +47,7 @@ public class UsuarioControlador {
 
     @GetMapping("/crear")
     public ModelAndView crearUsuario() {
-        ModelAndView mav = new ModelAndView("usuario-Formulario");
+        ModelAndView mav = new ModelAndView("usuario-registro");
         mav.addObject("usuario", new Usuario());
         mav.addObject("title", "Crear Usuario");
         mav.addObject("action", "guardar");
