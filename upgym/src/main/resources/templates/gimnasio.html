@@ -51,14 +51,26 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="@{/}">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/login}">Login</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/gimnasio/crear}">Crear cuenta</a>
+          <li class="nav-item dropdown">
+            <a id="dropdown-autores" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">Crear Cuenta</a>
+
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-autores">
+              <li>
+                <a class="dropdown-item" th:href="@{/usuarios/crear}">Soy Cliente</a>
+              </li>
+
+              <li>
+                <a class="dropdown-item" th:href="@{/gimnasios/crear}">Gimnasio</a>
+              </li>
+            </ul>
           </li>
+      
          </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Busqueda" aria-label="Busqueda">

@@ -37,7 +37,8 @@
 
 
   <!-- Custom styles for this template -->
-  <link href="carousel.css" rel="stylesheet">
+  <link href="../static/css/carousel.css" rel="stylesheet">
+  
 </head>
 
 <body>
@@ -46,39 +47,33 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">UPGYM</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="@{/}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/login}">Login</a>
             </li>
-
-
-
             <li class="nav-item dropdown">
               <a id="dropdown-autores" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">Crear Cuenta</a>
-
+  
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-autores">
                 <li>
-                  <a class="dropdown-item" th:href="@{/autores}">Soy Cliente</a>
+                  <a class="dropdown-item" th:href="@{/usuarios/crear}">Soy Cliente</a>
                 </li>
-
+  
                 <li>
-                  <a class="dropdown-item" th:href="@{/autores/crear}">Soy Gimnasio</a>
+                  <a class="dropdown-item" th:href="@{/gimnasios/crear}">Gimnasio</a>
                 </li>
               </ul>
             </li>
-          </ul>
-
-
-          
+        
+           </ul>
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Busqueda" aria-label="Busqueda">
             <button class="btn btn-outline-success" type="submit">Buscar</button>
@@ -87,7 +82,7 @@
       </div>
     </nav>
   </header>
-
+  
   <main>
 
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -153,8 +148,7 @@
             <div class="carousel-caption">
               <h1>Seguinos en Instagram</h1>
               <p>y mantenete informado.</p>
-              <p><a class="btn btn-lg btn-danger" href="#">UPGYM</a></p>
-              <!--https://www.instagram.com/upgym_arg/?hl=es-la-->
+              <p><a class="btn btn-lg btn-danger" href="https://www.instagram.com/upgym_arg/">UPGYM</a></p>
             </div>
           </div>
         </div>
@@ -162,11 +156,11 @@
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+        <span class="visually-hidden">Anterior</span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
+        <span class="visually-hidden">Siguiente</span>
       </button>
     </div>
 
@@ -180,21 +174,21 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <img class="rounded-circle" width="140" height="140" src="/imagenes/logos/horarios.jpg" alt="">
+          <img class="rounded-circle" width="140" height="140" src="../static/imagenes/logos/horarios.jpg" alt="">
 
           <h2>HORARIOS</h2>
           <p>Conoce los horarios por actividad</p>
           <p><a class="btn btn-secondary" href="#">Go!! &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="rounded-circle" width="140" height="140" src="/imagenes/logos/sucursales.png" alt="">
+          <img class="rounded-circle" width="140" height="140" src="../static/imagenes/logos/sucursales.png" alt="">
 
           <h2>SUCURSALES</h2>
           <p>Busca la sucursal mas cercana</p>
           <p><a class="btn btn-secondary" href="#">Go!! &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="rounded-circle" width="140" height="140" src="/imagenes/logos/actividades_4.jpg" alt="">
+          <img class="rounded-circle" width="140" height="140" src="../static/imagenes/logos/actividades_4.jpg" alt="">
 
           <h2>ACTIVIDADES</h2>
           <p>Mira las actividades que tenemos para vos</p>
@@ -218,7 +212,7 @@
             segmento en distintas regiones.</p>
         </div>
         <div class="col-md-5">
-          <img class="formatoimagen" src="/imagenes/nosotros/nosotros.jpeg" alt="">
+          <img class="formatoimagen" src="../static/imagenes/nosotros/nosotros.jpeg" alt="">
 
 
         </div>
@@ -233,7 +227,7 @@
             vínculos sociales y la promoción de hábitos saludables.</p>
         </div>
         <div class="col-md-5 order-md-1">
-          <img class="formatoimagen" src="/imagenes/nosotros/mision.jpg" alt="">
+          <img class="formatoimagen" src="../static/imagenes/nosotros/mision.jpg" alt="">
 
         </div>
       </div>
@@ -250,7 +244,7 @@
           <p class="lead">* Celebramos nuestros logros en equipo.</p>
         </div>
         <div class="col-md-5">
-          <img class="formatoimagen" src="/imagenes/nosotros/valores.jpg" alt="">
+          <img class="formatoimagen" src="../static/imagenes/nosotros/valores.jpg" alt="">
 
         </div>
       </div>
