@@ -37,7 +37,7 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">REGISTRO</h2>
-                    <form th:action="@{/usuarios/__${action}__}" method="POST" th:object="${usuario}" autocomplete="on"
+                    <form id="formulario" th:action="@{/usuarios/__${action}__}" method="POST" th:object="${usuario}" autocomplete="on"
                         novalidate>
                         <div class="input-group">
                             <input class="input--style-3" type="text" placeholder="DNI" name="dni" th:field="*{dni}" required>
@@ -116,6 +116,62 @@
 
     <!-- Main JS-->
     <script th:src="@{/js/global.js}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+    <script>
+        (() => {
+            "use strict";
+
+            const form = document.getElementById("formulario");
+            form.addEventListener("submit", (event) => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add("was-validated");
+            }, false)
+        })();
+    </script>
+    <script>
+        const selectMunicipios = $("#municipios");
+        const provincias = $("#provincias");
+
+        // buscarProvincias(provincias.value);
+
+        provincias.change(() => buscarProvincias(provincias.val()));
+        provincias.change();
+        //provincias.addEventListener("change", () => buscarProvincias(provincias.value));
+
+        async function buscar(provincia) {
+            const url = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&campos=nombre&max=200&orden=nombre`;
+            const response = await fetch(url);
+            return response.json();
+        }
+
+        function buscarProvincias(provincia) {
+           /*  selectMunicipios.innerHTML = ""; */
+           selectMunicipios.val(null).trigger('change');
+           selectMunicipios.html("");
+
+
+            buscar(provincia).then(data => {
+                for (const municipio of data["municipios"]) {
+                    /*   const option = document.createElement("option");
+                      option.value = municipio["nombre"];
+                      option.innerText = municipio["nombre"];
+                      selectMunicipios.appendChild(option); */
+                    // create the option and append to Select2
+                    var option = new Option(municipio.nombre, municipio.nombre, false, false);
+                    selectMunicipios.append(option).trigger('change');
+
+
+                }
+            });
+        }
+    </script>
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
