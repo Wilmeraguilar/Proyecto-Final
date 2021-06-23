@@ -36,8 +36,7 @@ body {
 
 /*para el tamaño de las imagenes*/
 .formatoimagen {
-  width: 500px;
-  height: 500px;
+  width: 100%;
 }
 
 
@@ -98,6 +97,40 @@ body {
     height: 200px;
 }
 
+/*Oscurecer imagen para que las letras se vean bien*/
+.oscurecer-img{
+  filter: brightness(40%); // Más oscura
+}
+.aclarar-img{
+  filter: brightness(150%); // Más clara
+}
+
+/*
+font-weight: normal;*/
+.letra-negrita{
+font-weight: bold;
+color: white;
+
+}
+/* Relativo al padre */
+/*font-weight: lighter;
+font-weight: bolder;
+ 
+font-weight: 100;
+font-weight: 200;
+font-weight: 300;
+font-weight: 400;
+font-weight: 500;
+font-weight: 600;
+font-weight: 700;
+font-weight: 800;
+font-weight: 900;*/
+ 
+/* Valores globales */
+/*font-weight: inherit;
+font-weight: initial;
+font-weight: unset;
+*/
 
 
 /* RESPONSIVE CSS
