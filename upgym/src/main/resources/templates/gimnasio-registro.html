@@ -37,7 +37,7 @@
                 <div class="card-heading1"></div>
                 <div class="card-body">
                     <h2 class="title">REGISTRO DEL GIMNASIO</h2>
-                    <form th:action="@{/gimnasios/__${action}__}" method="POST" th:object="${gimnasio}"
+                    <form id="formulario"th:action="@{/gimnasios/__${action}__}" method="POST" th:object="${gimnasio}"
                         autocomplete="on" novalidate>
 
                         <div class="input-group">
@@ -83,14 +83,16 @@
                             <div class="select-dropdown"></div>
                         </div>
                         <div class="input-group rs-select2 js-select-simple select--no-search">
-                            <select name="ciudad" id="municipios" class="form-select"  aria-label="Elegir Ciudad" th:field="*{direccion.ciudad}" required>
+                            <select name="ciudad" id="municipios" class="form-select" aria-label="Elegir Ciudad"
+                                th:field="*{direccion.ciudad}" required>
                                 <option value="" disabled selected>Elegir Ciudad</option>
                                 <option value="ciudad1">Ciudad1</option>
                             </select>
                             <div class="select-dropdown"></div>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Dirección" name="dirección" th:field="*{direccion.calleNro}" required>
+                            <input class="input--style-3" type="text" placeholder="Dirección" name="dirección"
+                                th:field="*{direccion.calleNro}" required>
                         </div>
                         <div class="input-group">
                             <input class="input--style-3" type="email" placeholder="Email" name="usarname"
@@ -120,10 +122,10 @@
     <script th:src="@{/vendor/datepicker/moment.min.js}"></script>
     <script th:src="@{/vendor/datepicker/daterangepicker.js}"></script>
 
-    <!-- Main JS--src="js/global.js"-->
-<!--    <script src="js/global.js" ></script>-->
+    <!--  Main JS--src="js/global.js" -->
+    <!-- <script th:src="@{/js/global.js}" ></script> -->
     <script type="text/javascript" th:src="@{/js/global.js}"></script>
-    
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
@@ -144,28 +146,38 @@
         })();
     </script>
     <script>
-        const selectMunicipios = document.getElementById("municipios");
-        const provincias = document.getElementById("provincias");
+        const selectMunicipios = $("#municipios");
+        const provincias = $("#provincias");
 
         // buscarProvincias(provincias.value);
 
-        provincias.addEventListener("change", () => buscarProvincias(provincias.value));
+        provincias.change(() => buscarProvincias(provincias.val()));
+        provincias.change();
+        //provincias.addEventListener("change", () => buscarProvincias(provincias.value));
 
         async function buscar(provincia) {
-            const url = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&campos=nombre&max=200&order=nombre`;
+            const url = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&campos=nombre&max=200&orden=nombre`;
             const response = await fetch(url);
             return response.json();
         }
 
         function buscarProvincias(provincia) {
-            selectMunicipios.innerHTML = "";
+           /*  selectMunicipios.innerHTML = ""; */
+           selectMunicipios.val(null).trigger('change');
+           selectMunicipios.html("");
+
 
             buscar(provincia).then(data => {
                 for (const municipio of data["municipios"]) {
-                    const option = document.createElement("option");
-                    option.value = municipio["nombre"];
-                    option.innerText = municipio["nombre"];
-                    selectMunicipios.appendChild(option);
+                    /*   const option = document.createElement("option");
+                      option.value = municipio["nombre"];
+                      option.innerText = municipio["nombre"];
+                      selectMunicipios.appendChild(option); */
+                    // create the option and append to Select2
+                    var option = new Option(municipio.nombre, municipio.nombre, false, false);
+                    selectMunicipios.append(option).trigger('change');
+
+
                 }
             });
         }
