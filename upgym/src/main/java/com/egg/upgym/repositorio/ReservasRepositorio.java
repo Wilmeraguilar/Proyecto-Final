@@ -12,4 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface ReservasRepositorio extends JpaRepository<Reservas, String> {
     @Query("SELECT r FROM Reservas r WHERE gimnasio.id=:gimnasio AND horario=:horario AND fecha=:fecha")
     List<Reservas> buscarPorGymHorarioFecha(@Param("gimnasio") String gimnasio,@Param("horario") String horario,@Param("fecha") Date fecha);
+    
+    @Query("SELECT r FROM Reservas r WHERE usuario.dni=:usuario AND fecha=:fecha")
+    List<Reservas> buscarPorDniFecha(@Param("usuario") Long dni,@Param("fecha") Date fecha);
 }

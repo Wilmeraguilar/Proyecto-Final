@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +20,9 @@ public class UsuarioServicio {
 
     @Autowired
     DireccionRepositorio dirrep;
+    
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @Transactional
     public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String provincia, String ciudad, String calleNro) {
@@ -29,7 +33,7 @@ public class UsuarioServicio {
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         usuario.setEmail(email);
-        usuario.setClave(clave);
+        usuario.setClave(encoder.encode(clave));
         direccion.setProvincia(provincia);
         direccion.setCiudad(ciudad);
         direccion.setCalleNro(calleNro);
@@ -79,7 +83,7 @@ public class UsuarioServicio {
                 u.setApellido(apellido);
                 u.setTelefono(telefono);
                 u.setEmail(email);
-                u.setClave(clave);
+                u.setClave(encoder.encode(clave));
                 u.setEstado(estado);
                 d.setProvincia(provincia);
                 d.setCiudad(ciudad);

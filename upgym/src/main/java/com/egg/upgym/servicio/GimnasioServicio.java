@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,8 @@ public class GimnasioServicio {
     
     @Autowired
     DireccionRepositorio dirrep;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
     
     @Transactional
     public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro){
@@ -30,7 +33,7 @@ public class GimnasioServicio {
         gimnasio.setTelefono(telefono);
         gimnasio.setCapacidad(capacidad);
         gimnasio.setEmail(email);
-        gimnasio.setClave(clave);
+        gimnasio.setClave(encoder.encode(clave));
         direccion.setCiudad(ciudad);
         direccion.setProvincia(provincia);
         direccion.setCalleNro(calleNro);
@@ -68,7 +71,7 @@ public class GimnasioServicio {
                 g.setTelefono(telefono);
                 g.setCapacidad(capacidad);
                 g.setEmail(email);
-                g.setClave(clave);
+                g.setClave(encoder.encode(clave));
                 g.setEstado(estado);
                 d.setProvincia(provincia);
                 d.setCiudad(ciudad);
