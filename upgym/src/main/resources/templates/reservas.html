@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- <html lang="en"> -->
+<html lang="es" class="h-100" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Reserva de Hora</title>
+
+    <!-- Icons font CSS-->
+    <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/" />
+    <!-- Vendor CSS-->
+    <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/datepicker/daterangepicker.css}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link th:href="@{/css/formulario.css}" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-181 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w780">
+            <div class="card card-3">
+                <div class="card-heading2"></div>
+                <div class="card-body">
+                    <h2 class="title">RESERVA DE HORA</h2>
+                    <form th:action="@{/reservas/__${action}__}" method="POST" th:object="${reserva}"
+                        autocomplete="on" novalidate>
+
+                        <!-- <div class="input-group">
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select name="gimnasio" id="gimnasio" aria-label="Elegir gimnasio" field="*{gimansio}"
+                                    required>
+                                    <option value="" selected>Elige un gimnasio</option>
+                                    <option th:each="gimnasio : ${gimnasios}" th:text="|${gimnasio.nombre}|"
+                                        th:value="${gimnasio.dni}">
+                                    </option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div> -->
+
+                        <div class="input-group">
+                            <input class="input--style-3 js-datepicker" type="text" placeholder="Fecha" name="fecha"
+                                th:field="*{fecha}" required>
+                            <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                        </div>
+                        <div class="input-group">
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select name="horario" id="horario" aria-label="Elegir horario" field="*{horario}"
+                                    required>
+                                    <option value="" selected>Elige un horario</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="21:00">21:00</option>
+                                    <option value="22:00">22:00</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-t-10">
+                            <button class="btn btn--pill btn--green" type="submit"> Guardar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script th:src="@{vendor/jquery/jquery.min.js}"></script>
+    <!-- Vendor JS-->
+    <script th:src="@{vendor/select2/select2.min.js}"></script>
+    <script th:src="@{vendor/datepicker/moment.min.js}"></script>
+    <script th:src="@{vendor/datepicker/daterangepicker.js}"></script>
+
+    <!-- Main JS-->
+    <script th:src="@{js/global.js}"></script>
+
+
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->

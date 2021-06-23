@@ -37,42 +37,65 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">REGISTRO</h2>
-                    <form th:action="@{/usuarios/__${action}__}" method="POST" th:object="${usuarios}" autocomplete="on"
+                    <form th:action="@{/usuarios/__${action}__}" method="POST" th:object="${usuario}" autocomplete="on"
                         novalidate>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="DNI" name="dni">
+                            <input class="input--style-3" type="text" placeholder="DNI" name="dni" th:field="*{dni}" required>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Nombre" name="nombre">
+                            <input class="input--style-3" type="text" placeholder="Nombre" name="nombre" th:field="*{nombre}" required>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Apellido" name="apellido">
+                            <input class="input--style-3" type="text" placeholder="Apellido" name="apellido" th:field="*{apellido}" required>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Telefono" name="telefono">
+                            <input class="input--style-3" type="text" placeholder="Telefono" name="telefono" th:field="*{telefono}" required>
                         </div>
-                        <div class="input-group rs-select2 js-select-simple select--no-search">
-                            <select name="gender">
-                                <option disabled="disabled" selected="selected">Ciudad</option>
-                                <option>Elige una opción</option>
+                        <div class="input-group rs-select2 js-select-simple select--no-search ">
+                            <select name="provincia" id="provincias" class="form-select" aria-label="Elegir Provincia"
+                                th:field="*{direccion.provincia}" required>
+                                <option value="" disabled selected>Elegir Provincia</option>
+                                <option value="Buenos Aires">Buenos Aires</option>
+                                <option value="Catamarca">Catamarca</option>
+                                <option value="Chaco">Chaco</option>
+                                <option value="Chubut">Chubut</option>
+                                <option value="Cordoba">Córdoba</option>
+                                <option value="Corrientes">Corrientes</option>
+                                <option value="Entre Ríos">Entre Ríos</option><!-- nofunciona -->
+                                <option value="Formosa">Formosa</option>
+                                <option value="Jujuy">Jujuy</option>
+                                <option value="La Pampa">La Pampa</option>
+                                <option value="La Rioja">La Rioja</option>
+                                <option value="Mendoza">Mendoza</option>
+                                <option value="Misiones">Misiones</option>
+                                <option value="Neuquen">Neuquén</option>
+                                <option value="Rio Negro">Río Negro</option>
+                                <option value="Salta">Salta</option>
+                                <option value="San Juan">San Juan</option>
+                                <option value="San Luis">San Luis</option>
+                                <option value="santa cruz">Santa Cruz</option><!-- nofunciona -->
+                                <option value="Santa Fe">Santa Fe</option>
+                                <option value="Santiago del Estero">Santiago del Estero</option><!-- nofunciona -->
+                                <option value="Tierra del Fuego">Tierra del Fuego</option>
+                                <option value="Tucuman">Tucumán</option>
                             </select>
                             <div class="select-dropdown"></div>
                         </div>
                         <div class="input-group rs-select2 js-select-simple select--no-search">
-                            <select name="gender">
-                                <option disabled="disabled" selected="selected">Provincia</option>
-                                <option>Elige una opción</option>
+                            <select name="ciudad" id="municipios" class="form-select"  aria-label="Elegir Ciudad" th:field="*{direccion.ciudad}" required>
+                                <option value="" disabled selected>Elegir Ciudad</option>
+                                <option value="ciudad1">Ciudad1</option>
                             </select>
                             <div class="select-dropdown"></div>
+                        </div>               
+                        <div class="input-group">
+                            <input class="input--style-3" type="text" placeholder="Dirección" name="dirección" th:field="*{direccion.calleNro}" required>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="text" placeholder="Dirección" name="dirección">
+                            <input class="input--style-3" type="email" placeholder="Email" name="username" h:field="*{email}" required>
                         </div>
                         <div class="input-group">
-                            <input class="input--style-3" type="email" placeholder="Email" name="email">
-                        </div>
-                        <div class="input-group">
-                            <input class="input--style-3" type="password" placeholder="Clave" name="password">
+                            <input class="input--style-3" type="password" placeholder="Clave" name="password" th:field="*{clave}" required>
                         </div>
 
                         <div class="p-t-10">
