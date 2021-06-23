@@ -15,9 +15,9 @@ public class IndexControlador {
         ModelAndView mav =new ModelAndView("inicio");
         return mav;
     }
-    @GetMapping("/login")
+    @GetMapping("/login1")
     public ModelAndView login(){
-        ModelAndView mav =new ModelAndView("login");
+        ModelAndView mav =new ModelAndView("login1");
         return mav;
     }
     
