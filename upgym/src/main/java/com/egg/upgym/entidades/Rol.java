@@ -1,3 +1,4 @@
+
 package com.egg.upgym.entidades;
 
 import javax.persistence.Entity;
