@@ -531,6 +531,12 @@ input {
   width: 50%;
 }
 
+.card-3 .card-heading3 {
+  background: url("../imagenes/rol/rol.jpg") top right/cover no-repeat;
+  display: table-cell;
+  width: 50%;
+}
+
 .card-3 .card-body {
   margin: auto;
   padding: 57px 65px;

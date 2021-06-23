@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- <html lang="en"> -->
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Rol</title>
+
+    <!-- Icons font CSS-->
+    <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/" />
+    <!-- Vendor CSS-->
+    <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/datepicker/daterangepicker.css}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link th:href="@{/css/formulario.css}" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-181 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w780">
+            <div class="card card-3">
+                <div class="card-heading3"></div>
+                <div class="card-body">
+                    <h2 class="title">ROL</h2>
+                    <form th:action="@{/roles/__${action}__}" method="POST" th:object="${rol}"
+                        autocomplete="on" novalidate>
+
+                       
+                        <div class="input-group">
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select name="nombre" id="nombre" aria-label="Elegir un Rol" th:field="*{nombre}"
+                                    required>
+                                    <option value="" selected>Elige un Rol</option>
+                                    <option value="administrador">Administrador</option>
+                                    <option value="usuario">Usuario</option>
+                                    <option value="gimnasio">Gimnasio</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-t-10">
+                            <button class="btn btn--pill btn--green" type="submit"> Guardar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Jquery JS-->
+    <script th:src="@{vendor/jquery/jquery.min.js}"></script>
+    <!-- Vendor JS-->
+    <script th:src="@{vendor/select2/select2.min.js}"></script>
+    <script th:src="@{vendor/datepicker/moment.min.js}"></script>
+    <script th:src="@{vendor/datepicker/daterangepicker.js}"></script>
+
+    <!-- Main JS-->
+    <script th:src="@{js/global.js}"></script>
+
+
+
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
