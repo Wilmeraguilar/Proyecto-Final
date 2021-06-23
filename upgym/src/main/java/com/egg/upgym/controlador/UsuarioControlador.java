@@ -67,19 +67,19 @@ public class UsuarioControlador {
     @PostMapping("/guardar")
     public RedirectView guardar(@RequestParam Long dni,@RequestParam String nombre,@RequestParam String apellido, @RequestParam String telefono,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro) {
         usuarioServicio.crear(dni,nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro);
-        return new RedirectView("/usuarios");
+        return new RedirectView("/");
     }
 
     @PostMapping("/modificar")
     public RedirectView modificar(@RequestParam Long dni,@RequestParam String nombre,@RequestParam String apellido, @RequestParam String telefono,@RequestParam String email, @RequestParam String clave, @RequestParam String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado) {
         usuarioServicio.modificar(dni,nombre, apellido, telefono, email, clave, idDireccion, provincia, ciudad, calleNro, estado);
-        return new RedirectView("/usuarios");
+        return new RedirectView("/");
     }
 
     @PostMapping("/eliminar/{dni}")
     public RedirectView eliminar(@PathVariable Long dni) {
         usuarioServicio.eliminar(dni);
-        return new RedirectView("/usuarios");
+        return new RedirectView("/");
     }
 
 }
