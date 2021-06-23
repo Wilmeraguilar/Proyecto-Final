@@ -179,11 +179,11 @@ h6 {
 }
 
 .bg-gra-02 {
-  background: -webkit-gradient(linear, left bottom, left top, from(#8cd19b), to(#c7fbc2));
-  background: -webkit-linear-gradient(bottom, #8cd19b 0%, #c7fbc2 100%);
-  background: -moz-linear-gradient(bottom, #8cd19b 0%, #c7fbc2 100%);
-  background: -o-linear-gradient(bottom, #8cd19b 0%, #c7fbc2 100%);
-  background: linear-gradient(to top, #8cd19b 0%, #c7fbc2 100%);
+  background: -webkit-gradient(linear, left bottom, left top, from(#fbd9c2), to(#d19a8c)) !important;
+  background: -webkit-linear-gradient(bottom, #fbd9c2 0%, #d19a8c 100%);
+  background: -moz-linear-gradient(bottom, #fbd9c2 0%, #d19a8c 100%);
+  background: -o-linear-gradient(bottom, #fbd9c2 0%, #d19a8c 100%);
+  background: linear-gradient(to top, #fbd9c2 0%, #d19a8c 100%);
 }
 
 /* ==========================================================================
@@ -195,6 +195,10 @@ h6 {
 
 .p-t-180 {
   padding-top: 10px;
+}
+
+.p-t-181 {
+  padding-top: 60px;
 }
 
 .p-t-20 {
@@ -262,11 +266,11 @@ h6 {
 }
 
 .btn--green {
-  background: #57b846;
+  background: #c0392b;
 }
 
 .btn--green:hover {
-  background: #4dae3c;
+  background: #c0392b ;
 }
 
 /* ==========================================================================
@@ -510,16 +514,23 @@ input {
 }
 
 .card-3 .card-heading {
-  background: url("../imagenes/usuario-registro/Gym_Usuario2.jpg") top left/cover no-repeat;
+  background: url("../imagenes/Gym_Usuario2.jpg") top left/cover no-repeat;
   display: table-cell;
   width: 50%;
 }
 
 .card-3 .card-heading1 {
-  background: url("../imagenes/gimnasio-registro/Gimnasio.jpg") top right/cover no-repeat;
+  background: url("../imagenes/Gimnasio.jpg") top right/cover no-repeat;
   display: table-cell;
   width: 50%;
 }
+
+.card-3 .card-heading2 {
+  background: url("../imagenes/reserva1.jpg") top right/cover no-repeat;
+  display: table-cell;
+  width: 50%;
+}
+
 .card-3 .card-body {
   margin: auto;
   padding: 57px 65px;
