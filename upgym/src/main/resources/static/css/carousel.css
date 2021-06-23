@@ -88,6 +88,18 @@ body {
     -webkit-text-stroke: 1px white; 
 }
 
+/*Fer IMAGEN */
+.index-usuario {
+    background-image: url(../img/usuario-card-index.jpg);
+    background-position: left 25% center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 33%;
+    height: 200px;
+}
+
+
+
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
