@@ -23,7 +23,7 @@ public class ReservasControlador {
 
     @GetMapping
     public ModelAndView mostrarTodos() {
-        ModelAndView mav = new ModelAndView("reservas");
+        ModelAndView mav = new ModelAndView("reservas-lista");
         mav.addObject("reservas", reservasServicio.buscarTodos());
         return mav;
     }
@@ -40,7 +40,7 @@ public class ReservasControlador {
 
     @GetMapping("/crear")
     public ModelAndView crearReserva() {
-        ModelAndView mav = new ModelAndView("reservas-registro");
+        ModelAndView mav = new ModelAndView("reservas");
         mav.addObject("reserva", new Reservas());
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
@@ -50,7 +50,7 @@ public class ReservasControlador {
 
     @GetMapping("/editar/{id}")
     public ModelAndView editarGimnasio(@PathVariable String id) {
-        ModelAndView mav = new ModelAndView("reservas-registro");
+        ModelAndView mav = new ModelAndView("reservas");
         mav.addObject("reserva", reservasServicio.buscarPorId(id));
         mav.addObject("title", "Editar Reserva");
         mav.addObject("action", "modificar");
