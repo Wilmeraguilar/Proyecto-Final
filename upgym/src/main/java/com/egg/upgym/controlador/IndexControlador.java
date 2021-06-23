@@ -15,6 +15,11 @@ public class IndexControlador {
         ModelAndView mav =new ModelAndView("inicio");
         return mav;
     }
+    @GetMapping("/login")
+    public ModelAndView login(){
+        ModelAndView mav =new ModelAndView("login");
+        return mav;
+    }
     
     @GetMapping("/error-403")
     public ModelAndView error403(){
