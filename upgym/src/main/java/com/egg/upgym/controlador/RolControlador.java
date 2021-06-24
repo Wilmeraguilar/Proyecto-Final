@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/roles")
 public class RolControlador {
     
-    @Autowired
+  /*  @Autowired
     private RolServicio rolServicio;
 
     @GetMapping
@@ -60,6 +60,6 @@ public class RolControlador {
     public RedirectView eliminar(@PathVariable String id) {
         rolServicio.eliminar(id);
         return new RedirectView("/roles");
-    }
+    }*/
     
 }
