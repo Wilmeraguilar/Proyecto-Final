@@ -6,15 +6,20 @@ import com.egg.upgym.entidades.Reservas;
 import com.egg.upgym.repositorio.DireccionRepositorio;
 import com.egg.upgym.repositorio.GimnasioRepositorio;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class GimnasioServicio {
+public class GimnasioServicio implements UserDetailsService{
     
     @Autowired
     GimnasioRepositorio gimrep;
@@ -131,5 +136,16 @@ public class GimnasioServicio {
                 
             }
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Gimnasio gimnasio = gimrep.buscarPorGim(email);
+        
+        if (gimnasio == null) {
+            throw new UsernameNotFoundException("No se encontro un gimnasio registrado con el email " + email);
+        }
+
+        return new User(gimnasio.getEmail(), gimnasio.getClave(), Collections.emptyList());
     }
 }
