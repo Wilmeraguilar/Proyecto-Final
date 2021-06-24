@@ -62,6 +62,7 @@ public class GimnasioServicio implements UserDetailsService {
         direccion.setProvincia(provincia);
         direccion.setCalleNro(calleNro);
         gimnasio.setDireccion(direccion);
+        gimnasio.setEstado("ACTIVO");
 
         rolrep.save(rol);
         dirrep.save(direccion);

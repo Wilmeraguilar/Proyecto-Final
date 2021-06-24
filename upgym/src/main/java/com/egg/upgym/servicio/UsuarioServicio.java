@@ -62,6 +62,7 @@ public class UsuarioServicio implements UserDetailsService {
         direccion.setCiudad(ciudad);
         direccion.setCalleNro(calleNro);
         usuario.setDireccion(direccion);
+        usuario.setEstado("ACTIVO");
 
         rolrep.save(rol);
         dirrep.save(direccion);
