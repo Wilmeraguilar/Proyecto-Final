@@ -87,22 +87,10 @@ body {
     -webkit-text-stroke: 1px white; 
 }
 
-/*Fer IMAGEN */
-.index-usuario {
-    background-image: url(../img/usuario-card-index.jpg);
-    background-position: left 25% center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 33%;
-    height: 200px;
-}
 
 /*Oscurecer imagen para que las letras se vean bien*/
 .oscurecer-img{
-  filter: brightness(40%); // Más oscura
-}
-.aclarar-img{
-  filter: brightness(150%); // Más clara
+    filter: brightness(40%); 
 }
 
 /*
@@ -142,8 +130,15 @@ El fondo rojo esta en el CSS formulario en la linea 181*/
   background: linear-gradient(to top, #fbd9c2 0%, #d19a8c 100%);
 }
 
-
-
+/*Fer IMAGEN */
+.index-usuario {
+    background-image: url(../img/usuario-card-index.jpg);
+    background-position: left 25% center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 33%;
+    height: 200px;
+}
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
