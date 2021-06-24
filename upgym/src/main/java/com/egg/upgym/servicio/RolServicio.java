@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class RolServicio {
     
-    @Autowired
+  /*  @Autowired
     private RolRepositorio rolRepositorio;
 
     @Transactional
@@ -62,6 +62,6 @@ public class RolServicio {
             rol.setEstado("INACTIVO");
             rolRepositorio.save(rol);
         }
-    }
+    }*/
     
 }
