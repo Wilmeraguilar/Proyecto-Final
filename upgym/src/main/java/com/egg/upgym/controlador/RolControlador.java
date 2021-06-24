@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/roles")
 public class RolControlador {
     
-  /*  @Autowired
+    @Autowired
     private RolServicio rolServicio;
 
     @GetMapping
@@ -28,7 +28,7 @@ public class RolControlador {
 
     @GetMapping("/crear")
     public ModelAndView crearRol() {
-        ModelAndView mav = new ModelAndView("rolFormulario");
+        ModelAndView mav = new ModelAndView("rol");
         mav.addObject("rol", new Rol());
         mav.addObject("title", "Crear Rol");
         mav.addObject("action", "guardar");
@@ -37,7 +37,7 @@ public class RolControlador {
 
     @GetMapping("/editar/{id}")
     public ModelAndView editarRol(@PathVariable String id) {
-        ModelAndView mav = new ModelAndView("rolFormulario");
+        ModelAndView mav = new ModelAndView("rol");
         mav.addObject("rol", rolServicio.buscarPorId(id));
         mav.addObject("title", "Editar Rol");
         mav.addObject("action", "modificar");
@@ -47,19 +47,19 @@ public class RolControlador {
     @PostMapping("/guardar")
     public RedirectView guardar( @RequestParam String nombre) {
         rolServicio.crear( nombre);
-        return new RedirectView("/roles");
+        return new RedirectView("/");
     }
 
     @PostMapping("/modificar")
     public RedirectView modificar(@RequestParam String id,@RequestParam String nombre,@RequestParam String estado) {
         rolServicio.modificar(id,nombre,estado);
-        return new RedirectView("/roles");
+        return new RedirectView("/");
     }
 
     @PostMapping("/eliminar/{id}")
     public RedirectView eliminar(@PathVariable String id) {
         rolServicio.eliminar(id);
-        return new RedirectView("/roles");
-    }*/
+        return new RedirectView("/");
+    }
     
 }
