@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,6 +23,9 @@ public class Gimnasio implements Serializable{
     @Column(unique = true)
     private String email;
     private String clave;
+    
+    @ManyToOne
+    private Rol rol;
     
     @OneToOne
     private Direccion direccion;
@@ -89,6 +93,15 @@ public class Gimnasio implements Serializable{
     public List<Reservas> getReservas() {
         return reservas;
     }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+    
 
     public void setReservas(List<Reservas> reservas) {
         this.reservas = reservas;

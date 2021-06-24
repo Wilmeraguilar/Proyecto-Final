@@ -1,8 +1,10 @@
 package com.egg.upgym.servicio;
 
 import com.egg.upgym.entidades.Direccion;
+import com.egg.upgym.entidades.Rol;
 import com.egg.upgym.entidades.Usuario;
 import com.egg.upgym.repositorio.DireccionRepositorio;
+import com.egg.upgym.repositorio.RolRepositorio;
 import com.egg.upgym.repositorio.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,14 +22,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioServicio implements UserDetailsService{
+public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     UsuarioRepositorio usurep;
 
     @Autowired
     DireccionRepositorio dirrep;
-    
+
+    @Autowired
+    RolRepositorio rolrep;
+
     @Autowired
     private BCryptPasswordEncoder encoder;
 
@@ -33,6 +40,18 @@ public class UsuarioServicio implements UserDetailsService{
     public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String provincia, String ciudad, String calleNro) {
         Usuario usuario = new Usuario();
         Direccion direccion = new Direccion();
+
+        Rol rol = new Rol();
+
+        for (Rol roles : rolrep.findAll()) {
+
+            if (roles.getEstado().equalsIgnoreCase("ACTIVO") && roles.getNombre().equalsIgnoreCase("USUARIO")) {
+                rol = roles;
+
+            }
+
+        }
+        usuario.setRol(rol);
 
         usuario.setDni(dni);
         usuario.setNombre(nombre);
@@ -43,7 +62,8 @@ public class UsuarioServicio implements UserDetailsService{
         direccion.setCiudad(ciudad);
         direccion.setCalleNro(calleNro);
         usuario.setDireccion(direccion);
-        
+
+        rolrep.save(rol);
         dirrep.save(direccion);
         usurep.save(usuario);
     }
@@ -51,22 +71,31 @@ public class UsuarioServicio implements UserDetailsService{
     @Transactional(readOnly = true)
     public Usuario buscarPorId(Long dni) {
         Optional<Usuario> usuarioOptional = usurep.findById(dni);
-        return usuarioOptional.orElse(null);
+        if (usuarioOptional.isPresent() && usuarioOptional.get().getEstado().equalsIgnoreCase("ACTIVO")) {
+            return usuarioOptional.get();
+        }
+        return null;
     }
 
     @Transactional(readOnly = true)
     public List<Usuario> buscarTodos() {
-        List<Usuario> usuarios = usurep.findAll();
+        List<Usuario> usuarios = new ArrayList();
+
+        for (Usuario usuario : usurep.findAll()) {
+            if (usuario.getEstado().equalsIgnoreCase("ACTIVO")) {
+                usuarios.add(usuario);
+            }
+        }
         return usuarios;
     }
-    
+
     @Transactional
-    public List<Usuario> buscarPorApellido(String apellido){
+    public List<Usuario> buscarPorApellido(String apellido) {
         List<Usuario> usuarios = usurep.findAll();
-        List <Usuario> u = new ArrayList<Usuario>();
-        
+        List<Usuario> u = new ArrayList<Usuario>();
+
         for (Usuario usuario1 : usuarios) {
-            if (usuario1.getNombre().equalsIgnoreCase(apellido)) {
+            if (usuario1.getApellido().equalsIgnoreCase(apellido) && usuario1.getEstado().equalsIgnoreCase("ACTIVO")) {
                 u.add(usuario1);
             }
         }
@@ -94,7 +123,7 @@ public class UsuarioServicio implements UserDetailsService{
                 d.setCiudad(ciudad);
                 d.setCalleNro(calleNro);
                 u.setDireccion(d);
-                
+
                 dirrep.save(d);
                 usurep.save(u);
             } else {
@@ -114,18 +143,18 @@ public class UsuarioServicio implements UserDetailsService{
     @Transactional
     public void eliminar(Long dni) {
         Optional<Usuario> usuario = usurep.findById(dni);
-        
+
         if (usuario.isPresent()) {
             Usuario u = usuario.get();
 
             if (u.getEstado().equalsIgnoreCase("ACTIVO")) {
                 u.setEstado("INACTIVO");
-                
+
                 usurep.save(u);
-            }else{
-                
+            } else {
+
                 System.out.println("El usuario se encuentra INACTIVO. No se puede eliminar");
-                
+
             }
         }
     }
@@ -133,12 +162,13 @@ public class UsuarioServicio implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usurep.buscarPorUser(email);
-        
+
         if (usuario == null) {
             throw new UsernameNotFoundException("No se encontro un usuario registrado con el email " + email);
         }
+        GrantedAuthority rol = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getNombre());
 
-        return new User(usuario.getEmail(), usuario.getClave(), Collections.emptyList());
+        return new User(usuario.getEmail(), usuario.getClave(), Collections.singletonList(rol));
     }
 
 }
