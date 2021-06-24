@@ -132,6 +132,17 @@ font-weight: initial;
 font-weight: unset;
 */
 
+/*fondo Wilmer
+El fondo rojo esta en el CSS formulario en la linea 181*/
+.bg-gra-02 {
+  background: -webkit-gradient(linear, left bottom, left top, from(#fbd9c2), to(#d19a8c)) !important;
+  background: -webkit-linear-gradient(bottom, #fbd9c2 0%, #d19a8c 100%);
+  background: -moz-linear-gradient(bottom, #fbd9c2 0%, #d19a8c 100%);
+  background: -o-linear-gradient(bottom, #fbd9c2 0%, #d19a8c 100%);
+  background: linear-gradient(to top, #fbd9c2 0%, #d19a8c 100%);
+}
+
+
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
