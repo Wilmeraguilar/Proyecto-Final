@@ -1,5 +1,6 @@
 package com.egg.upgym;
 
+import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UsuarioServicio ususer;
+    
+    @Autowired
+    private GimnasioServicio gimser;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -27,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(ususer)
-                .passwordEncoder(encoder);
+                .passwordEncoder(encoder).and().userDetailsService(gimser);
     }
 
     @Override
