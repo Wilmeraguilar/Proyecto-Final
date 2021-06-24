@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(ususer)
-                .passwordEncoder(encoder).and().userDetailsService(gimser);
+                .passwordEncoder(encoder).and().userDetailsService(gimser).passwordEncoder(encoder);
     }
 
     @Override
