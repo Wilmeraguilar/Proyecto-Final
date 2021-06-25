@@ -2,6 +2,9 @@ package com.egg.upgym;
 
 import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.UsuarioServicio;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,13 +37,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(encoder).and().userDetailsService(gimser).passwordEncoder(encoder);
     }
 
+    
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http
                 .authorizeRequests()
-                    .antMatchers("/css/**", "/imagenes/**", "/assets/**", "/js/**", "/vendor/**").permitAll()
-                    .antMatchers("/**").permitAll()
+                    .antMatchers("/css/**", "/imagenes/**", "/assets/**", "/js/**", "/vendor/**", "/usuarios/crear", "/usuarios/guardar").permitAll()
+                    .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()
                     .loginPage("/login")

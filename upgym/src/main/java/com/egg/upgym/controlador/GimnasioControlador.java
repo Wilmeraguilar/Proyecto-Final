@@ -23,6 +23,7 @@ public class GimnasioControlador {
     
     
       @GetMapping
+      
     public ModelAndView mostrarTodos() {
         ModelAndView mav = new ModelAndView("gimnasio");
         mav.addObject("gimnasios", gimnasioServicio.buscarTodos());
