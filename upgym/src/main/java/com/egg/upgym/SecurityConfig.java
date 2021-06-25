@@ -47,7 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/css/**", "/imagenes/**", "/assets/**", "/js/**", "/vendor/**", "/usuarios/crear", "/usuarios/guardar").permitAll()
                     .antMatchers("/**").permitAll()
                 .and()
+                    .exceptionHandling().accessDeniedPage("/error-403")
+                .and()
                 .formLogin()
+                
                     .loginPage("/login")
                         .loginProcessingUrl("/logincheck")
                         .usernameParameter("username")
