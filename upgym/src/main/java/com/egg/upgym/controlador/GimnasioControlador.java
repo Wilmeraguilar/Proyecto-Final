@@ -4,6 +4,7 @@ import com.egg.upgym.entidades.Gimnasio;
 import com.egg.upgym.servicio.DireccionServicio;
 import com.egg.upgym.servicio.GimnasioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +24,16 @@ public class GimnasioControlador {
     
     
       @GetMapping
+   
     public ModelAndView mostrarTodos() {
         ModelAndView mav = new ModelAndView("gimnasio");
         mav.addObject("gimnasios", gimnasioServicio.buscarTodos());
+        return mav;
+    }
+    @GetMapping("/buscar/provinciaCiudad")
+    public ModelAndView mostrarTodosPorProvinciaCiudad(@RequestParam String provincia,@RequestParam String ciudad) {
+        ModelAndView mav = new ModelAndView("gimnasio");
+        mav.addObject("gimnasios", gimnasioServicio.buscarPorprovinciaCiudad(provincia, ciudad));
         return mav;
     }
     @GetMapping("/buscar/nombre")

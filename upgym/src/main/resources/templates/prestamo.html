@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <meta name="description" content="Página de ejemplo de Spring Boot + Thymeleaf para el curso de Egg Educación"/>
+    <meta name="author" content="Fernando Cocco"/>
+    <title>Prestamo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Inicio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav mb-2 mb-md-0 w-100">
+                <!--DROPDOWN PRESTAMOS-->
+                <li class="nav-item dropdown">
+                    <a id="dropdown-prestamos" class="nav-link dropdown-toggle" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Prestamos</a>
+
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-libros">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/prestamos}">Mostrar Prestamos</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/prestamos/crear}">Crear Prestamo</a>
+                        </li>
+                    </ul>
+                   
+                    
+                </li>
+               
+                <form class="d-flex" th:action="@{/prestamos/buscar}"  >
+                    <input class="form-control me-2" type="number" placeholder="DNI de cliente"  style="text-align: center"aria-label="Search" name="dni">
+                    <input class="form-control me-2" type="text" placeholder="Estado de prestamo"  style="text-align: center"aria-label="Search" name="finalizado">
+                   
+                    <button class="btn btn-secondary" type="submit"  > Buscar</button> 
+                </form>
+                <form class="d-flex" th:action="@{/prestamos/buscar/estado}"  >
+                    <input class="form-control me-2" type="text" placeholder="Estado de prestamos"  style="text-align: center"aria-label="Search" name="finalizado">
+ 
+                    <button class="btn btn-secondary" type="submit"  > Buscar</button> 
+                </form>
+                
+            </ul>
+            
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5 main">
+    <h1>Listado de prestamos</h1>
+    <hr class="mb-5"/>
+    <div th:if="${prestamos.isEmpty()}">
+        <h5>Todavía no hay prestamos cargados. <a th:href="@{/prestamos/crear}">Cargar prestamo.</a></h5>
+    </div>
+    <div th:unless="${prestamos.isEmpty()}" class="table-responsive">
+        <table class="table table-hover table-sm table-bordered">
+            <thead class="table-secondary text-center">
+            <tr>
+                <th class="col-md-1 px-md-2" scope="col">ID</th> 
+                <th class="col-md-1 px-md-2" scope="col">Desde</th>
+                <th class="col-md-1 px-md-2" scope="col">Hasta</th>
+                <th class="col-md-3 px-md-2" scope="col">Libros</th>
+                <th class="col-md-4 px-md-2" scope="col">Cliente</th>
+                <th class="col-md-1 px-md-2" scope="col">Estado</th>
+                <th class="col-md-1 px-md-2" scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prestamo : ${prestamos}" style="text-align: center"; >
+                <td class="col-md-1 px-md-2" th:text="${prestamo.id}"></td>
+                
+                <td class="col-md-1 px-md-2"> <span th:text="|${prestamo.fecha}|" ></span> </td>
+               
+                <td class="col-md-1 px-md-2" th:text="|${prestamo.devolucion}|"></td>
+
+                <td class="col-md-3 px-md-2"> <span th:each="libro : ${prestamo.libros}" th:text="|${libro.titulo}|"></span> </td>
+
+
+                <td class="col-md-4 px-md-2">DNI : <span th:text="|${prestamo.cliente.dni}|"></span>  <span th:text="|${prestamo.cliente.nombre}|"> </span> <span th:text="|${prestamo.cliente.apellido}|"></span> Tel : <span th:text="|${prestamo.cliente.telefono}|"></span></td>
+
+                <td class="col-md-1 px-md-2"><span th:text="|${prestamo.finalizado}|"></span></td>
+
+               
+                <td class="col-md-1 px-md-2 d-flex justify-content-around w-100">
+                    
+                    <a class="btn btn-primary btn-sm" th:href="@{/prestamos/editar/__${prestamo.id}__}">Editar</a>
+                        
+                    <form th:action="@{/prestamos/devolver/__${prestamo.id}__}" method="post"><button class="btn btn-danger btn-sm" type="submit">Devolver</button></form>
+                   
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer class="footer py-3 bg-dark fixed-bottom">
+    <div class="container d-flex justify-content-center">
+        <span class="text-muted">&copy; Ezequiel Olivera - 2021</span>
+        <a class="text-decoration-none ms-3 footer-link" href=""
+           target="_blank">
+            <i class="bi bi-linkedin"></i>
+        </a>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+</body>
+</html>

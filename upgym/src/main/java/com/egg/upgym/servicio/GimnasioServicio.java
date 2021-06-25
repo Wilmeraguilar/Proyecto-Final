@@ -137,6 +137,18 @@ public class GimnasioServicio implements UserDetailsService {
         }
         return gimnasios;
     }
+    @Transactional
+    public List<Gimnasio> buscarPorprovinciaCiudad(String provincia,String ciudad) {
+        List<Gimnasio> gimnasios = new ArrayList();
+
+        for (Gimnasio gimnasio : gimrep.buscarPorProvinciaYCiudad(provincia, ciudad)) {
+
+            if (gimnasio.getEstado().equalsIgnoreCase("ACTIVO")) {
+                gimnasios.add(gimnasio);
+            }
+        }
+        return gimnasios;
+    }
 
     @Transactional
     public List<Gimnasio> buscarPorNombre(String nombre) {
