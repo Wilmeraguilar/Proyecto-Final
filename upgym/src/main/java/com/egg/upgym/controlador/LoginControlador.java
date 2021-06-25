@@ -10,17 +10,24 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/login")
 public class LoginControlador {
-    
-    
+
     @GetMapping
-    public ModelAndView login(){
-        ModelAndView mav =new ModelAndView("login");
+    public ModelAndView login() {
+        ModelAndView mav = new ModelAndView("login");
         return mav;
     }
-    
+
     @PostMapping("/login")
     public RedirectView inicio() {
         return new RedirectView("/");
-   }
+    }
+
+    @GetMapping("/elegir")
+    public ModelAndView GimnasioUsuario() {
+        ModelAndView mav = new ModelAndView("gimnasioOUsuario");
+
+        return mav;
+
+    }
 
 }

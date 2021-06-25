@@ -2,6 +2,8 @@ package com.egg.upgym.controlador;
 
 import com.egg.upgym.entidades.Usuario;
 import com.egg.upgym.servicio.UsuarioServicio;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,8 +67,13 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam Long dni,@RequestParam String nombre,@RequestParam String apellido, @RequestParam String telefono,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro) {
+    public RedirectView guardar(@RequestParam Long dni,@RequestParam String nombre,@RequestParam String apellido, @RequestParam String telefono,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request) {
         usuarioServicio.crear(dni,nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro);
+        try {
+        request.login(email, clave);
+    } catch (ServletException e) {
+        e.printStackTrace();
+    }
         return new RedirectView("/");
     }
 
