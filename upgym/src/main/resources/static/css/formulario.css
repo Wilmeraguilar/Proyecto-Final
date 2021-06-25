@@ -201,6 +201,10 @@ h6 {
   padding-top: 60px;
 }
 
+.p-t-182 {
+  padding-top: 90px;
+}
+
 .p-t-20 {
   padding-top: 20px;
 }
@@ -511,6 +515,7 @@ input {
   box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
   width: 100%;
   display: table;
+  margin-bottom: 20px;
 }
 
 .card-3 .card-heading {
@@ -533,6 +538,18 @@ input {
 
 .card-3 .card-heading3 {
   background: url("../imagenes/rol/rol.jpg") top right/cover no-repeat;
+  display: table-cell;
+  width: 50%;
+}
+
+.card-3 .card-heading4 {
+  background: url("../imagenes/GymUsuario/Usuario.jpg") top right/cover no-repeat;
+  display: table-cell;
+  width: 50%;
+}
+
+.card-3 .card-heading5 {
+  background: url("../imagenes/GymUsuario/Gym1.jpg") top right/cover no-repeat;
   display: table-cell;
   width: 50%;
 }
@@ -560,4 +577,36 @@ input {
     padding: 37px 30px;
     padding-bottom: 45px;
   }
+}
+.clickable-card {
+  transition: all .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.clickable-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, .15);
+}
+
+@media (max-width: 992px) {
+  .clickable-card:hover {
+      transform: scale(1.03);
+  }
+}
+
+.clickable-card > a {
+  color: #000;
+}
+
+.footer-link {
+  filter: grayscale(1);
+  transition: .5s;
+}
+
+.footer-link:hover {
+  filter: grayscale(0);
+  transform: scale(1.15);
+}
+
+.main {
+  margin-bottom: 4.5rem !important;
 }
