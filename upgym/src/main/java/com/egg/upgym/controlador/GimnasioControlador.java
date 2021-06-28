@@ -3,6 +3,8 @@ package com.egg.upgym.controlador;
 import com.egg.upgym.entidades.Gimnasio;
 import com.egg.upgym.servicio.DireccionServicio;
 import com.egg.upgym.servicio.GimnasioServicio;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -73,8 +75,13 @@ public class GimnasioControlador {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro) {
+    public RedirectView guardar(@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request) {
         gimnasioServicio.crear(nombre,telefono,capacidad,email,clave,provincia, ciudad, calleNro);
+        try {
+        request.login(email, clave);
+    } catch (ServletException e) {
+        e.printStackTrace();
+    }
         return new RedirectView("/");
     }
     
