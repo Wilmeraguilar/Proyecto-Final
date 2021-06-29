@@ -4,6 +4,7 @@ import com.egg.upgym.entidades.Reservas;
 import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.ReservasServicio;
 import com.egg.upgym.servicio.UsuarioServicio;
+import java.security.Principal;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -43,11 +44,11 @@ public class ReservasControlador {
 //    }
     
     @GetMapping("/crear/{id}")
-    public ModelAndView crearReserva(@PathVariable String id ) {
+    public ModelAndView crearReserva(@PathVariable String id, Principal principal ) {
         ModelAndView mav = new ModelAndView("reservas");
         mav.addObject("reserva", new Reservas());
         mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
-//        mav.addObject("usuario", usuarioServicio.buscarPorEmail(email));
+        mav.addObject("usuario", principal.getName());
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
 

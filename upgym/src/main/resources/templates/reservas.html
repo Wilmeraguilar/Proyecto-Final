@@ -40,42 +40,17 @@
                         <form th:action="@{/reservas/__${action}__}" method="POST" th:object="${reserva}"
                               autocomplete="on" novalidate>
 
-                            <!-- <div class="input-group">
-                                <div class="rs-select2 js-select-simple select--no-search">
-                                    <select name="gimnasio" id="gimnasio" aria-label="Elegir gimnasio" field="*{gimansio}"
-                                        required>
-                                        <option value="" selected>Elige un gimnasio</option>
-                                        <option th:each="gimnasio : ${gimnasios}" th:text="|${gimnasio.nombre}|"
-                                            th:value="${gimnasio.dni}">
-                                        </option>
-                                    </select>
-                                    <div class="select-dropdown"></div>
-                                </div>
-                            </div> -->
-                            
-                            <!-- <tr class="input-group">
-                                <h3 class="input--style-3" type="text"  name="usuario"  sec:authentication="name" required th:readonly="${reserva.id != null}"></h3>
-                                <h3 type="text"  name="usuario"  th:text'-' th:readonly="${reserva.id != null}"></h3>
-                            </tr> -->
+                         
 
                             <div class="input-group">
                                 <input id="usuario" class="input--style-3" type="text" placeholder="Usuario" name="usuario"
-                                sec:authentication="name"th:value="${usuario}" required>
+                                th:value="${usuario}" required>
                             </div>
                             
-                            <!-- <div class="input-group2">
-                                <label class="input--style-3" for="usuario">Gimnasio: </label>
-                                <label class="input--style-3" for="usuario" th:text="${gimnasio.nombre}" required th:readonly="${reserva.id != null}"></label>
-                            </div> -->
-                           <!--  <div class="input-group">
                            
-                                <input id="gimnasio"class="input--style-3" type="text" placeholder="Gimnasio" name="gimnasio"
-                                    th:value="${gimnasio.id}" required th:readonly="${reserva.id != null}"/>
-                                   
-                            </div> -->
                             <div class="input-group">
                                 <input class="input--style-3" type="text" placeholder="Gimnasio" name="gimnasio"
-                                th:value="${gimnasio.id}" required>
+                                th:value="${gimnasio.id}"  required>
                             </div>
 
                             <!-- <div class="input-group">
@@ -83,11 +58,13 @@
                                        th:field="*{fecha}" required>
                                 <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                             </div>  versión Wilmer no funciona Date-->
+
                             <div class="form-floating mb-3 col-xl-6">
                                 <input id="fecha" class="form-control" type="date" th:field="*{fecha}" required />
                                 <label for="fecha">Fecha </label>
                                 <div class="invalid-feedback">La fecha es obligatorio</div>
                             </div>
+
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
                                     <select name="horario" id="horario" aria-label="Elegir horario" th:field="*{horario}"
