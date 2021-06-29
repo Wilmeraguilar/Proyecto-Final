@@ -43,7 +43,7 @@ public class ReservasControlador {
 //    }
     
     @GetMapping("/crear/{id}")
-    public ModelAndView crearReserva(@PathVariable String id) {
+    public ModelAndView crearReserva(@PathVariable String id ) {
         ModelAndView mav = new ModelAndView("reservas");
         mav.addObject("reserva", new Reservas());
         mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));

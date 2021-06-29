@@ -59,8 +59,8 @@
                             </tr> -->
 
                             <div class="input-group">
-                                <input class="input--style-3" type="text" placeholder="Usuario" name="usuario"
-                                sec:authentication="name" required>
+                                <input id="usuario" class="input--style-3" type="text" placeholder="Usuario" name="usuario"
+                                sec:authentication="name"th:value="${usuario}" required>
                             </div>
                             
                             <!-- <div class="input-group2">
