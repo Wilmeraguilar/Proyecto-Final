@@ -98,4 +98,12 @@ public class GimnasioControlador {
         return new RedirectView("/gimnasios");
     }
     
+     /*@GetMapping("")
+
+    public ModelAndView cargaImagen(MultipartFile foto) {
+        ModelAndView mav = new ModelAndView("gimnasio");
+        mav.addObject("gimnasios", gimnasioServicio.buscarTodos());
+        return mav;
+    }*/
+    
 }

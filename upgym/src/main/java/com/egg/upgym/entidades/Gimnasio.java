@@ -23,6 +23,8 @@ public class Gimnasio implements Serializable{
     @Column(unique = true)
     private String email;
     private String clave;
+    private String foto;
+    
     
     @ManyToOne
     private Rol rol;
