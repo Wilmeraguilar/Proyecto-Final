@@ -27,12 +27,12 @@ public class ReservasServicio {
     GimnasioRepositorio gimrep;
 
     @Transactional
-    public void crear(Date fecha, String horario, String idGimnasio, Long dniUsuario) {
+    public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario) {
         Reservas reservas = new Reservas();
-        Optional<Usuario> usuario = usurep.findById(dniUsuario);
+        Usuario usuario = usurep.buscarPorUser(emailUsuario);
         Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
 
-        Usuario u = usuario.get();
+       
         Gimnasio g = gimnasio.get();
 
         List<Reservas> listaCap = resrep.buscarPorGymHorarioFecha(idGimnasio, horario, fecha);
@@ -41,7 +41,8 @@ public class ReservasServicio {
             reservas.setFecha(fecha);
             reservas.setHorario(horario);
             reservas.setGimnasio(g);
-            reservas.setUsuario(u);
+            reservas.setUsuario(usuario);
+            reservas.setEstado("ACTIVO");
 
             resrep.save(reservas);
         } else {

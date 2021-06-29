@@ -3,6 +3,7 @@ package com.egg.upgym.controlador;
 import com.egg.upgym.entidades.Reservas;
 import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.ReservasServicio;
+import com.egg.upgym.servicio.UsuarioServicio;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,7 +25,8 @@ public class ReservasControlador {
     
     @Autowired
     private GimnasioServicio gimnasioServicio;
-
+    @Autowired
+    private UsuarioServicio usuarioServicio;
     @GetMapping
     public ModelAndView mostrarTodos() {
         ModelAndView mav = new ModelAndView("reservas-lista");
@@ -45,7 +47,7 @@ public class ReservasControlador {
         ModelAndView mav = new ModelAndView("reservas");
         mav.addObject("reserva", new Reservas());
         mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
-//        mav.addObject("usuario", usuarioServicio.buscarPorId(dni));
+//        mav.addObject("usuario", usuarioServicio.buscarPorEmail(email));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
 
@@ -62,8 +64,8 @@ public class ReservasControlador {
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam String idGimnasio, @RequestParam Long dniUsuario) {
-        reservasServicio.crear(fecha, horario, idGimnasio, dniUsuario);
+    public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario) {
+        reservasServicio.crear(fecha, horario, idGimnasio, emailUsuario);
         return new RedirectView("/");
     }
 

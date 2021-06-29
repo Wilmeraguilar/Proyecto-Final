@@ -102,6 +102,18 @@ public class UsuarioServicio implements UserDetailsService {
         }
         return u;
     }
+     @Transactional
+    public Usuario buscarPorEmail(String email) {
+        List<Usuario> usuarios = usurep.findAll();
+        
+
+        for (Usuario usuario1 : usuarios) {
+            if (usuario1.getEmail().equalsIgnoreCase(email) && usuario1.getEstado().equalsIgnoreCase("ACTIVO")) {
+                return usuario1;
+            }
+        }
+        return null;
+    }
 
     @Transactional
     public void modificar(Long dni, String nombre, String apellido, String telefono, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado) {
