@@ -65,6 +65,21 @@ public class GimnasioControlador {
        
         return mav;
     }
+    
+    /*
+    @GetMapping("/crear")
+    public ModelAndView crearGimnasio() {
+        ModelAndView mav = new ModelAndView("gimnasio-registro");
+        mav.addObject("gimnasio", new Gimnasio()); 
+        mav.addObject("title", "Crear Gimnasio");
+        mav.addObject("action", "guardar");
+       
+        return mav;
+    }
+    */
+    
+    
+    
     @GetMapping("/editar/{id}")
     public ModelAndView editarGimnasio(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("gimnasio-registro");
@@ -84,6 +99,26 @@ public class GimnasioControlador {
     }
         return new RedirectView("/");
     }
+    
+    
+    /*
+     @PostMapping("/guardar")
+    public RedirectView guardar(@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String foto;HttpServletRequest request) {
+        gimnasioServicio.crear(nombre,telefono,capacidad,email,clave,provincia, ciudad, calleNro, foto);
+        try {
+        request.login(email, clave);
+    } catch (ServletException e) {
+        e.printStackTrace();
+    }
+        return new RedirectView("/");
+    }
+    
+    
+    */
+    
+    
+    
+    
     
 
     @PostMapping("/modificar")
