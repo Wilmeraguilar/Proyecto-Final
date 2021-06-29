@@ -37,7 +37,7 @@ public class GimnasioServicio implements UserDetailsService {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
-    @Transactional
+   @Transactional
     public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro) {
         Gimnasio gimnasio = new Gimnasio();
         Direccion direccion = new Direccion();
@@ -52,7 +52,6 @@ public class GimnasioServicio implements UserDetailsService {
 
         }
         gimnasio.setRol(rol);
-
         gimnasio.setNombre(nombre);
         gimnasio.setTelefono(telefono);
         gimnasio.setCapacidad(capacidad);
@@ -69,6 +68,47 @@ public class GimnasioServicio implements UserDetailsService {
         gimrep.save(gimnasio);
     }
 
+    
+       /*con FOTO*/
+     /*@Transactional
+    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro, String foto) {
+        Gimnasio gimnasio = new Gimnasio();
+        Direccion direccion = new Direccion();
+        Rol rol = new Rol();
+
+        for (Rol roles : rolrep.findAll()) {
+
+            if (roles.getEstado().equalsIgnoreCase("ACTIVO") && roles.getNombre().equalsIgnoreCase("GIMNASIO")) {
+                rol = roles;
+
+            }
+
+        }
+        gimnasio.setRol(rol);
+        gimnasio.setNombre(nombre);
+        gimnasio.setTelefono(telefono);
+        gimnasio.setCapacidad(capacidad);
+        gimnasio.setEmail(email);
+        gimnasio.setClave(encoder.encode(clave));
+        direccion.setCiudad(ciudad);
+        direccion.setProvincia(provincia);
+        direccion.setCalleNro(calleNro);
+        gimnasio.setFoto(foto);
+        gimnasio.setDireccion(direccion);
+        gimnasio.setEstado("ACTIVO");
+
+        rolrep.save(rol);
+        dirrep.save(direccion);
+        gimrep.save(gimnasio);
+    }*/
+    
+       
+    
+    
+    
+    
+    
+    
     @Transactional(readOnly = true)
     public Gimnasio buscarPorId(String id) {
         Optional<Gimnasio> gimnasioOptional = gimrep.findById(id);
