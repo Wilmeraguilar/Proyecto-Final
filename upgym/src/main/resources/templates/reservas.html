@@ -42,15 +42,20 @@
 
                          
 
-                            <div class="input-group">
-                                <input id="usuario" class="input--style-3" type="text" placeholder="Usuario" name="usuario"
+                            <div class="input-group2">
+                                <input class="input--style-3" type="text" aria-label="Usuario"placeholder="Usuario">
+                            
+                                <input id="usuario" class="input--style-3" type="text" aria-label="Usuario" name="usuario"
                                 th:value="${usuario}" required>
+                                
                             </div>
                             
                            
-                            <div class="input-group">
-                                <input class="input--style-3" type="text" placeholder="Gimnasio" name="gimnasio"
-                                th:value="${gimnasio.id}"  required>
+                            <div class="input-group2">
+                                <input class="input--style-3" type="text" aria-label="Gimnasio"placeholder="Gimnasio">
+                                <input id="gimnasio"type="hidden" name="gimnasio" th:value="${gimnasio.id}"/>
+                                <input class="input--style-3" type="text" 
+                                th:value="${gimnasio.nombre}"  required>
                             </div>
 
                             <!-- <div class="input-group">
