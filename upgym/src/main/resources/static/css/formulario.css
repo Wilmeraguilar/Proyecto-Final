@@ -364,6 +364,11 @@ input {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.input-group2 {
+  position: relative;
+  margin-bottom: 33px;
+}
+
 .input--style-3 {
   padding: 5px 0;
   font-size: 16px;
@@ -531,7 +536,7 @@ input {
 }
 
 .card-3 .card-heading2 {
-  background: url("../imagenes/reserva/reserva1.jpg") top right/cover no-repeat;
+  background: url("../imagenes/reserva/reserva.jpg") top right/cover no-repeat;
   display: table-cell;
   width: 50%;
 }

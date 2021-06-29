@@ -1,6 +1,7 @@
 package com.egg.upgym.controlador;
 
 import com.egg.upgym.entidades.Reservas;
+import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.ReservasServicio;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ReservasControlador {
 
     @Autowired
     private ReservasServicio reservasServicio;
+    
+    @Autowired
+    private GimnasioServicio gimnasioServicio;
 
     @GetMapping
     public ModelAndView mostrarTodos() {
@@ -35,13 +39,13 @@ public class ReservasControlador {
 //
 //        return mav;
 //    }
-
- 
-
-    @GetMapping("/crear")
-    public ModelAndView crearReserva() {
+    
+    @GetMapping("/crear/{id}")
+    public ModelAndView crearReserva(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("reservas");
         mav.addObject("reserva", new Reservas());
+        mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
+//        mav.addObject("usuario", usuarioServicio.buscarPorId(dni));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
 
@@ -58,14 +62,14 @@ public class ReservasControlador {
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam @DateTimeFormat (pattern="yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam String idGimnasio, @RequestParam Long dniUsuario ) {
-        reservasServicio.crear(fecha, horario,idGimnasio,dniUsuario);
+    public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam String idGimnasio, @RequestParam Long dniUsuario) {
+        reservasServicio.crear(fecha, horario, idGimnasio, dniUsuario);
         return new RedirectView("/");
     }
 
     @PostMapping("/modificar")
-    public RedirectView modificar(@RequestParam String id,@RequestParam @DateTimeFormat (pattern="yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam String idGimnasio, @RequestParam Long dniUsuario,@RequestParam String estado ) {
-        reservasServicio.modificar(id,fecha, horario,idGimnasio,dniUsuario,estado);
+    public RedirectView modificar(@RequestParam String id, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam String idGimnasio, @RequestParam Long dniUsuario, @RequestParam String estado) {
+        reservasServicio.modificar(id, fecha, horario, idGimnasio, dniUsuario, estado);
         return new RedirectView("/");
     }
 
