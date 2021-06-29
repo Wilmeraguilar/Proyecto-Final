@@ -102,8 +102,30 @@
                             <input class="input--style-3" type="password" placeholder="Clave" name="password"
                                 th:field="*{clave}" required>
                         </div>
+                      <!--  <div class="input-group">
+                            <input class="input--style-3" type="file" placeholder="file" name="foto"
+                                th:field="*{foto}" required>
+                      </div>
+                      
+                      //esta es una forma (tipo 1)
+                      <form action ="Controler" method="POST" enctype="multipart/form/data">
+                      <label>Foto:</label>
+                        <input type="file" name="fileFoto">
+                        <input type="submit" name="accion" value="Guardar">
+                        <input type="submit" name="accion" value="Regresar">
+                      </form>  
+                      
+                      
+                      
+                      
+                      -->
+<!-- carga de imagenes FER (falta)
 
+<form action="" enctype="multipart/form-data"></form>
+<!--con esto me aparece el boton para cargar archivos-->
+<!--<input type="file"> 
 
+-->
 
                         <div class="p-t-10">
                             <button class="btn btn--pill btn--green" type="submit"> Guardar</button>
@@ -182,13 +204,7 @@
             });
         }
     </script>
-<!-- carga de imagenes
 
-<form action="" enctype="multipart/form-data"></form>
-<!--con esto me aparece el boton para cargar archivos-->
-<!--<input type="file"> 
-
--->
 
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
