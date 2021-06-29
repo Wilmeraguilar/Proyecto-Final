@@ -23,6 +23,8 @@ public class Gimnasio implements Serializable{
     @Column(unique = true)
     private String email;
     private String clave;
+    private String foto;
+    
     
     @ManyToOne
     private Rol rol;
@@ -37,6 +39,8 @@ public class Gimnasio implements Serializable{
 
     public Gimnasio() {
     }
+
+    
 
     public Gimnasio(String id, String nombre, String telefono, Integer capacidad, String email, String clave, Direccion direccion, List<Reservas> reservas, String estado) {
         this.id = id;
@@ -131,11 +135,23 @@ public class Gimnasio implements Serializable{
         this.id = id;
     }
 
+    public String getFoto() {
+        return foto;
+    }
 
+    public Gimnasio(String foto) {
+        this.foto = foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+    
+    
 
     @Override
     public String toString() {
-        return "Gimnasio{" + "nombre=" + nombre + ", capacidad=" + capacidad + ", email=" + email + ", estado=" + estado + '}';
+        return "Gimnasio{" + "nombre=" + nombre + ", capacidad=" + capacidad + ", email=" + email + ", estado=" + estado +  ", foto=" + foto + '}';
     }
     
     
