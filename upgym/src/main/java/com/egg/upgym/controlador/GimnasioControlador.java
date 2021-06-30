@@ -128,7 +128,7 @@ public class GimnasioControlador {
         
     
     
-    /*con FOTO MSQL*/
+    /*con FOTO MSQL https://www.youtube.com/watch?v=hMWNM6pT65s&list=PLgwlfcqa5h3w10Dz95B3QY2iinOskVf9t&index=12 */
    /*  @PostMapping("/guardar")
     public RedirectView guardar(@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam MultipartFile foto, HttpServletRequest request) {
         gimnasioServicio.crear(nombre,telefono,capacidad,email,clave,provincia, ciudad, calleNro, foto);
