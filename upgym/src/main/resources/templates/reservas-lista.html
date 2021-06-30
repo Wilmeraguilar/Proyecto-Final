@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -151,73 +151,6 @@
                                 </tbody>
 
                             </table
-
-
-
-
-
-
-                            <form th:action="@{/reservas/__${action}__}" method="POST" th:object="${reserva}"
-                                  autocomplete="on" novalidate>
-                                <div class="input-group2">
-                                    <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario">
-                                    <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario">
-                                    <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario">
-                                    <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario">
-                                    <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario">
-                                    <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario">
-
-
-                                    <input id="usuario" class="input--style-3" type="hidden" label="Usuario" name="usuario"
-                                           th:value="${usuario}" required>
-                                    <input id="usuario1" class="input--style-3" type="text" label="Usuario" name="usuario1"
-                                           th:value="|${usuario1.nombre}  ${usuario1.apellido}|"  disabled selected required>
-                                </div>
-                                <div class="input-group2">
-                                    <input class="input--style-3" type="text" aria-label="Gimnasio"placeholder="Gimnasio">
-                                    <input id="gimnasio"type="hidden" name="gimnasio" th:value="${gimnasio.id}"/>
-                                    <input class="input--style-3" type="text" th:value="${gimnasio.nombre}"  required>
-                                </div>
-                                <div class="form-floating mb-3 col-xl-6">
-                                    <input id="fecha" class="form-control" type="date" th:field="*{fecha}" required />
-                                    <label for="fecha">Fecha </label>
-                                    <div class="invalid-feedback">La fecha es obligatorio</div>
-                                </div>
-
-                                <div class="input-group">
-                                    <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="horario" id="horario" aria-label="Elegir horario" 
-                                                required>
-                                            <option value="" selected>Elige un horario</option>
-                                            <option value="08:00">08:00</option>
-                                            <option value="09:00">09:00</option>
-                                            <option value="10:00">10:00</option>
-                                            <option value="11:00">11:00</option>
-                                            <option value="12:00">12:00</option>
-                                            <option value="13:00">13:00</option>
-                                            <option value="14:00">14:00</option>
-                                            <option value="15:00">15:00</option>
-                                            <option value="16:00">16:00</option>
-                                            <option value="17:00">17:00</option>
-                                            <option value="18:00">18:00</option>
-                                            <option value="19:00">19:00</option>
-                                            <option value="20:00">20:00</option>
-                                            <option value="21:00">21:00</option>
-                                            <option value="22:00">22:00</option>
-                                        </select>
-                                        <div class="select-dropdown"></div>
-                                    </div>
-                                </div>
-                                <div class="input-group2">
-                                    <label>- </label>
-                                </div>
-                                <div class="p-t-10">
-                                    <button class="btn btn--pill btn--green" type="submit"> Guardar</button>
-                                </div>
-
-                            </form>
-
-
                         </div>
                     </div>
                 </div>
