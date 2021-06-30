@@ -46,9 +46,9 @@
                                 <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario">
                             
                                 <input id="usuario" class="input--style-3" type="hidden" label="Usuario" name="usuario"
-                                th:value="${usuario}" required>
-                                <input id="usuario1" class="input--style-3" type="text" label="Usuario" name="usuario1"
-                                th:value="|${usuario1.nombre}  ${usuario1.apellido}|"  disabled selected required>
+                                th:value="${usuario.email}" required>
+                                <input id="usuario" class="input--style-3" type="text" label="Usuario" name="usuario"
+                                th:value="|${usuario.nombre}  ${usuario.apellido}|"  disabled selected required>
                                
                             </div>
                             
@@ -56,7 +56,8 @@
                             <div class="input-group2">
                                 <input class="input--style-3" type="text" aria-label="Gimnasio"placeholder="Gimnasio">
                                 <input id="gimnasio"type="hidden" name="gimnasio" th:value="${gimnasio.id}"/>
-                                <input class="input--style-3" type="text" th:value="${gimnasio.nombre}" disabled selected required>
+                                <input id="gimnasio" class="input--style-3" type="text" th:value="|${gimnasio.nombre} |" disabled selected required>
+                                <input id="gimnasio" class="input--style-3" type="text" th:value="|${gimnasio.direccion.ciudad} - ${gimnasio.direccion.provincia} |" disabled selected required>
                             </div>
 
                             <!-- <div class="input-group">
@@ -65,7 +66,7 @@
                                 <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                             </div>  versión Wilmer no funciona Date-->
 
-                            <div class="form-floating mb-3 col-xl-6">
+                            <div class="input-group2">
                                 <input id="fecha" class="form-control" type="date" th:field="*{fecha}" required />
                                 <label for="fecha">Fecha </label>
                                 <div class="invalid-feedback">La fecha es obligatorio</div>
