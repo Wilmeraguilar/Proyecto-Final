@@ -7,11 +7,18 @@ import com.egg.upgym.entidades.Rol;
 import com.egg.upgym.repositorio.DireccionRepositorio;
 import com.egg.upgym.repositorio.GimnasioRepositorio;
 import com.egg.upgym.repositorio.RolRepositorio;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +28,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileSystemUtils;
 
 @Service
 public class GimnasioServicio implements UserDetailsService {
@@ -68,6 +76,57 @@ public class GimnasioServicio implements UserDetailsService {
         gimrep.save(gimnasio);
     }
 
+    /*con FOTO - en Carpeta*/
+   /* @Override
+    public Resource load(String filename) throws MalformedURLException {
+        Path pathFoto = getPath(filename);
+        log.info("pathFoto: " + pathFoto);
+        Resource recurso = null;
+        recurso = new UrlResource(pathFoto.toUrl());
+        if (!recurso.exists() || !recurso.isReadable()) {
+            throw new RuntimeException("Error: no se puede cargar la imagen: " + pathFoto.toString());
+        }
+        return recurso;
+    }
+
+    @Override
+    public String copy(MultipartFile file) throws IOException {
+        String uniqueFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        Path rootPath = getPath(uniqueFilename);
+        
+        log.info("rootPath: " + rootPath);
+       
+        Files.copy(file.getInputStream(), rootPath);
+        return uniqueFilename;
+    }
+    
+    @Override
+    public boolean delete(String filename) {
+        Path rootPath = getPath(filename);
+        File archivo = rootPath.toFile();
+        
+        if (!archivo.exists() && archivo.canRead()) {
+        return archivo.delete();
+        }
+        return false;
+    }
+
+	
+    public Path getPath(String filename) {
+		return Paths.get(UPLOADS_FOLDER).resolve(filename).toAbsolutePath();
+	}
+    
+    @Override
+    public void deleteAll() {
+        FileSystemUtils.deleteRecursively(Path.get(UPLOADS_FOLDER).toFile()); 
+        
+    } 
+    
+     @Override
+    public void init() throws IOException {
+        Files.createDirectory(Paths.get(UPLOADS_FOLDER)); 
+        
+    } */
     
        /*con FOTO*/
      /*@Transactional
@@ -109,6 +168,33 @@ public class GimnasioServicio implements UserDetailsService {
     
     
     
+    /*con FOTO*/
+    /*@Transactional
+    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro, String foto) {
+    Gimnasio gimnasio = new Gimnasio();
+    Direccion direccion = new Direccion();
+    Rol rol = new Rol();
+    for (Rol roles : rolrep.findAll()) {
+    if (roles.getEstado().equalsIgnoreCase("ACTIVO") && roles.getNombre().equalsIgnoreCase("GIMNASIO")) {
+    rol = roles;
+    }
+    }
+    gimnasio.setRol(rol);
+    gimnasio.setNombre(nombre);
+    gimnasio.setTelefono(telefono);
+    gimnasio.setCapacidad(capacidad);
+    gimnasio.setEmail(email);
+    gimnasio.setClave(encoder.encode(clave));
+    direccion.setCiudad(ciudad);
+    direccion.setProvincia(provincia);
+    direccion.setCalleNro(calleNro);
+    gimnasio.setFoto(foto);
+    gimnasio.setDireccion(direccion);
+    gimnasio.setEstado("ACTIVO");
+    rolrep.save(rol);
+    dirrep.save(direccion);
+    gimrep.save(gimnasio);
+    }*/
     @Transactional(readOnly = true)
     public Gimnasio buscarPorId(String id) {
         Optional<Gimnasio> gimnasioOptional = gimrep.findById(id);

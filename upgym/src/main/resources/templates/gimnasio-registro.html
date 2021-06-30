@@ -37,7 +37,7 @@
                 <div class="card-heading1"></div>
                 <div class="card-body">
                     <h2 class="title">REGISTRO DEL GIMNASIO</h2>
-                    <form id="formulario"th:action="@{/gimnasios/__${action}__}" method="POST" th:object="${gimnasio}"
+                    <form id="formulario"th:action="@{/gimnasios/__${action}__}" method="POST" enctype="multipart/form-data" th:object="${gimnasio}"
                         autocomplete="on" novalidate>
 
                         <div class="input-group">
@@ -105,13 +105,13 @@
                       
                       <!--agregar esto  pero no guarda
                       <div class="input-group">
-                            <input class="input--style-3" type="file" placeholder="Foto" name="foto"
-                                th:field="*{foto}" required>
-                            
+                      <!--con esto me aparece el boton para cargar archivos-->
+                           <!-- <input class="input--style-3" type="file" placeholder="Foto" name="foto"
+                                required>
                       </div>
                       
-                      <!--//esta es una forma (tipo 1)
-                      <form action ="Controler" method="POST" enctype="multipart/form/data">
+                      <!--//esta es una forma (tipo 1)- NO
+                      <form action ="Controler" method="POST" enctype="multipart/form-data">
                       <label>Foto:</label>
                         <input type="file" name="fileFoto">
                         <input type="submit" name="accion" value="Guardar">
