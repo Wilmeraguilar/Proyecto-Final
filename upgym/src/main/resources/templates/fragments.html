@@ -17,8 +17,8 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a  class="nav-link" th:href="@{/login/elegir}">Crear cuenta</a>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a  class="nav-link" th:href="@{/login/elegir}">Registrarse</a>
                     </li>
 
 
@@ -50,7 +50,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="#">Perfil</a></li>
                             <li><a class="dropdown-item" href="#">Mis Reservas</a></li>
-                            <form th:action="@{/logout}" method="post">
+                            <form th:action="@{/logout}" th:href="@{/index}" method="post">
                                 <button class="dropdown-item" type="submit">Cerrar Sesion</button>
                             </form>
                         </ul>
