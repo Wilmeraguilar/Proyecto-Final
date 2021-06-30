@@ -43,7 +43,7 @@
                          
 
                             <div class="input-group2">
-                                <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario">
+                                <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario :">
                             
                                 <input id="usuario" class="input--style-3" type="hidden" label="Usuario" name="usuario"
                                 th:value="${usuario.email}" required>
@@ -54,7 +54,7 @@
                             
                            
                             <div class="input-group2">
-                                <input class="input--style-3" type="text" aria-label="Gimnasio"placeholder="Gimnasio">
+                                <input class="input--style-3" type="text" aria-label="Gimnasio"placeholder="Gimnasio :">
                                 <input id="gimnasio"type="hidden" name="gimnasio" th:value="${gimnasio.id}"/>
                                 <input id="gimnasio" class="input--style-3" type="text" th:value="|${gimnasio.nombre} |" disabled selected required>
                                 <input id="gimnasio" class="input--style-3" type="text" th:value="|${gimnasio.direccion.ciudad} - ${gimnasio.direccion.provincia} |" disabled selected required>
