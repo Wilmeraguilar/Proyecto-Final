@@ -43,6 +43,16 @@ public class ReservasControlador {
 //        return mav;
 //    }
     
+    @GetMapping("/mias")
+    public ModelAndView Reserva(Principal principal ) {
+        ModelAndView mav = new ModelAndView("reservas-lista");
+        mav.addObject("reservas", reservasServicio.buscarPorUsuario(usuarioServicio.buscarPorEmail(principal.getName()).getDni()));
+        mav.addObject("title", "Crear Reserva");
+        mav.addObject("action", "guardar");
+
+        return mav;
+    }
+    
     @GetMapping("/crear/{id}")
     public ModelAndView crearReserva(@PathVariable String id, Principal principal ) {
         ModelAndView mav = new ModelAndView("reservas");

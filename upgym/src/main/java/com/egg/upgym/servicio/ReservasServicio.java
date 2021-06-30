@@ -7,6 +7,7 @@ import com.egg.upgym.entidades.Usuario;
 import com.egg.upgym.repositorio.GimnasioRepositorio;
 import com.egg.upgym.repositorio.ReservasRepositorio;
 import com.egg.upgym.repositorio.UsuarioRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +55,20 @@ public class ReservasServicio {
     public Reservas buscarPorId(String id) {
         Optional<Reservas> reservaOptional = resrep.findById(id);
         return reservaOptional.orElse(null);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Reservas> buscarPorUsuario(Long dni) {
+        
+        List<Reservas> reservas = new ArrayList();
+        
+        
+       for (Reservas reserva : resrep.buscarPorUsuario(dni)) {
+            if (reserva.getEstado().equalsIgnoreCase("ACTIVO")) {
+                reservas.add(reserva);
+            }
+        }
+        return reservas;
     }
 
     @Transactional(readOnly = true)

@@ -232,6 +232,10 @@ h6 {
   max-width: 960px;
 }
 
+.wrapper--w1200 {
+  max-width: 1250px;
+}
+
 .wrapper--w780 {
   max-width: 780px;
 }
@@ -557,6 +561,12 @@ input {
   background: url("../imagenes/GymUsuario/Gym1.jpg") top right/cover no-repeat;
   display: table-cell;
   width: 50%;
+}
+
+.card-3 .card-heading6 {
+  background: url("../imagenes/reserva/reserva.jpg") top right/cover no-repeat;
+  display: table-cell;
+  width: 20%;
 }
 
 .card-3 .card-body {
