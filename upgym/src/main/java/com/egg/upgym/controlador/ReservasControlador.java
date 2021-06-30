@@ -48,8 +48,8 @@ public class ReservasControlador {
         ModelAndView mav = new ModelAndView("reservas");
         mav.addObject("reserva", new Reservas());
         mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
-        mav.addObject("usuario", principal.getName());
-        mav.addObject("usuario1", usuarioServicio.buscarPorEmail(principal.getName()));
+//        mav.addObject("usuario", principal.getName());
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
 
