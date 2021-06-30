@@ -43,11 +43,13 @@
                          
 
                             <div class="input-group2">
-                                <input class="input--style-3" type="text" aria-label="Usuario"placeholder="Usuario">
+                                <input class="input--style-3" type="text" label="Usuario"placeholder="Usuario">
                             
-                                <input id="usuario" class="input--style-3" type="text" aria-label="Usuario" name="usuario"
+                                <input id="usuario" class="input--style-3" type="hidden" label="Usuario" name="usuario"
                                 th:value="${usuario}" required>
-                                
+                                <input id="usuario1" class="input--style-3" type="text" label="Usuario" name="usuario1"
+                                th:value="|${usuario1.nombre}  ${usuario1.apellido}|"  disabled selected required>
+                               
                             </div>
                             
                            
