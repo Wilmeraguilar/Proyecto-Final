@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
     <!-- le agrego el th:fragment="nombre que le quiera poner" -->
@@ -18,11 +18,10 @@
                         <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/login}">Login</a>
-                    </li>
-                    <li class="nav-item">
                         <a  class="nav-link" th:href="@{/login/elegir}">Crear cuenta</a>
                     </li>
+
+
                     <!--<li class="nav-item dropdown">
                       <a id="dropdown-autores" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">Crear Cuenta</a>
@@ -39,6 +38,24 @@
                     </li>-->
 
                 </ul>
+                <ul class="navbar-nav mr-auto">
+                    <li sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
+                    </li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span sec:authentication="name"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                            <li><a class="dropdown-item" href="#">Mis Reservas</a></li>
+                            <form th:action="@{/logout}" method="post">
+                                <button class="dropdown-item" type="submit">Cerrar Sesion</button>
+                            </form>
+                        </ul>
+                    </li>
+                </ul>
 
                 <!--                <div class="nav-link" th:if="${action == 'guardar'}">
                                     <FONT COLOR="white"><a th:text="'¡ Hola'"></a> 
@@ -51,13 +68,13 @@
                 <!--
                                 <a class="btn btn-outline-success" sec:authorize="hasRole('USUARIO')" th:href="@{/login(logout)}" th:text="Cerrar Sesión"></a>-->
 
-                <form th:action >
-                    <button class="btn btn-outline-success" 
-                </form>
-
-                <li sec:authorize="hasRole('USUARIO')">
-                    <a class="btn btn-outline-success" th:href="${action == 'guardar'}? '/login?logout' : '/login'  " th:text="${action == 'guardar'} ? 'Cerrar Sesión' : 'Iniciar Sesión'"></a>
-                </li>
+                <!--                <form th:action >
+                                    <button class="btn btn-outline-success" 
+                                </form>
+                
+                                <li sec:authorize="hasRole('USUARIO')">
+                                    <a class="btn btn-outline-success" th:href="${action == 'guardar'}? '/login?logout' : '/login'  " th:text="${action == 'guardar'} ? 'Cerrar Sesión' : 'Iniciar Sesión'"></a>
+                                </li>-->
 
             </div>
         </div>
@@ -74,28 +91,28 @@
 
         <span class="copyright">En UpGym cuidamos tu salud, por eso te recordamos que tu apto médico es indispensable al
             momento de iniciar una actividad física (leyes nº 139 y 12329) <br>
-            Copyright (c) 2021 UPGYM Todos los derechos reservados.
-            <br>
-            <div class="text-left">
-                <div class="col-sm-4 offset-md-1 py-4">
-                    <h4 class="text-black">Contact</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="https://www.instagram.com/upgym_arg/?hl=es-la" class="text-black">Follow on Instagram</a>
-                        </li>
-                        <li><a href="https://open.spotify.com/playlist/5UF7vvIRJ38uDrgffvFhxY?si=f806a0d9431247bd"
-                               class="text-black">Like on Spotify</a></li>
+                Copyright (c) 2021 UPGYM Todos los derechos reservados.
+                <br>
+                    <div class="text-left">
+                        <div class="col-sm-4 offset-md-1 py-4">
+                            <h4 class="text-black">Contact</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="https://www.instagram.com/upgym_arg/?hl=es-la" class="text-black">Follow on Instagram</a>
+                                </li>
+                                <li><a href="https://open.spotify.com/playlist/5UF7vvIRJ38uDrgffvFhxY?si=f806a0d9431247bd"
+                                       class="text-black">Like on Spotify</a></li>
 
-                        <li><a href="#" class="text-black">Email me</a></li>
-                    </ul>
-                </div>
-                <a href="" style="margin-right:10px;">Términos y condiciones</a>
-                <a href="">Solicitar Baja</a>
-            </div>
-        </span>
+                                <li><a href="#" class="text-black">Email me</a></li>
+                            </ul>
+                        </div>
+                        <a href="" style="margin-right:10px;">Términos y condiciones</a>
+                        <a href="">Solicitar Baja</a>
+                    </div>
+                    </span>
 
-    </footer>
-
-
+                    </footer>
 
 
-</html>
+
+
+                    </html>
