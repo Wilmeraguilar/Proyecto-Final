@@ -205,6 +205,10 @@ h6 {
   padding-top: 90px;
 }
 
+.p-t-183 {
+  padding-top: 180px;
+}
+
 .p-t-20 {
   padding-top: 20px;
 }
@@ -567,6 +571,12 @@ input {
   background: url("../imagenes/reserva/reserva.jpg") top right/cover no-repeat;
   display: table-cell;
   width: 20%;
+}
+
+.card-3 .card-heading7 {
+  background: url("../imagenes/reserva/reserva.jpg") top right/cover no-repeat;
+  display: table-cell;
+  width: 30%;
 }
 
 .card-3 .card-body {
