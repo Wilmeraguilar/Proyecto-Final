@@ -90,7 +90,7 @@ public class ReservasControlador {
     @PostMapping("/eliminar/{id}")
     public RedirectView eliminar(@PathVariable String id) {
         reservasServicio.eliminar(id);
-        return new RedirectView("/");
+        return new RedirectView("/reservas/mias");
     }
 
 }
