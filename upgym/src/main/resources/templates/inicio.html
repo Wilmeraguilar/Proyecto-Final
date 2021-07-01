@@ -18,6 +18,7 @@
 
   <!-- Bootstrap core CSS -->
   <link th:href="@{assets/dist/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/formulario.css}" rel="stylesheet" media="all">
 
   <style>
     .bd-placeholder-img {
@@ -41,7 +42,7 @@
   
 </head>
 
-<body class="bg-gra-02">
+<body >
 
   <header>
      <nav th:replace="fragments :: navbar"></nav>   
@@ -224,15 +225,15 @@
       <hr class="featurette-divider">
 
       <!-- /END THE FEATURETTES -->
+<footer th:replace="fragments :: footer"></footer>
 
     </div><!-- /.container -->
 
 
     <!-- FOOTER -->
-   <footer th:replace="fragments :: footer"></footer>
+   
   </main>
-
-
+ 
   <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
   
 
