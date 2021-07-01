@@ -27,25 +27,13 @@ public class ReservasServicio {
     @Autowired
     GimnasioRepositorio gimrep;
 
-<<<<<<< Updated upstream
     @Transactional(rollbackFor = Exception.class)
-    public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario)throws ErrorServicio {
-        
-        Reservas reservas = new Reservas();
-        
-        Usuario usuario = usurep.buscarPorUser(emailUsuario);
-        
-        Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
+    public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario) throws ErrorServicio {
 
-=======
-    @Transactional
-    public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario) {
         Reservas reservas = new Reservas();
         Usuario usuario = usurep.buscarPorUser(emailUsuario);
         Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
 
-       
->>>>>>> Stashed changes
         Gimnasio g = gimnasio.get();
 
         List<Reservas> listaCap = resrep.buscarPorGymHorarioFecha(idGimnasio, horario, fecha);
@@ -55,10 +43,8 @@ public class ReservasServicio {
             reservas.setHorario(horario);
             reservas.setGimnasio(g);
             reservas.setUsuario(usuario);
-<<<<<<< Updated upstream
+
             reservas.setEstado("ACTIVO");
-=======
->>>>>>> Stashed changes
 
             resrep.save(reservas);
         } else {
@@ -71,14 +57,13 @@ public class ReservasServicio {
         Optional<Reservas> reservaOptional = resrep.findById(id);
         return reservaOptional.orElse(null);
     }
-    
+
     @Transactional(readOnly = true)
     public List<Reservas> buscarPorUsuario(Long dni) {
-        
+
         List<Reservas> reservas = new ArrayList();
-        
-        
-       for (Reservas reserva : resrep.buscarPorUsuario(dni)) {
+
+        for (Reservas reserva : resrep.buscarPorUsuario(dni)) {
             if (reserva.getEstado().equalsIgnoreCase("ACTIVO")) {
                 reservas.add(reserva);
             }
