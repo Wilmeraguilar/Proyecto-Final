@@ -1,11 +1,20 @@
 package com.egg.upgym.controlador;
 
 import com.egg.upgym.entidades.Reservas;
+<<<<<<< Updated upstream
+import com.egg.upgym.servicio.ErrorServicio;
 import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.ReservasServicio;
 import com.egg.upgym.servicio.UsuarioServicio;
 import java.security.Principal;
+=======
+import com.egg.upgym.servicio.GimnasioServicio;
+import com.egg.upgym.servicio.ReservasServicio;
+import com.egg.upgym.servicio.UsuarioServicio;
+>>>>>>> Stashed changes
 import java.util.Date;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -15,6 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -23,11 +34,16 @@ public class ReservasControlador {
 
     @Autowired
     private ReservasServicio reservasServicio;
-    
     @Autowired
     private GimnasioServicio gimnasioServicio;
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private GimnasioServicio gimnasioServicio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+
     @GetMapping
     public ModelAndView mostrarTodos() {
         ModelAndView mav = new ModelAndView("reservas-lista");
@@ -42,9 +58,8 @@ public class ReservasControlador {
 //
 //        return mav;
 //    }
-    
     @GetMapping("/mias")
-    public ModelAndView Reserva(Principal principal ) {
+    public ModelAndView Reserva(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista");
         mav.addObject("reservas", reservasServicio.buscarPorUsuario(usuarioServicio.buscarPorEmail(principal.getName()).getDni()));
         mav.addObject("title", "Crear Reserva");
@@ -52,14 +67,26 @@ public class ReservasControlador {
 
         return mav;
     }
-    
+
     @GetMapping("/crear/{id}")
-    public ModelAndView crearReserva(@PathVariable String id, Principal principal ) {
+<<<<<<< Updated upstream
+    public ModelAndView crearReserva(@PathVariable String id, Principal principal, HttpServletRequest request) {
+=======
+    public ModelAndView crearReserva(@PathVariable String id) {
+>>>>>>> Stashed changes
         ModelAndView mav = new ModelAndView("reservas");
+        Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+        if (flashMap != null) {
+            mav.addObject("mensaje", flashMap.get("creado"));
+            mav.addObject("error", flashMap.get("error"));
+        }
         mav.addObject("reserva", new Reservas());
         mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
-//        mav.addObject("usuario", principal.getName());
+<<<<<<< Updated upstream
         mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
+=======
+//        mav.addObject("usuario", usuarioServicio.buscarPorId(dni));
+>>>>>>> Stashed changes
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
 
@@ -67,7 +94,7 @@ public class ReservasControlador {
     }
 
     @GetMapping("/editar/{id}")
-    public ModelAndView editarGimnasio(@PathVariable String id) {
+    public ModelAndView editarReserva(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("reservas");
         mav.addObject("reserva", reservasServicio.buscarPorId(id));
         mav.addObject("title", "Editar Reserva");
@@ -76,8 +103,24 @@ public class ReservasControlador {
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario) {
-        reservasServicio.crear(fecha, horario, idGimnasio, emailUsuario);
+<<<<<<< Updated upstream
+    public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario, RedirectAttributes attributes) {
+        try {
+            reservasServicio.crear(fecha, horario, idGimnasio, emailUsuario);
+            attributes.addFlashAttribute("creado", "Reserva creada correctamente");
+
+        } catch (ErrorServicio e) {
+            attributes.addFlashAttribute("error", e.getMessage());
+            attributes.addFlashAttribute("fecha", fecha);
+            attributes.addFlashAttribute("gimnasio", gimnasioServicio.buscarPorId(idGimnasio));
+            attributes.addFlashAttribute("usuario", usuarioServicio.buscarPorEmail(emailUsuario));
+            return new RedirectView("/reservas/crear/"+idGimnasio);
+
+        }
+=======
+    public RedirectView guardar(@RequestParam @DateTimeFormat (pattern="yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario ) {
+        reservasServicio.crear(fecha, horario,idGimnasio,emailUsuario);
+>>>>>>> Stashed changes
         return new RedirectView("/");
     }
 

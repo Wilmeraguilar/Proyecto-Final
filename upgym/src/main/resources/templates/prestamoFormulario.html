@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <meta name="description" content="Página de ejemplo de Spring Boot + Thymeleaf para el curso de Egg Educación"/>
+    <meta name="author" content="Fernando Cocco"/>
+    <title th:text="|${title} -Biblioteca Egg|"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Inicio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav mb-2 mb-md-0 w-100">
+                <!--DROPDOWN PRESTAMOS-->
+                <li class="nav-item dropdown">
+                    <a id="dropdown-prestamos" class="nav-link dropdown-toggle" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Prestamos</a>
+
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-libros">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/prestamos}">Mostrar Prestamos</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/prestamos/crear}">Crear Prestamo</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5 main">
+    <h1 th:text="${title}"></h1>
+    <hr class="mb-5 col-xl-12"/>
+    <form id="formulario" class="needs-validation" th:action="@{/prestamos/__${action}__}" method="POST"
+          th:object="${prestamo}" autocomplete="off" novalidate>
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="form-floating mb-3 col-xl-6">
+            <input id="fecha" class="form-control" type="date" th:field="*{fecha}" required/>
+            <label for="fecha">Fecha Inicial</label>
+            <div class="invalid-feedback">La fecha inicial es obligatorio</div>
+        </div>
+
+        <div class="form-floating mb-3 col-xl-6">
+            <input id="devolucion" class="form-control" type="date" th:field="*{devolucion}" required/>
+            <label for="devolucion">Fecha Final</label>
+            <div class="invalid-feedback">La fecha final es obligatorio</div>
+        </div>
+        
+        <div class="form-floating mb-6 col-xl-6">
+           
+            <p>  Agregar libro  </p>
+            <select id="libros" class="form-select mb-6"  multiple aria-label="Agregar Libro" th:field="*{libros}">
+                <option value="" selected>Elegir libro</option>
+                <option th:each="libro : ${libros}" th:text="|${libro.titulo}|"
+                        th:value="${libro.isbn}"></option>
+                        <script class="show">
+                            $("#select").selectize({
+                              maxItems: 3,
+                            });
+                          </script>
+            </select>
+           
+          <!--   <button class="btn btn-success" type="submit"
+            th:text="${action == 'agregar'} ? 'Crear Prestamo' : 'Guardar cambios'"></button> -->
+            
+        </div>
+        <!-- <table class="table table-hover table-sm table-bordered">
+            <thead class="table-secondary text-center">
+            <tr>
+                <th class="col-md-1 px-md-2" scope="col">ISBN</th>
+                <th class="col-md-2 px-md-2" scope="col">Titulo</th>
+                <th class="col-md-1 px-md-2" scope="col">Año</th>
+                <th class="col-md-1 px-md-2" scope="col">Ejem</th>
+                <th class="col-md-1 px-md-2" scope="col">Pres</th>
+                <th class="col-md-2 px-md-2" scope="col">Autor</th>
+                <th class="col-md-2 px-md-2" scope="col">Editorial</th>
+                <th class="col-md-2 px-md-2" scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="libro : ${prestamo.libros}">
+                <td class="col-md-1 px-md-2" th:text="${libro.isbn}"></td>
+                
+                <td class="col-md-2 px-md-2"> <span th:text="|${libro.titulo}|"></span> </td>
+               
+                <td class="col-md-1 px-md-2" th:text="|${libro.anio}|"></td>
+
+                <td class="col-md-1 px-md-2"> <span th:text="|${libro.ejemplares}|"></span> </td>
+
+                <td class="col-md-1 px-md-2"><span th:text="|${libro.prestados}|"></span></td>
+
+                <td class="col-md-2 px-md-2"><span th:text="|${libro.autor.nombre}|"></span></td>
+
+                <td class="col-md-2 px-md-2"><span th:text="|${libro.editorial.nombre}|"></span></td>
+                
+            </tr>
+            </tbody>
+        </table> -->
+    
+        <div class="form-floating mb-3 col-xl-6 mt-3">
+            <select id="cliente" class="form-select"  aria-label="Elegir Cliente" th:field="*{cliente}">
+                <option value="" selected>Elegir cliente</option>
+                <option th:each="cliente : ${clientes}" th:text="|${cliente.nombre} ${cliente.dni}|"
+                        th:value="${cliente.dni}"></option>
+            </select>
+            <label for="cliente">Cliente</label>
+        </div>
+       
+        <div class="row">
+            <div class="col-xl-3">
+                <button class="btn btn-success" type="submit"
+                        th:text="${action == 'guardar'} ? 'Crear Prestamo' : 'Guardar cambios'"></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer class="footer py-3 bg-dark fixed-bottom">
+    <div class="container d-flex justify-content-center">
+        <span class="text-muted">&copy; Ezequiel Olivera - 2021</span>
+        <a class="text-decoration-none ms-3 footer-link" href=""
+           target="_blank">
+            <i class="bi bi-linkedin"></i>
+        </a>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+<script>
+    (() => {
+        "use strict";
+
+        const form = document.getElementById("formulario");
+        form.addEventListener("submit", (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            form.classList.add("was-validated");
+        }, false)
+    })();
+</script>
+</body>
+</html>

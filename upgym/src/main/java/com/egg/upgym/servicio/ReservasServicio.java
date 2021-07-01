@@ -27,6 +27,17 @@ public class ReservasServicio {
     @Autowired
     GimnasioRepositorio gimrep;
 
+<<<<<<< Updated upstream
+    @Transactional(rollbackFor = Exception.class)
+    public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario)throws ErrorServicio {
+        
+        Reservas reservas = new Reservas();
+        
+        Usuario usuario = usurep.buscarPorUser(emailUsuario);
+        
+        Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
+
+=======
     @Transactional
     public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario) {
         Reservas reservas = new Reservas();
@@ -34,6 +45,7 @@ public class ReservasServicio {
         Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
 
        
+>>>>>>> Stashed changes
         Gimnasio g = gimnasio.get();
 
         List<Reservas> listaCap = resrep.buscarPorGymHorarioFecha(idGimnasio, horario, fecha);
@@ -43,11 +55,14 @@ public class ReservasServicio {
             reservas.setHorario(horario);
             reservas.setGimnasio(g);
             reservas.setUsuario(usuario);
+<<<<<<< Updated upstream
             reservas.setEstado("ACTIVO");
+=======
+>>>>>>> Stashed changes
 
             resrep.save(reservas);
         } else {
-            System.out.println("La capacidad ha sido excedida");
+            throw new ErrorServicio("La capacidad del gimnasio ha sido excedida cambie horario/fecha");
         }
     }
 
