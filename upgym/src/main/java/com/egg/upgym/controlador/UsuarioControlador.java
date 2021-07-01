@@ -2,10 +2,12 @@ package com.egg.upgym.controlador;
 
 import com.egg.upgym.entidades.Usuario;
 import com.egg.upgym.servicio.UsuarioServicio;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -77,12 +79,22 @@ public class UsuarioControlador {
         if (!imagen.isEmpty()) {
             Path DirectorioImagenes = Paths.get("src//main//resources//static/imagenes");
             String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
+            
+//            Usuario user = uServicio.buscar(id);
+//            Path rootPath = getPath(rutaAbsoluta + "//" + user.getImagen());
+//		File archivo = rootPath.toFile();
+//
+//		if (archivo.exists() && archivo.canRead()) {
+//			 archivo.delete();
+//		}
 
+            
             try {
                 byte[] bytesImg = imagen.getBytes();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+                String idImagen = UUID.randomUUID().toString();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
                 Files.write(rutaCompleta, bytesImg);
-                usuarioServicio.crear(dni, nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro, imagen.getOriginalFilename());
+                usuarioServicio.crear(dni, nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro, idImagen);
 
             } catch (IOException e) {
                 e.printStackTrace();
