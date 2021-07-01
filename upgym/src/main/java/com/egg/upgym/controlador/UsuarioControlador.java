@@ -2,6 +2,12 @@ package com.egg.upgym.controlador;
 
 import com.egg.upgym.entidades.Usuario;
 import com.egg.upgym.servicio.UsuarioServicio;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -45,8 +52,6 @@ public class UsuarioControlador {
         return mav;
     }
 
-   
-
     @GetMapping("/crear")
     public ModelAndView crearUsuario() {
         ModelAndView mav = new ModelAndView("usuario-registro");
@@ -67,19 +72,35 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam Long dni,@RequestParam String nombre,@RequestParam String apellido, @RequestParam String telefono,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request) {
-        usuarioServicio.crear(dni,nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro);
+    public RedirectView guardar(@RequestParam Long dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String telefono, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request, @RequestParam("file") MultipartFile imagen) {
+
+        if (!imagen.isEmpty()) {
+            Path DirectorioImagenes = Paths.get("src//main//resources//static/imagenes");
+            String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
+
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+                Files.write(rutaCompleta, bytesImg);
+                usuarioServicio.crear(dni, nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro, imagen.getOriginalFilename());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
-        request.login(email, clave);
-    } catch (ServletException e) {
-        e.printStackTrace();
-    }
+            request.login(email, clave);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+
         return new RedirectView("/");
     }
 
     @PostMapping("/modificar")
-    public RedirectView modificar(@RequestParam Long dni,@RequestParam String nombre,@RequestParam String apellido, @RequestParam String telefono,@RequestParam String email, @RequestParam String clave, @RequestParam String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado) {
-        usuarioServicio.modificar(dni,nombre, apellido, telefono, email, clave, idDireccion, provincia, ciudad, calleNro, estado);
+    public RedirectView modificar(@RequestParam Long dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String telefono, @RequestParam String email, @RequestParam String clave, @RequestParam String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado) {
+        usuarioServicio.modificar(dni, nombre, apellido, telefono, email, clave, idDireccion, provincia, ciudad, calleNro, estado);
         return new RedirectView("/");
     }
 

@@ -20,6 +20,8 @@ public class Usuario implements Serializable{
     private String email;
     private String clave;
     
+    private String imagen;
+    
     @OneToOne
     private Direccion direccion;
     
@@ -127,9 +129,13 @@ public class Usuario implements Serializable{
         this.estado = estado;
     }
 
-    
-    
-    
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
 
     @Override
     public String toString() {

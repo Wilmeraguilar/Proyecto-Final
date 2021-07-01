@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -37,7 +38,7 @@ public class UsuarioServicio implements UserDetailsService {
     private BCryptPasswordEncoder encoder;
 
     @Transactional
-    public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String provincia, String ciudad, String calleNro) {
+    public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String provincia, String ciudad, String calleNro, String imagen) {
         Usuario usuario = new Usuario();
         Direccion direccion = new Direccion();
 
@@ -63,6 +64,7 @@ public class UsuarioServicio implements UserDetailsService {
         direccion.setCalleNro(calleNro);
         usuario.setDireccion(direccion);
         usuario.setEstado("ACTIVO");
+        usuario.setImagen(imagen);
 
         rolrep.save(rol);
         dirrep.save(direccion);
