@@ -154,7 +154,13 @@ public class GimnasioControlador {
         return new RedirectView("/gimnasios");
     }
     
-    
+    @GetMapping("/staff")
+    public ModelAndView GimnasioStaff() {
+        ModelAndView mav = new ModelAndView("gimnasioStaff");
+
+        return mav;
+
+    }
     
     
 }

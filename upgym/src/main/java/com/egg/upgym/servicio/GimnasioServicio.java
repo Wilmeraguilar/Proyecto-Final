@@ -16,7 +16,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,7 +47,11 @@ public class GimnasioServicio implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
-
+    
+   @Autowired
+    private EmailServicio emailServicio;
+    
+   
    @Transactional
     public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro) {
         Gimnasio gimnasio = new Gimnasio();
@@ -55,10 +62,9 @@ public class GimnasioServicio implements UserDetailsService {
 
             if (roles.getEstado().equalsIgnoreCase("ACTIVO") && roles.getNombre().equalsIgnoreCase("GIMNASIO")) {
                 rol = roles;
-
             }
-
         }
+        
         gimnasio.setRol(rol);
         gimnasio.setNombre(nombre);
         gimnasio.setTelefono(telefono);
@@ -71,6 +77,12 @@ public class GimnasioServicio implements UserDetailsService {
         gimnasio.setDireccion(direccion);
         gimnasio.setEstado("ACTIVO");
 
+        /*try {
+            emailServicio.enviarCorreo(email, "UPGYM", "Bienvenido a UPGYM");
+        } catch (MessagingException ex) {
+            System.out.println("Falló el envio del correo");
+        }*/
+        
         rolrep.save(rol);
         dirrep.save(direccion);
         gimrep.save(gimnasio);
