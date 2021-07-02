@@ -3,6 +3,8 @@ package com.egg.upgym.controlador;
 import com.egg.upgym.entidades.Gimnasio;
 import com.egg.upgym.servicio.DireccionServicio;
 import com.egg.upgym.servicio.GimnasioServicio;
+import com.egg.upgym.servicio.UsuarioServicio;
+import java.security.Principal;
 import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,8 @@ public class GimnasioControlador {
     @Autowired
     private GimnasioServicio gimnasioServicio;
     
+    @Autowired
+    private UsuarioServicio usuarioServicio;
     
       @GetMapping
 
@@ -72,7 +76,7 @@ public class GimnasioControlador {
         return mav;
     }
     
-    
+
     @GetMapping("/editar/{id}")
     public ModelAndView editarGimnasio(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("gimnasio-registro");

@@ -29,6 +29,25 @@
         border-radius: 5px;
 
     }
+
+    .user_card2 {
+        height: 640px;
+        width: 1200px;
+        margin-top: auto;
+        margin-bottom: 20px;
+        background: #272727;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 100px;
+
+    }
+
     .brand_logo_container {
         position: absolute;
         height: 170px;
@@ -39,14 +58,36 @@
         padding: 10px;
         text-align: center;
     }
+
+    .brand_logo_container2 {
+        position: absolute;
+        height: 220px;
+        width: 220px;
+        top: 20px;
+        border-radius: 50%;
+        background: #c0392b;
+        padding: 10px;
+        text-align: center;
+    }
+
     .brand_logo {
         height: 150px;
         width: 150px;
         border-radius: 50%;
         border: 2px solid white;
     }
+
+    .brand_logo2 {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        border: 2px solid white;
+    }
     .form_container {
         margin-top: 100px;
+    }
+
+    .form_container2 {
     }
     .login_btn {
         width: 100%;
