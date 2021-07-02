@@ -8,6 +8,7 @@ import com.egg.upgym.repositorio.GimnasioRepositorio;
 import com.egg.upgym.repositorio.ReservasRepositorio;
 import com.egg.upgym.repositorio.UsuarioRepositorio;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -63,34 +64,42 @@ public class ReservasServicio {
         Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
         Gimnasio g = gimnasio.get();
         List<Reservas> listaCap = resrep.buscarPorGymHorarioFecha(idGimnasio, horario, fecha);
-        Date actual = new Date();
 
         if (listaCap.size() > g.getCapacidad()) {
 
-            throw new ErrorServicio("Horario/fecha elegido no disponible");
+            throw new ErrorServicio("Horario/fecha supera capacidad disponible");
+
+        }
+
+        Reservas reserva = resrep.buscarPorUsuarioHorarioFecha(idGimnasio,usuario.getDni(), horario, fecha);
+
+        if (reserva != null) {
+
+            throw new ErrorServicio("Ya tiene una reserva creada con los datos ingresados");
 
         }
 
         LocalTime horaActual = LocalTime.now();
-        
-        String horaAc=horaActual.format(DateTimeFormatter.ISO_LOCAL_TIME);
 
         LocalTime horaElegida = LocalTime.of(Integer.valueOf(horario.substring(0, 2)), 00, 00);
-        
-        if(fecha.equals(actual)){
-            
+
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd-");
+
+        String fechaE = formato.format(fecha);
+
+        LocalDate fechaActual = LocalDate.now();
+
+        LocalDate fechaElegida = LocalDate.of(Integer.valueOf(fechaE.substring(0, 4)), Integer.valueOf(fechaE.substring(5, 7)), Integer.valueOf(fechaE.substring(8, 10)));
+
+        if (fechaElegida.isBefore(fechaActual)) {
+
+            throw new ErrorServicio("Fecha ingresada fuera de rango");
         }
 
         if (horaElegida.isBefore(horaActual)) {
             throw new ErrorServicio("Horario ingresado fuera de rango");
-            
-        }
 
-        if (fecha.before(actual)) {
-
-            throw new ErrorServicio("Fecha ingresada fuera de rango");
         }
-        
 
     }
 
@@ -116,8 +125,8 @@ public class ReservasServicio {
 
     @Transactional
     public void modificar(String id, Date fecha,
-             String horario, String idGimnasio,
-             Long idUsuario, String estado
+            String horario, String idGimnasio,
+            Long idUsuario, String estado
     ) {
 
         Optional<Reservas> reserva = resrep.findById(id);
