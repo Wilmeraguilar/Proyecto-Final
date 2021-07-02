@@ -71,17 +71,13 @@ public class ReservasServicio {
 
         }
 
-        Reservas reserva = resrep.buscarPorUsuarioHorarioFecha(idGimnasio,usuario.getDni(), horario, fecha);
+        Reservas reserva = resrep.buscarPorUsuarioHorarioFecha(idGimnasio, usuario.getDni(), horario, fecha);
 
         if (reserva != null) {
 
             throw new ErrorServicio("Ya tiene una reserva creada con los datos ingresados");
 
         }
-
-        LocalTime horaActual = LocalTime.now();
-
-        LocalTime horaElegida = LocalTime.of(Integer.valueOf(horario.substring(0, 2)), 00, 00);
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd-");
 
@@ -95,6 +91,10 @@ public class ReservasServicio {
 
             throw new ErrorServicio("Fecha ingresada fuera de rango");
         }
+
+        LocalTime horaActual = LocalTime.now();
+
+        LocalTime horaElegida = LocalTime.of(Integer.valueOf(horario.substring(0, 2)), 00, 00);
 
         if (horaElegida.isBefore(horaActual)) {
             throw new ErrorServicio("Horario ingresado fuera de rango");
