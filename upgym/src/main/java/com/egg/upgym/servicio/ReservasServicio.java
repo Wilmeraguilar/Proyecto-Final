@@ -7,6 +7,9 @@ import com.egg.upgym.entidades.Usuario;
 import com.egg.upgym.repositorio.GimnasioRepositorio;
 import com.egg.upgym.repositorio.ReservasRepositorio;
 import com.egg.upgym.repositorio.UsuarioRepositorio;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,26 +33,21 @@ public class ReservasServicio {
     @Transactional(rollbackFor = Exception.class)
     public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario) throws ErrorServicio {
 
+        validar(fecha, horario, idGimnasio, emailUsuario);
+
         Reservas reservas = new Reservas();
         Usuario usuario = usurep.buscarPorUser(emailUsuario);
         Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
-
         Gimnasio g = gimnasio.get();
 
-        List<Reservas> listaCap = resrep.buscarPorGymHorarioFecha(idGimnasio, horario, fecha);
+        reservas.setFecha(fecha);
+        reservas.setHorario(horario);
+        reservas.setGimnasio(g);
+        reservas.setUsuario(usuario);
+        reservas.setEstado("ACTIVO");
 
-        if (listaCap.size() < g.getCapacidad()) {
-            reservas.setFecha(fecha);
-            reservas.setHorario(horario);
-            reservas.setGimnasio(g);
-            reservas.setUsuario(usuario);
+        resrep.save(reservas);
 
-            reservas.setEstado("ACTIVO");
-
-            resrep.save(reservas);
-        } else {
-            throw new ErrorServicio("La capacidad del gimnasio ha sido excedida cambie horario/fecha");
-        }
     }
 
     @Transactional(readOnly = true)
@@ -59,7 +57,46 @@ public class ReservasServicio {
     }
 
     @Transactional(readOnly = true)
-    public List<Reservas> buscarPorUsuario(Long dni) {
+    public void validar(Date fecha, String horario, String idGimnasio, String emailUsuario) throws ErrorServicio {
+
+        Usuario usuario = usurep.buscarPorUser(emailUsuario);
+        Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
+        Gimnasio g = gimnasio.get();
+        List<Reservas> listaCap = resrep.buscarPorGymHorarioFecha(idGimnasio, horario, fecha);
+        Date actual = new Date();
+
+        if (listaCap.size() > g.getCapacidad()) {
+
+            throw new ErrorServicio("Horario/fecha elegido no disponible");
+
+        }
+
+        LocalTime horaActual = LocalTime.now();
+        
+        String horaAc=horaActual.format(DateTimeFormatter.ISO_LOCAL_TIME);
+
+        LocalTime horaElegida = LocalTime.of(Integer.valueOf(horario.substring(0, 2)), 00, 00);
+        
+        if(fecha.equals(actual)){
+            
+        }
+
+        if (horaElegida.isBefore(horaActual)) {
+            throw new ErrorServicio("Horario ingresado fuera de rango");
+            
+        }
+
+        if (fecha.before(actual)) {
+
+            throw new ErrorServicio("Fecha ingresada fuera de rango");
+        }
+        
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<Reservas> buscarPorUsuario(Long dni
+    ) {
 
         List<Reservas> reservas = new ArrayList();
 
@@ -78,7 +115,10 @@ public class ReservasServicio {
     }
 
     @Transactional
-    public void modificar(String id, Date fecha, String horario, String idGimnasio, Long idUsuario, String estado) {
+    public void modificar(String id, Date fecha,
+             String horario, String idGimnasio,
+             Long idUsuario, String estado
+    ) {
 
         Optional<Reservas> reserva = resrep.findById(id);
         Optional<Usuario> usuario = usurep.findById(idUsuario);
@@ -114,7 +154,8 @@ public class ReservasServicio {
     }
 
     @Transactional
-    public void eliminar(String id) {
+    public void eliminar(String id
+    ) {
         Optional<Reservas> reserva = resrep.findById(id);
 
         if (reserva.isPresent()) {

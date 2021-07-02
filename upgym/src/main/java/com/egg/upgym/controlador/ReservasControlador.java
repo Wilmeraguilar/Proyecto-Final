@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,7 @@ public class ReservasControlador {
     private UsuarioServicio usuarioServicio;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
     public ModelAndView mostrarTodos() {
         ModelAndView mav = new ModelAndView("reservas-lista");
         mav.addObject("reservas", reservasServicio.buscarTodos());
@@ -64,7 +66,7 @@ public class ReservasControlador {
     }
 
     @GetMapping("/crear/{id}")
-
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN,GIMNASIO')")
     public ModelAndView crearReserva(@PathVariable String id, Principal principal, HttpServletRequest request) {
 
         ModelAndView mav = new ModelAndView("reservas");
@@ -83,6 +85,7 @@ public class ReservasControlador {
     }
 
     @GetMapping("/editar/{id}")
+    @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
     public ModelAndView editarReserva(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("reservas");
         mav.addObject("reserva", reservasServicio.buscarPorId(id));
@@ -92,6 +95,7 @@ public class ReservasControlador {
     }
 
     @PostMapping("/guardar")
+    @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
     public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario, RedirectAttributes attributes) {
         try {
             reservasServicio.crear(fecha, horario, idGimnasio, emailUsuario);
@@ -110,12 +114,14 @@ public class ReservasControlador {
     }
 
     @PostMapping("/modificar")
+    @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
     public RedirectView modificar(@RequestParam String id, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam String idGimnasio, @RequestParam Long dniUsuario, @RequestParam String estado) {
         reservasServicio.modificar(id, fecha, horario, idGimnasio, dniUsuario, estado);
         return new RedirectView("/");
     }
 
     @PostMapping("/eliminar/{id}")
+    @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
     public RedirectView eliminar(@PathVariable String id) {
         reservasServicio.eliminar(id);
         return new RedirectView("/reservas/mias");
