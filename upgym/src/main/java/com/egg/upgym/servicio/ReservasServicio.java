@@ -75,7 +75,7 @@ public class ReservasServicio {
 
         if (reserva != null) {
 
-            throw new ErrorServicio("Ya tiene una reserva creada con los datos ingresados");
+            throw new ErrorServicio("Ya tiene una reserva creada");
 
         }
 
@@ -89,7 +89,7 @@ public class ReservasServicio {
 
         if (fechaElegida.isBefore(fechaActual)) {
 
-            throw new ErrorServicio("Fecha ingresada fuera de rango");
+            throw new ErrorServicio("Fecha fuera de rango");  
         }
 
         LocalTime horaActual = LocalTime.now();
@@ -97,7 +97,7 @@ public class ReservasServicio {
         LocalTime horaElegida = LocalTime.of(Integer.valueOf(horario.substring(0, 2)), 00, 00);
 
         if (horaElegida.isBefore(horaActual)) {
-            throw new ErrorServicio("Horario ingresado fuera de rango");
+            throw new ErrorServicio("Horario fuera de rango");
 
         }
 
