@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
-<!-- le agrego el th:fragment="nombre que le quiera poner" -->
+    <!-- le agrego el th:fragment="nombre que le quiera poner" -->
 
 
 
@@ -23,64 +23,125 @@
                     </li>
 
 
-                <!--<li class="nav-item dropdown">
-                      <a id="dropdown-autores" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">Crear Cuenta</a>
-          
-                      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-autores">
-                        <li>
-                          <a class="dropdown-item" th:href="@{/usuarios/crear}">Soy Cliente</a>
-                        </li>
-          
-                        <li>
-                          <a class="dropdown-item" th:href="@{/gimnasios/crear}">Gimnasio</a>
-                        </li>
-                      </ul>
-                    </li>-->
+                    <!--<li class="nav-item dropdown">
+                          <a id="dropdown-autores" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Crear Cuenta</a>
+              
+                          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-autores">
+                            <li>
+                              <a class="dropdown-item" th:href="@{/usuarios/crear}">Soy Cliente</a>
+                            </li>
+              
+                            <li>
+                              <a class="dropdown-item" th:href="@{/gimnasios/crear}">Gimnasio</a>
+                            </li>
+                          </ul>
+                        </li>-->
 
-            </ul>
-            <ul class="navbar-nav mr-auto">
-                <li sec:authorize="!isAuthenticated()">
-                    <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
-                </li>
-                <li class="dropdown" sec:authorize="isAuthenticated()">
-                    <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <span sec:authentication="name"></span>
-                    </a>
+                </ul>
+                <ul class="navbar-nav mr-auto">
+                    <li sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
+                    </li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <span sec:authentication="name"></span>
+                        </a>
 
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
-                        <li><a class="dropdown-item" th:href="@{/reservas/mias}">Mis Reservas</a></li>
-                        <form th:action="@{/logout}" method="post">
-                            <button class="dropdown-item" type="submit">Cerrar Sesion</button>
-                        </form>
-                    </ul>
-                </li>
-            </ul>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                            <li><a class="dropdown-item" th:href="@{/reservas/mias}">Mis Reservas</a></li>
+                            <form th:action="@{/logout}" method="post">
+                                <button class="dropdown-item" type="submit">Cerrar Sesion</button>
+                            </form>
+                        </ul>
+                    </li>
+                </ul>
 
-            <!--                <div class="nav-link" th:if="${action == 'guardar'}">
-                                    <FONT COLOR="white"><a th:text="'¡ Hola'"></a> 
-                                    <tr th:each="usuario : ${usuarios}">
-                                        <td th:text="${usuario.nombre}"></td>
-                                    </tr> 
-                                    <a th:text="'!'"></a>
-                                    </FONT>
-                                </div>-->
-            <!--
-                                <a class="btn btn-outline-success" sec:authorize="hasRole('USUARIO')" th:href="@{/login(logout)}" th:text="Cerrar Sesión"></a>-->
+                <!--                <div class="nav-link" th:if="${action == 'guardar'}">
+                                        <FONT COLOR="white"><a th:text="'¡ Hola'"></a> 
+                                        <tr th:each="usuario : ${usuarios}">
+                                            <td th:text="${usuario.nombre}"></td>
+                                        </tr> 
+                                        <a th:text="'!'"></a>
+                                        </FONT>
+                                    </div>-->
+                <!--
+                                    <a class="btn btn-outline-success" sec:authorize="hasRole('USUARIO')" th:href="@{/login(logout)}" th:text="Cerrar Sesión"></a>-->
 
-            <!--                <form th:action >
-                                    <button class="btn btn-outline-success" 
-                                </form>
-                
-                                <li sec:authorize="hasRole('USUARIO')">
-                                    <a class="btn btn-outline-success" th:href="${action == 'guardar'}? '/login?logout' : '/login'  " th:text="${action == 'guardar'} ? 'Cerrar Sesión' : 'Iniciar Sesión'"></a>
-                                </li>-->
+                <!--                <form th:action >
+                                        <button class="btn btn-outline-success" 
+                                    </form>
+                    
+                                    <li sec:authorize="hasRole('USUARIO')">
+                                        <a class="btn btn-outline-success" th:href="${action == 'guardar'}? '/login?logout' : '/login'  " th:text="${action == 'guardar'} ? 'Cerrar Sesión' : 'Iniciar Sesión'"></a>
+                                    </li>-->
 
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+
+    <!-- navbar de Staff-->
+
+    <nav th:fragment="navbar-Staff"  class="font-robo navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">UPGYM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a  class="nav-link" th:href="@{/login/elegir}">Registrarse</a>
+                    </li>
+
+
+                    <li class="nav-item dropdown">
+                        <a id="dropdown-informativo" class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">Páginas recomendadas</a>
+
+                        <ul class="dropdown-menu dropdown-menu-warning" aria-labelledby="dropdown-informativo">
+                            <li>
+                                <a class="dropdown-item" href="https://www.nutrinfo.com">Nutrición</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="https://lawebdelasalud.com">Salud</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <ul class="navbar-nav mr-auto">
+                    <li sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
+                    </li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <span sec:authentication="name"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                            <li><a class="dropdown-item" th:href="@{/reservas/mias}">Mis Reservas</a></li>
+                            <form th:action="@{/logout}" method="post">
+                                <button class="dropdown-item" type="submit">Cerrar Sesion</button>
+                            </form>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
 
 
 
@@ -97,10 +158,10 @@
                 <p>Copyright (c) 2021 UPGYM Todos los derechos reservados.</p>
             </div>
             <div class="social-media">
-                <a href="./" class="social-media-icon">
+                <a href="https://www.instagram.com/upgym_arg/?hl=es-la" class="social-media-icon">
                     <i class='bx bxl-instagram' ></i>
                 </a>
-                <a href="./" class="social-media-icon">
+                <a href="https://open.spotify.com/playlist/5UF7vvIRJ38uDrgffvFhxY?si=f806a0d9431247bd" class="social-media-icon">
                     <i class='bx bxl-spotify' ></i>
                 </a>
                 <a href="./" class="social-media-icon">

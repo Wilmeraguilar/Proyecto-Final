@@ -725,11 +725,14 @@ footer{
    ========================================================================== */
 .border-card-staff {
   border-color: #fa4251;
-  border-top-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-top-left-radius: 30px;
+  border-bottom-right-radius: 30px;
   
 }
 
 .imagen-card:hover {
-    filter: saturate(180%);
+    filter: grayscale(100%);
 }
+
+//filter: saturate(180%)
+//filter: invert(100%
