@@ -103,9 +103,10 @@ public class ReservasControlador {
 
         } catch (ErrorServicio e) {
             attributes.addFlashAttribute("error", e.getMessage());
-            attributes.addFlashAttribute("fecha", fecha);
             attributes.addFlashAttribute("gimnasio", gimnasioServicio.buscarPorId(idGimnasio));
             attributes.addFlashAttribute("usuario", usuarioServicio.buscarPorEmail(emailUsuario));
+            attributes.addFlashAttribute("fecha", fecha);
+            attributes.addFlashAttribute("horario", horario);
             return new RedirectView("/reservas/crear/" + idGimnasio);
 
         }
