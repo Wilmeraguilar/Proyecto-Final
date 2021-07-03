@@ -721,8 +721,15 @@ footer{
 }
 
 /* ==========================================================================
-   #BORDES CARD
+   #BORDES E IMAGENES - CARD  
    ========================================================================== */
-.blockquote {
+.border-card-staff {
   border-color: #fa4251;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  
+}
+
+.imagen-card:hover {
+    filter: saturate(180%);
 }
