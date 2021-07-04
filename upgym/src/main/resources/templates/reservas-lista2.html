@@ -135,7 +135,7 @@
 
                                     <tr th:each="reserva : ${reservas}" class="input-group2">
 
-                                        <td class="input--style-3" th:text="${reserva.usuario.nombre}"></td>
+                                        <td class="input--style-3" th:text="|${reserva.usuario.nombre} ${reserva.usuario.apellido}|"></td>
                                         <td class="input--style-3" th:text="${reserva.fecha}"></td>
                                         <td class="input--style-3" th:text="${reserva.horario}"></td>
                                         <td class="input--style-3" th:text="${reserva.estado}"></td>
