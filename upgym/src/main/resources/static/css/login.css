@@ -190,6 +190,30 @@ html {
     text-align: center;
 }
 
+.brand_logo_container7 {
+    position: absolute;
+    height: 220px;
+    width: 297px;
+    top: 70px;
+    text-align: center;
+}
+
+.brand_logo_container8 {
+    position: absolute;
+    height: 220px;
+    width: 297px;
+    top: 130px;
+    text-align: center;
+}
+
+.brand_logo_container9 {
+    position: absolute;
+    height: 220px;
+    width: 297px;
+    top: 190px;
+    text-align: center;
+}
+
 
 .brand_logo {
     height: 150px;

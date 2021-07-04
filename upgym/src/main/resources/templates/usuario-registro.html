@@ -106,7 +106,7 @@
                             </div>
 
                             <div class="p-t-10">
-                                <button class="btn2 btn--pill btn--green" type="submit">Guardar</button>
+                                <button class="btn2 btn--pill btn--green" type="submit" th:text="${action == 'guardar'} ? 'Registrar' : 'Guardar cambios'"></button>
                             </div>
                         </form>
                     </div>

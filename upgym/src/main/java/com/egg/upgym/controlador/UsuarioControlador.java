@@ -75,7 +75,7 @@ public class UsuarioControlador {
 
     @GetMapping("/editar/{dni}")
     public ModelAndView editarUsuario(@PathVariable Long dni) {
-        ModelAndView mav = new ModelAndView("usuario-Formulario");
+        ModelAndView mav = new ModelAndView("usuario-registro");
         mav.addObject("usuario", usuarioServicio.buscarPorId(dni));
         mav.addObject("title", "Editar Usuario");
         mav.addObject("action", "modificar");
