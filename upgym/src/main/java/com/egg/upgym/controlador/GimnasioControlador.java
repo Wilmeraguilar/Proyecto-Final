@@ -28,14 +28,13 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/gimnasios")
 
 public class GimnasioControlador {
-    
+
     @Autowired
     private GimnasioServicio gimnasioServicio;
+
     
-    @Autowired
-    private UsuarioServicio usuarioServicio;
-    
-      @GetMapping
+
+    @GetMapping
 
     public ModelAndView mostrarTodos() {
         ModelAndView mav = new ModelAndView("gimnasio");
@@ -43,7 +42,7 @@ public class GimnasioControlador {
         return mav;
     }
     @GetMapping("/buscar/provinciaCiudad")
-    public ModelAndView mostrarTodosPorProvinciaCiudad(@RequestParam String provincia,@RequestParam String ciudad) {
+    public ModelAndView mostrarTodosPorProvinciaCiudad(@RequestParam String provincia, @RequestParam String ciudad) {
         ModelAndView mav = new ModelAndView("gimnasio");
         mav.addObject("gimnasios", gimnasioServicio.buscarPorprovinciaCiudad(provincia, ciudad));
         return mav;
@@ -56,8 +55,6 @@ public class GimnasioControlador {
         return mav;
     }
 
-   
-    
     @GetMapping("/buscar/ciudad")
     public ModelAndView mostrarPorCiudad(@RequestParam("direccion.ciudad") String ciudad) {
         ModelAndView mav = new ModelAndView("gimnasio");
@@ -65,44 +62,49 @@ public class GimnasioControlador {
 
         return mav;
     }
-   
+
     @GetMapping("/crear")
     public ModelAndView crearGimnasio() {
         ModelAndView mav = new ModelAndView("gimnasio-registro");
-        mav.addObject("gimnasio", new Gimnasio()); 
+        mav.addObject("gimnasio", new Gimnasio());
         mav.addObject("title", "Crear Gimnasio");
         mav.addObject("action", "guardar");
-       
+
+        return mav;
+    }
+
+    @GetMapping("/perfil")
+    public ModelAndView perfil(Principal principal) {
+        ModelAndView mav = new ModelAndView("Perfil-gym");
+        mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
         return mav;
     }
     
+   
 
     @GetMapping("/editar/{id}")
     public ModelAndView editarGimnasio(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("gimnasio-registro");
-        mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));      
+        mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
         mav.addObject("title", "Editar Gimnasio");
         mav.addObject("action", "modificar");
         return mav;
     }
-    
-   @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request) {
-        gimnasioServicio.crear(nombre,telefono,capacidad,email,clave,provincia, ciudad, calleNro);
+
+    @PostMapping("/guardar")
+    public RedirectView guardar(@RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request) {
+        gimnasioServicio.crear(nombre, telefono, capacidad, email, clave, provincia, ciudad, calleNro);
         try {
-        request.login(email, clave);
-    } catch (ServletException e) {
-        e.printStackTrace();
-    }
+            request.login(email, clave);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
         return new RedirectView("/");
     }
-    
-    
-    
+
     /*con FOTO - en Carpeta*/
-  
-    /*@Secured("ROLE_ADMIN")*/
-    /*@PostMapping("/form")
+ /*@Secured("ROLE_ADMIN")*/
+ /*@PostMapping("/form")
     public String guardar(@Valid Gimnasio gimnasio, BindingResult result, Model model,@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status,
     Locale locale) {
     if (result.hasErrors()){
@@ -129,11 +131,8 @@ public class GimnasioControlador {
                 + " ´ " + uniqueFilename + " ´ ");
         gimnasio.setFoto(uniqueFilename);
     }*/
-        
-    
-    
-    /*con FOTO MSQL https://www.youtube.com/watch?v=hMWNM6pT65s&list=PLgwlfcqa5h3w10Dz95B3QY2iinOskVf9t&index=12 */
-   /*  @PostMapping("/guardar")
+ /*con FOTO MSQL https://www.youtube.com/watch?v=hMWNM6pT65s&list=PLgwlfcqa5h3w10Dz95B3QY2iinOskVf9t&index=12 */
+ /*  @PostMapping("/guardar")
     public RedirectView guardar(@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam MultipartFile foto, HttpServletRequest request) {
         gimnasioServicio.crear(nombre,telefono,capacidad,email,clave,provincia, ciudad, calleNro, foto);
         try {
@@ -143,21 +142,18 @@ public class GimnasioControlador {
     }
         return new RedirectView("/");
     }*/
-    
-    
-   
     @PostMapping("/modificar")
-     public RedirectView modificar(@RequestParam String id,@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion,@RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro,@RequestParam String estado) {
-        gimnasioServicio.modificar(id,nombre,telefono,capacidad,email,clave,idDireccion,provincia, ciudad, calleNro,estado);
+    public RedirectView modificar(@RequestParam String id, @RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado) {
+        gimnasioServicio.modificar(id, nombre, telefono, capacidad, email, clave, idDireccion, provincia, ciudad, calleNro, estado);
         return new RedirectView("/gimnasios");
     }
 
     @PostMapping("/eliminar/{id}")
     public RedirectView eliminar(@PathVariable String id) {
-       gimnasioServicio.eliminar(id);
+        gimnasioServicio.eliminar(id);
         return new RedirectView("/gimnasios");
     }
-    
+
     @GetMapping("/staff")
     public ModelAndView GimnasioStaff() {
         ModelAndView mav = new ModelAndView("gimnasioStaff");
@@ -165,6 +161,5 @@ public class GimnasioControlador {
         return mav;
 
     }
-    
-    
+
 }

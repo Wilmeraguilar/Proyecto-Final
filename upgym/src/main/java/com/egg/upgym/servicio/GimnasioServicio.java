@@ -4,6 +4,7 @@ import com.egg.upgym.entidades.Direccion;
 import com.egg.upgym.entidades.Gimnasio;
 import com.egg.upgym.entidades.Reservas;
 import com.egg.upgym.entidades.Rol;
+import com.egg.upgym.entidades.Usuario;
 import com.egg.upgym.repositorio.DireccionRepositorio;
 import com.egg.upgym.repositorio.GimnasioRepositorio;
 import com.egg.upgym.repositorio.RolRepositorio;
@@ -299,6 +300,19 @@ public class GimnasioServicio implements UserDetailsService {
             }
         }
         return g;
+    }
+    
+    @Transactional
+    public Gimnasio buscarPorEmail(String email) {
+        List<Gimnasio> gimnasios = gimrep.findAll();
+        
+
+        for (Gimnasio gimnasio1 : gimnasios) {
+            if (gimnasio1.getEmail().equalsIgnoreCase(email) && gimnasio1.getEstado().equalsIgnoreCase("ACTIVO")) {
+                return gimnasio1;
+            }
+        }
+        return null;
     }
 
     @Transactional

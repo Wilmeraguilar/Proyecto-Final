@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,6 +62,14 @@ public class UsuarioControlador {
         mav.addObject("title", "Crear Usuario");
         mav.addObject("action", "guardar");
 
+        return mav;
+    }
+    
+    
+    @GetMapping("/perfil")
+    public ModelAndView perfil(Principal principal) {
+        ModelAndView mav = new ModelAndView("Perfil");
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
         return mav;
     }
 
