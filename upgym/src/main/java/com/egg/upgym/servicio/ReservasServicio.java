@@ -116,6 +116,19 @@ public class ReservasServicio {
         }
         return reservas;
     }
+    
+    @Transactional(readOnly = true)
+    public List<Reservas> buscarPorGimnasio(String id) {
+
+        List<Reservas> reservas = new ArrayList();
+
+        for (Reservas reserva : resrep.buscarPorGimnasio(id)) {
+            if (reserva.getEstado().equalsIgnoreCase("ACTIVO")) {
+                reservas.add(reserva);
+            }
+        }
+        return reservas;
+    }
 
     @Transactional(readOnly = true)
     public List<Reservas> buscarTodos() {

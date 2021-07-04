@@ -55,10 +55,20 @@ public class ReservasControlador {
 //
 //        return mav;
 //    }
-    @GetMapping("/mias")
-    public ModelAndView Reserva(Principal principal) {
+    @GetMapping("/usuario")
+    public ModelAndView ReservaUsuario(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista");
         mav.addObject("reservas", reservasServicio.buscarPorUsuario(usuarioServicio.buscarPorEmail(principal.getName()).getDni()));
+        mav.addObject("title", "Crear Reserva");
+        mav.addObject("action", "guardar");
+
+        return mav;
+    }
+    
+    @GetMapping("/gimnasio")
+    public ModelAndView ReservaGimnasio(Principal principal) {
+        ModelAndView mav = new ModelAndView("reservas-lista2");
+        mav.addObject("reservas", reservasServicio.buscarPorGimnasio(gimnasioServicio.buscarPorEmail(principal.getName()).getId()));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
 
