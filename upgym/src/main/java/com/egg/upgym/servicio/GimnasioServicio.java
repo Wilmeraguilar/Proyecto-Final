@@ -54,7 +54,7 @@ public class GimnasioServicio implements UserDetailsService {
     
    
    @Transactional
-    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro) {
+    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro) throws MessagingException {
         Gimnasio gimnasio = new Gimnasio();
         Direccion direccion = new Direccion();
         Rol rol = new Rol();
@@ -66,6 +66,7 @@ public class GimnasioServicio implements UserDetailsService {
             }
         }
         
+                
         gimnasio.setRol(rol);
         gimnasio.setNombre(nombre);
         gimnasio.setTelefono(telefono);
@@ -78,12 +79,13 @@ public class GimnasioServicio implements UserDetailsService {
         gimnasio.setDireccion(direccion);
         gimnasio.setEstado("ACTIVO");
 
-        /*try {
+        /*  try {
             emailServicio.enviarCorreo(email, "UPGYM", "Bienvenido a UPGYM");
         } catch (MessagingException ex) {
             System.out.println("Falló el envio del correo");
         }*/
-        
+        emailServicio.enviarCorreoAsincrono(email, "Correo de bienvenida" , "Bienvenido a la página de UPGYM. Gracias por registrarse");
+       
         rolrep.save(rol);
         dirrep.save(direccion);
         gimrep.save(gimnasio);

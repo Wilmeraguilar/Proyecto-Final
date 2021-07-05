@@ -22,7 +22,7 @@ public class EmailServicio {
     @Value("${spring.mail.username}")
     private String from;
     
-    public void enviarCorreo(String to, String asunto, String cuerpo) throws MessagingException{
+  /*  public void enviarCorreo(String to, String asunto, String cuerpo) throws MessagingException{
         System.out.println("Enviando correo a " + to);
         String [] para ={to};
         MimeMessage message = sender.createMimeMessage();
@@ -33,6 +33,23 @@ public class EmailServicio {
         helper.setText(cuerpo);
         sender.send(message);
     
-    }
+    }*/
     
+    public void enviarCorreoAsincrono(String to, String asunto, String cuerpo) throws MessagingException{
+        new Thread(() -> {
+        try {
+             System.out.println("Enviando correo a " + to);
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setFrom(from);
+        helper.setTo(to);
+        helper.setSubject(asunto);
+        helper.setText(cuerpo);
+        sender.send(message);
+        } catch (MessagingException e){
+            System.out.println("Error al enviar correo a " + to);
+        }
+        }).start();
+    
+    }
 }
