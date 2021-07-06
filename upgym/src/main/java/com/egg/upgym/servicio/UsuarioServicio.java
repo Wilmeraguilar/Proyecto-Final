@@ -73,6 +73,7 @@ public class UsuarioServicio implements UserDetailsService {
                 usuario.setDni(dni);
                 usuario.setNombre(nombre);
                 usuario.setApellido(apellido);
+                usuario.setTelefono(telefono);
                 usuario.setEmail(email);
                 usuario.setClave(encoder.encode(clave));
                 direccion.setProvincia(provincia);
