@@ -28,6 +28,10 @@ and open the template in the editor.
 
     </head>
     <body>
+         <header>
+    <nav th:replace="fragments :: navbar"></nav>
+  </header>
+
         <table class="default">
 
   <colgroup>
@@ -89,5 +93,9 @@ and open the template in the editor.
   </tr>
 
 </table>
+        
+        <footer th:replace="fragments :: footer"></footer>
     </body>
+    
+    
 </html>
