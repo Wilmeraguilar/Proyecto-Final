@@ -86,7 +86,7 @@
 
     <!-- navbar de Staff-->
 
-    <nav th:fragment="navbar-Staff"  class="font-robo navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav th:fragment="navbar-Staff-Horarios"  class="font-robo navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">UPGYM</a>
@@ -103,20 +103,13 @@
                     </li>
 
 
-                    <li class="nav-item dropdown">
-                        <a id="dropdown-informativo" class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">Páginas recomendadas</a>
-
-                        <ul class="dropdown-menu dropdown-menu-warning" aria-labelledby="dropdown-informativo">
-                            <li>
-                                <a class="dropdown-item" href="https://www.nutrinfo.com">Nutrición</a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" href="https://lawebdelasalud.com">Salud</a>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.nutrinfo.com">Nutrición</a>
                     </li>
+                    <li>
+                        <a class="nav-link" href="https://lawebdelasalud.com">Salud</a>
+                    </li>
+
 
                 </ul>
                 <ul class="navbar-nav mr-auto">
