@@ -6,10 +6,16 @@ import com.egg.upgym.entidades.Usuario;
 import com.egg.upgym.repositorio.DireccionRepositorio;
 import com.egg.upgym.repositorio.RolRepositorio;
 import com.egg.upgym.repositorio.UsuarioRepositorio;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,7 +44,7 @@ public class UsuarioServicio implements UserDetailsService {
     private BCryptPasswordEncoder encoder;
 
     @Transactional
-    public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String provincia, String ciudad, String calleNro, String imagen) {
+    public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String provincia, String ciudad, String calleNro, MultipartFile imagen) {
         Usuario usuario = new Usuario();
         Direccion direccion = new Direccion();
 
@@ -52,23 +58,39 @@ public class UsuarioServicio implements UserDetailsService {
             }
 
         }
-        usuario.setRol(rol);
+        if (!imagen.isEmpty()) {
+            Path DirectorioImagenes = Paths.get("src//main//resources//static/imagenes");
+            String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
 
-        usuario.setDni(dni);
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
-        usuario.setEmail(email);
-        usuario.setClave(encoder.encode(clave));
-        direccion.setProvincia(provincia);
-        direccion.setCiudad(ciudad);
-        direccion.setCalleNro(calleNro);
-        usuario.setDireccion(direccion);
-        usuario.setEstado("ACTIVO");
-        usuario.setImagen(imagen);
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                String idImagen = UUID.randomUUID().toString();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
+                Files.write(rutaCompleta, bytesImg);
 
-        rolrep.save(rol);
-        dirrep.save(direccion);
-        usurep.save(usuario);
+                usuario.setRol(rol);
+
+                usuario.setDni(dni);
+                usuario.setNombre(nombre);
+                usuario.setApellido(apellido);
+                usuario.setEmail(email);
+                usuario.setClave(encoder.encode(clave));
+                direccion.setProvincia(provincia);
+                direccion.setCiudad(ciudad);
+                direccion.setCalleNro(calleNro);
+                usuario.setDireccion(direccion);
+                usuario.setEstado("ACTIVO");
+                usuario.setImagen(idImagen);
+
+                rolrep.save(rol);
+                dirrep.save(direccion);
+                usurep.save(usuario);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Transactional(readOnly = true)
@@ -104,10 +126,10 @@ public class UsuarioServicio implements UserDetailsService {
         }
         return u;
     }
-     @Transactional
+
+    @Transactional
     public Usuario buscarPorEmail(String email) {
         List<Usuario> usuarios = usurep.findAll();
-        
 
         for (Usuario usuario1 : usuarios) {
             if (usuario1.getEmail().equalsIgnoreCase(email) && usuario1.getEstado().equalsIgnoreCase("ACTIVO")) {
@@ -118,7 +140,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificar(Long dni, String nombre, String apellido, String telefono, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado) {
+    public void modificar(Long dni, String nombre, String apellido, String telefono, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado, MultipartFile imagen) throws IOException {
 
         Optional<Usuario> usuario = usurep.findById(dni);
         Optional<Direccion> direccion = dirrep.findById(idDireccion);
@@ -127,63 +149,92 @@ public class UsuarioServicio implements UserDetailsService {
             Usuario u = usuario.get();
             Direccion d = direccion.get();
 
-            if (u.getEstado().equalsIgnoreCase("ACTIVO")) {
-                u.setNombre(nombre);
-                u.setApellido(apellido);
-                u.setTelefono(telefono);
-                u.setEmail(email);
-                u.setClave(encoder.encode(clave));
-                u.setEstado(estado);
-                d.setProvincia(provincia);
-                d.setCiudad(ciudad);
-                d.setCalleNro(calleNro);
-                u.setDireccion(d);
+//            if (!imagen.isEmpty()) {
+//                Path DirectorioImagenes = Paths.get("src//main//resources//static/imagenes");
+//                String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
+//                Path rootPath = Paths.get(rutaAbsoluta + "//" + u.getImagen());
+//                File archivo = rootPath.toFile();
+//
+//                if (archivo.exists() && archivo.canRead()) {
+//                    archivo.delete();
+//                }
+//            }
+            if (!imagen.isEmpty()) {
+                Path DirectorioImagenes = Paths.get("src//main//resources//static/imagenes");
+                String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
 
-                dirrep.save(d);
-                usurep.save(u);
-            } else {
+                try {
+                    byte[] bytesImg = imagen.getBytes();
+                    String idImagen = UUID.randomUUID().toString();
+                    Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
+                    Files.write(rutaCompleta, bytesImg);
 
-                System.out.println("El usuario se encuentra INACTIVO. No se puede modificar");
+                    if (u.getEstado().equalsIgnoreCase("ACTIVO")) {
+                        u.setNombre(nombre);
+                        u.setApellido(apellido);
+                        u.setTelefono(telefono);
+                        u.setEmail(email);
+                        u.setClave(encoder.encode(clave));
+                        u.setEstado(estado);
+                        d.setProvincia(provincia);
+                        d.setCiudad(ciudad);
+                        d.setCalleNro(calleNro);
+                        u.setDireccion(d);
+                        u.setImagen(imagen.getName());
+
+                        dirrep.save(d);
+                        usurep.save(u);
+                    } else {
+
+                        System.out.println("El usuario se encuentra INACTIVO. No se puede modificar");
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
 
         }
-
     }
 
 //    @Transactional
 //    public void editar(Long dni, String nombre, String apellido, String email, String clave) {
 //        usurep.editar(dni, nombre, apellido, email, clave);
 //    }
-    @Transactional
-    public void eliminar(Long dni) {
+        @Transactional
+        public void eliminar
+        (Long dni
+        
+            ) {
         Optional<Usuario> usuario = usurep.findById(dni);
 
-        if (usuario.isPresent()) {
-            Usuario u = usuario.get();
+            if (usuario.isPresent()) {
+                Usuario u = usuario.get();
 
-            if (u.getEstado().equalsIgnoreCase("ACTIVO")) {
-                u.setEstado("INACTIVO");
+                if (u.getEstado().equalsIgnoreCase("ACTIVO")) {
+                    u.setEstado("INACTIVO");
 
-                usurep.save(u);
-            } else {
+                    usurep.save(u);
+                } else {
 
-                System.out.println("El usuario se encuentra INACTIVO. No se puede eliminar");
+                    System.out.println("El usuario se encuentra INACTIVO. No se puede eliminar");
 
+                }
             }
         }
-    }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario usuario = usurep.buscarPorUser(email);
+        @Override
+        public UserDetails loadUserByUsername
+        (String email) throws UsernameNotFoundException {
+            Usuario usuario = usurep.buscarPorUser(email);
 
-        if (usuario == null) {
-            throw new UsernameNotFoundException("No se encontro un usuario registrado con el email " + email);
+            if (usuario == null) {
+                throw new UsernameNotFoundException("No se encontro un usuario registrado con el email " + email);
+            }
+            GrantedAuthority rol = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getNombre());
+
+            return new User(usuario.getEmail(), usuario.getClave(), Collections.singletonList(rol));
         }
-        GrantedAuthority rol = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getNombre());
 
-        return new User(usuario.getEmail(), usuario.getClave(), Collections.singletonList(rol));
     }
-
-}
