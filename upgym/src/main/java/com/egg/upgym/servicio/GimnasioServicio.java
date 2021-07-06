@@ -79,6 +79,7 @@ public class GimnasioServicio implements UserDetailsService {
         gimnasio.setDireccion(direccion);
         gimnasio.setEstado("ACTIVO");
 
+
         /*  try {
             emailServicio.enviarCorreo(email, "UPGYM", "Bienvenido a UPGYM");
         } catch (MessagingException ex) {
@@ -86,6 +87,7 @@ public class GimnasioServicio implements UserDetailsService {
         }*/
         emailServicio.enviarCorreoAsincrono(email, "Correo de bienvenida" , "Bienvenido a la página de UPGYM. Gracias por registrarse");
        
+
         rolrep.save(rol);
         dirrep.save(direccion);
         gimrep.save(gimnasio);
