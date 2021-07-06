@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import javax.mail.MessagingException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,9 +43,12 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
+    
+    @Autowired
+    private EmailServicio emailServicio;
 
     @Transactional
-    public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String provincia, String ciudad, String calleNro, MultipartFile imagen) {
+    public void crear(Long dni, String nombre, String apellido, String telefono, String email, String clave, String provincia, String ciudad, String calleNro, MultipartFile imagen) throws MessagingException {
         Usuario usuario = new Usuario();
         Direccion direccion = new Direccion();
 
@@ -85,6 +89,9 @@ public class UsuarioServicio implements UserDetailsService {
 
                 rolrep.save(rol);
                 dirrep.save(direccion);
+                
+                emailServicio.enviarCorreoAsincrono(email, "Bienvenida a UPGYM", "Gracias por registrarte "+nombre);
+                
                 usurep.save(usuario);
 
             } catch (IOException e) {
