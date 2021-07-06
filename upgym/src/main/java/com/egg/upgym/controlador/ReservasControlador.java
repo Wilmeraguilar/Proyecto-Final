@@ -138,4 +138,12 @@ public class ReservasControlador {
         return new RedirectView("/reservas/mias");
     }
 
+     @GetMapping("/horarios")
+    public ModelAndView Horarios() {
+        ModelAndView mav = new ModelAndView("horarios");
+
+        return mav;
+
+    }
+    
 }
