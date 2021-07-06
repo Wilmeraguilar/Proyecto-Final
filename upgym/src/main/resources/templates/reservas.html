@@ -42,11 +42,6 @@
                         <div th:if="${mensaje !=null}" class="alert alert-success" style="background-color: chartreuse;" text="color=white" th:text="${mensaje}"></div>
                         <div th:if="${error !=null}" class="btn2 btn--pill btn--green text-align mx-auto" text-align-center  type="text" th:text="${error}"></div>
 
-                        <div class="alert alert-warning alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong>¡Cuidado!</strong> Es muy importante que leas este mensaje de alerta.
-                        </div>
-
 
                         <h2 class="title">RESERVA DE HORA</h2>
                         <form th:action="@{/reservas/__${action}__}" method="POST" th:object="${reserva}" autocomplete="on"
@@ -184,12 +179,6 @@
             </div>
 
         </div>
-
-        <div class="alert alert-warning alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>¡Cuidado!</strong> Es muy importante que leas este mensaje de alerta.
-        </div>
-
         <!-- Jquery JS-->
         <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
         <!-- Vendor JS-->
