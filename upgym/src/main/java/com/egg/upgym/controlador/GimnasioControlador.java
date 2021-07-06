@@ -6,6 +6,7 @@ import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.UsuarioServicio;
 import java.security.Principal;
 import java.util.Locale;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +93,7 @@ public class GimnasioControlador {
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request) {
+    public RedirectView guardar(@RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request) throws MessagingException {
         gimnasioServicio.crear(nombre, telefono, capacidad, email, clave, provincia, ciudad, calleNro);
         try {
             request.login(email, clave);

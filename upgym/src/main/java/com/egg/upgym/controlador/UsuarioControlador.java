@@ -85,31 +85,8 @@ public class UsuarioControlador {
     @PostMapping("/guardar")
     public RedirectView guardar(@RequestParam Long dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String telefono, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request, @RequestParam("file") MultipartFile imagen) {
 
-        if (!imagen.isEmpty()) {
-            Path DirectorioImagenes = Paths.get("src//main//resources//static/imagenes");
-            String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
-            
-//            Usuario user = uServicio.buscar(id);
-//            Path rootPath = getPath(rutaAbsoluta + "//" + user.getImagen());
-//		File archivo = rootPath.toFile();
-//
-//		if (archivo.exists() && archivo.canRead()) {
-//			 archivo.delete();
-//		}
-
-            
-            try {
-                byte[] bytesImg = imagen.getBytes();
-                String idImagen = UUID.randomUUID().toString();
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
-                Files.write(rutaCompleta, bytesImg);
-                usuarioServicio.crear(dni, nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro, idImagen);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        usuarioServicio.crear(dni, nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro, imagen);
+        
         try {
             request.login(email, clave);
         } catch (ServletException e) {
@@ -120,8 +97,8 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/modificar")
-    public RedirectView modificar(@RequestParam Long dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String telefono, @RequestParam String email, @RequestParam String clave, @RequestParam String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado) {
-        usuarioServicio.modificar(dni, nombre, apellido, telefono, email, clave, idDireccion, provincia, ciudad, calleNro, estado);
+    public RedirectView modificar(@RequestParam Long dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String telefono, @RequestParam String email, @RequestParam String clave, @RequestParam String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado, @RequestParam("file") MultipartFile imagen) throws IOException {
+        usuarioServicio.modificar(dni, nombre, apellido, telefono, email, clave, idDireccion, provincia, ciudad, calleNro, estado, imagen);
         return new RedirectView("/");
     }
 
