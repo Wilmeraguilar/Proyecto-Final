@@ -78,12 +78,12 @@ public class GimnasioServicio implements UserDetailsService {
         gimnasio.setDireccion(direccion);
         gimnasio.setEstado("ACTIVO");
 
-        /*try {
-            emailServicio.enviarCorreo(email, "UPGYM", "Bienvenido a UPGYM");
-        } catch (MessagingException ex) {
-            System.out.println("Falló el envio del correo");
-        }*/
-        
+//        try {
+//            emailServicio.enviarCorreo(email, "UPGYM", "Bienvenido a UPGYM");
+//        } catch (MessagingException ex) {
+//            System.out.println("Falló el envio del correo");
+//        }
+//        
         rolrep.save(rol);
         dirrep.save(direccion);
         gimrep.save(gimnasio);
