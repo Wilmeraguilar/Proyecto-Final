@@ -93,6 +93,11 @@ body {
     filter: brightness(40%); 
 }
 
+.oscurecer-img-staff{
+    filter: brightness(70%); 
+}
+
+
 /*
 font-weight: normal;*/
 .letra-negrita{
