@@ -40,11 +40,7 @@
                         <form id="formulario" th:action="@{/usuarios/__${action}__}" method="POST" th:object="${usuario}" autocomplete="on"
                               enctype="multipart/form-data" novalidate>
                             <div class="input-group">
-<<<<<<< Updated upstream
                                 <input class="input--style-3" type="number" placeholder="DNI" name="dni" th:field="*{dni}" required th:readonly="${usuario.dni != null}">
-=======
-                                <input class="input--style-3" type="text" placeholder="DNI" name="dni" th:field="*{dni}" required th:readonly="${usuario.dni!=null}">
->>>>>>> Stashed changes
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3" type="text" placeholder="Nombre" name="nombre" th:field="*{nombre}" required>
@@ -101,12 +97,8 @@
                             </div>
                             <div class="input-group">
 
-<<<<<<< Updated upstream
                                 <input class="input--style-3" type="text" placeholder="Email" name="username" th:field="*{email}" th:readonly="${usuario.dni != null}">
-=======
-                                <input class="input--style-3" type="text" placeholder="Email" name="username" th:field="*{email}" required th:readonly="${usuario.dni!=null}">
->>>>>>> Stashed changes
-
+                                
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3" type="password" placeholder="Clave" name="password" th:field="*{clave}" required>

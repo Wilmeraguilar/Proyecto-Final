@@ -292,9 +292,6 @@ td.active {
   background-color: #2c6ed5;
 }
 
-input {
-  padding: 14px;
-}
 
 .table-condensed td, .table-condensed th {
   font-size: 14px;
@@ -338,79 +335,8 @@ input {
 /* ==========================================================================
    #FORM
    ========================================================================== */
-input {
-  outline: none;
-  margin: auto;
-  border: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  font-size: 14px;
-  font-family: inherit;
-  width: 90%;
-  height: 30px;
-  margin: 0.5rem;
-}
-
-.input-icon {
-  position: absolute;
-  font-size: 18px;
-  color: #ccc;
-  right: 8px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-.input-group{
-  position: relative;
-  margin-bottom: 33px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
 
 
-.input-group2 {
-  position: relative;
-  margin-bottom: 33px;
-}
-
-.input--style-3 {
-  padding: 5px 0;
-  font-size: 16px;
-  color: #ccc;
-  background: transparent;
-}
-
-.input--style-3::-webkit-input-placeholder {
-  /* WebKit, Blink, Edge */
-  color: #ccc;
-}
-
-.input--style-3:-moz-placeholder {
-  /* Mozilla Firefox 4 to 18 */
-  color: #ccc;
-  opacity: 1;
-}
-
-.input--style-3::-moz-placeholder {
-  /* Mozilla Firefox 19+ */
-  color: #ccc;
-  opacity: 1;
-}
-
-.input--style-3:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #ccc;
-}
-
-.input--style-3:-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: #ccc;
-}
 
 /* ==========================================================================
    #SELECT2
@@ -509,42 +435,42 @@ input {
 /* ==========================================================================
    #CARD
    ========================================================================== */
-.card {
-  margin: auto;
-  overflow: hidden;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background: #fff;
-}
+   .card {
+    margin: auto;
+    overflow: hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+  }
+  
+  .card-3 {
+    margin: auto;
+    background: rgb(226, 209, 209);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    display: table;
+    margin-bottom: 20px;
+  }
 
-.card-3 {
-  margin: auto;
-  background: #000;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-  width: 100%;
-  display: table;
-  margin-bottom: 20px;
-}
+  .card-3 .card-body {
+    margin: auto;
+    padding: 50px 50px 20px 20px;
+    padding-bottom: 65px;
+    display: table-cell;
+  }
 
-.card-4 {
-  margin: auto;
-  background: rgb(226, 209, 209);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-  width: 100%;
-  display: table;
-  margin-bottom: 20px;
-}
+  .card-3 .card-body1 {
+    margin: auto;
+    padding: 50px 50px 20px 0px;
+    padding-bottom: 65px;
+    display: table-cell;
+  }
 
 .card-3 .card-heading {
   background: url("../imagenes/usuario-registro/Gym_Usuario2.jpg") top left/cover no-repeat;
@@ -594,12 +520,6 @@ input {
   width: 30%;
 }
 
-.card-3 .card-body {
-  margin: auto;
-  padding: 57px 65px;
-  padding-bottom: 65px;
-  display: table-cell;
-}
 
 @media (max-width: 767px) {
   .card-3 {
@@ -774,7 +694,7 @@ footer{
 .input-group-text {
   background: #c0392b !important;
   color: white !important;
-  height: 38px;
+  height: 37px;
   border: 0 !important;
   border-radius: 0.25rem 0 0 0.25rem !important;
 }
@@ -788,7 +708,7 @@ footer{
 .brand_logo_container7 {
   position: absolute;
   height: 220px;
-  width: 297px;
+  width: 316px;
   top: 70px;
   text-align: center;
 }
@@ -796,7 +716,7 @@ footer{
 .brand_logo_container8 {
   position: absolute;
   height: 220px;
-  width: 297px;
+  width: 316px;
   top: 130px;
   text-align: center;
 }
@@ -804,7 +724,7 @@ footer{
 .brand_logo_container9 {
   position: absolute;
   height: 220px;
-  width: 297px;
+  width: 316px;
   top: 190px;
   text-align: center;
 }
@@ -812,7 +732,7 @@ footer{
 .brand_logo_container6 {
   position: absolute;
   height: 220px;
-  width: 297px;
+  width: 316px;
   top: 50px;
   text-align: center;
 }
@@ -820,7 +740,7 @@ footer{
 .brand_logo_container3 {
   position: absolute;
   height: 220px;
-  width: 297px;
+  width: 316px;
   top: 100px;
   text-align: center;
 }
@@ -828,7 +748,7 @@ footer{
 .brand_logo_container4 {
   position: absolute;
   height: 220px;
-  width: 297px;
+  width: 316px;
   top: 150px;
   text-align: center;
 }
@@ -836,7 +756,7 @@ footer{
 .brand_logo_container5 {
   position: absolute;
   height: 220px;
-  width: 297px;
+  width: 316px;
   top: 200px;
   text-align: center;
 }
