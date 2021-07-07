@@ -39,7 +39,7 @@ public class ReservasControlador {
     private GimnasioServicio gimnasioServicio;
     @Autowired
     private UsuarioServicio usuarioServicio;
-
+    
     @GetMapping
     @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
     public ModelAndView mostrarTodos() {
@@ -59,6 +59,15 @@ public class ReservasControlador {
     public ModelAndView ReservaUsuario(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista");
         mav.addObject("reservas", reservasServicio.buscarPorUsuario(usuarioServicio.buscarPorEmail(principal.getName()).getDni()));
+        mav.addObject("title", "Crear Reserva");
+        mav.addObject("action", "guardar");
+
+        return mav;
+    }
+     @GetMapping("/usuario/todas")
+    public ModelAndView ReservaUsuarioTodas(Principal principal) {
+        ModelAndView mav = new ModelAndView("reservas-lista");
+        mav.addObject("reservas", reservasServicio.buscarPorUsuarioTodas(usuarioServicio.buscarPorEmail(principal.getName()).getDni()));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
 
@@ -135,7 +144,7 @@ public class ReservasControlador {
     @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
     public RedirectView eliminar(@PathVariable String id) {
         reservasServicio.eliminar(id);
-        return new RedirectView("/reservas/mias");
+        return new RedirectView("/reservas/usuario");
     }
 
      @GetMapping("/horarios")

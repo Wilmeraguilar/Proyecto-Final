@@ -45,7 +45,7 @@ public class ReservasServicio {
         reservas.setHorario(horario);
         reservas.setGimnasio(g);
         reservas.setUsuario(usuario);
-        reservas.setEstado("ACTIVO");
+        reservas.setEstado("ACTIVA");
 
         resrep.save(reservas);
 
@@ -73,30 +73,26 @@ public class ReservasServicio {
 
         Reservas reserva = resrep.buscarPorUsuarioHorarioFecha(idGimnasio, usuario.getDni(), horario, fecha);
 
-        if (reserva != null) {
+        if (reserva != null&& reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
 
             throw new ErrorServicio("Ya tiene una reserva creada");
 
         }
 
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd-");
-
-        String fechaE = formato.format(fecha);
-
         LocalDate fechaActual = LocalDate.now();
 
-        LocalDate fechaElegida = LocalDate.of(Integer.valueOf(fechaE.substring(0, 4)), Integer.valueOf(fechaE.substring(5, 7)), Integer.valueOf(fechaE.substring(8, 10)));
+        LocalDate fechaElegida = convertirDateALocal(fecha);
 
         if (fechaElegida.isBefore(fechaActual)) {
 
-            throw new ErrorServicio("Fecha fuera de rango");  
+            throw new ErrorServicio("Fecha fuera de rango");
         }
 
         LocalTime horaActual = LocalTime.now();
 
         LocalTime horaElegida = LocalTime.of(Integer.valueOf(horario.substring(0, 2)), 00, 00);
 
-        if (horaElegida.isBefore(horaActual)) {
+        if (fechaElegida.isEqual(fechaActual) && horaElegida.isBefore(horaActual)) {
             throw new ErrorServicio("Horario fuera de rango");
 
         }
@@ -104,26 +100,54 @@ public class ReservasServicio {
     }
 
     @Transactional(readOnly = true)
-    public List<Reservas> buscarPorUsuario(Long dni
-    ) {
+    public LocalDate convertirDateALocal(Date fecha) {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd-");
+
+        String fechaE = formato.format(fecha);
+        LocalDate fechaElegida = LocalDate.of(Integer.valueOf(fechaE.substring(0, 4)), Integer.valueOf(fechaE.substring(5, 7)), Integer.valueOf(fechaE.substring(8, 10)));
+
+        return fechaElegida;
+
+    }
+
+    @Transactional
+    public List<Reservas> buscarPorUsuario(Long dni) {
 
         List<Reservas> reservas = new ArrayList();
+        LocalDate actual = LocalDate.now();
 
         for (Reservas reserva : resrep.buscarPorUsuario(dni)) {
-            if (reserva.getEstado().equalsIgnoreCase("ACTIVO")) {
+
+            LocalDate fecha = convertirDateALocal(reserva.getFecha());
+
+            if (fecha.isBefore(actual)) {
+
+                reserva.setEstado("TERMINADA");
+                resrep.save(reserva);
+            }
+            if (reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
                 reservas.add(reserva);
             }
+
         }
         return reservas;
     }
-    
+
+    @Transactional(readOnly = true)
+    public List<Reservas> buscarPorUsuarioTodas(Long dni) {
+
+        List<Reservas> reservas = resrep.buscarPorUsuario(dni);
+
+        return reservas;
+    }
+
     @Transactional(readOnly = true)
     public List<Reservas> buscarPorGimnasio(String id) {
 
         List<Reservas> reservas = new ArrayList();
 
         for (Reservas reserva : resrep.buscarPorGimnasio(id)) {
-            if (reserva.getEstado().equalsIgnoreCase("ACTIVO")) {
+            if (reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
                 reservas.add(reserva);
             }
         }
@@ -154,7 +178,7 @@ public class ReservasServicio {
                 Gimnasio g = gimnasio.get();
                 Usuario u = usuario.get();
 
-                if (r.getEstado().equalsIgnoreCase("ACTIVO")) {
+                if (r.getEstado().equalsIgnoreCase("ACTIVA")) {
                     r.setFecha(fecha);
                     r.setHorario(horario);
                     r.setGimnasio(g);
@@ -176,20 +200,19 @@ public class ReservasServicio {
     }
 
     @Transactional
-    public void eliminar(String id
-    ) {
+    public void eliminar(String id) {
         Optional<Reservas> reserva = resrep.findById(id);
 
         if (reserva.isPresent()) {
             Reservas r = reserva.get();
 
-            if (r.getEstado().equalsIgnoreCase("ACTIVO")) {
-                r.setEstado("INACTIVO");
+            if (r.getEstado().equalsIgnoreCase("ACTIVA")) {
+                r.setEstado("CANCELADA");
 
                 resrep.save(r);
             } else {
 
-                System.out.println("La reserva se encuentra INACTIVA o TERMINADA. No se puede eliminar");
+                System.out.println("La reserva se encuentra CANCELADA o TERMINADA. No se puede eliminar");
 
             }
         }

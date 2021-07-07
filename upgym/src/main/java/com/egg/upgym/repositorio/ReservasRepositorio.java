@@ -19,9 +19,10 @@ public interface ReservasRepositorio extends JpaRepository<Reservas, String> {
     @Query("SELECT r FROM Reservas r WHERE usuario.dni=:usuario AND fecha=:fecha")
     List<Reservas> buscarPorDniFecha(@Param("usuario") Long dni,@Param("fecha") Date fecha);
     
-    @Query("SELECT r FROM Reservas r WHERE usuario.dni=:usuario")
+    @Query("SELECT r FROM Reservas r WHERE usuario.dni=:usuario ORDER BY horario,fecha")
     List<Reservas> buscarPorUsuario(@Param("usuario") Long dni);
     
     @Query("SELECT r FROM Reservas r WHERE gimnasio.id=:gimnasio")
     List<Reservas> buscarPorGimnasio(@Param("gimnasio") String id);
+   
 }
