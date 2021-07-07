@@ -57,6 +57,10 @@
                             <div class="input-group">
                                 <input class="input--style-3" type="text" placeholder="Telefono" name="telefono"
                                        th:field="*{telefono}" required>
+                                
+                                <input id="direccion" class="input--style-3" type="hidden" name="direccion"
+                                th:field="*{direccion.id}">
+                                
                             </div>
                             <div class="input-group rs-select2 js-select-simple select--no-search ">
                                 <select name="provincia" id="provincias" class="form-select" aria-label="Elegir Provincia"
