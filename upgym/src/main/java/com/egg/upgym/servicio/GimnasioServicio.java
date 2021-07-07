@@ -85,7 +85,7 @@ public class GimnasioServicio implements UserDetailsService {
         } catch (MessagingException ex) {
             System.out.println("Falló el envio del correo");
         }*/
-        emailServicio.enviarCorreoAsincrono(email, "Correo de bienvenida" , "Bienvenido a la página de UPGYM. Gracias por registrarse "+nombre);
+        emailServicio.enviarCorreoAsincrono(email, "Correo de bienvenida" , "Bienvenido a la página de UPGYM. Gracias por registrarse "+ nombre);
        
 
         rolrep.save(rol);
