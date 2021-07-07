@@ -181,7 +181,7 @@
                     <div class="card-body">
                         <div class=" pl-sm-5">
                             <div class="brand_logo_container2">
-                                <img th:src="@{'/imagenes/' + ${gimnasio.imagen}}" class="img-fluid brand_logo2" alt="Logo">
+                                <img th:src="@{'/imagenes/' + ${usuario.imagen}}" class="img-fluid brand_logo2" alt="Logo">
                             </div>
                         </div>
                         <div class="d-flex form_container2 pl-sm-5">
@@ -192,7 +192,7 @@
                                         <span class="input-group-text"><i class="far fa-user"></i></span>
                                     </div>
                                     <input type="username" name="username" class="form-control input_user"
-                                           th:value="|${gimnasio.nombre}" disabled selected>
+                                           th:value="|${usuario.nombre} ${usuario.apellido}|" disabled selected>
                                 </div>
                             </form>
                         </div>
@@ -201,47 +201,36 @@
 
 
                         <div class="">
-                            <div class="brand_logo_container6">
+                            <div class="brand_logo_container7">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
                                     </div>
                                     <input type="email" name="email" class="form-control input_user" value=""
-                                           th:value="|${gimnasio.email}|" disabled selected>
+                                           th:value="|${usuario.email}|" disabled selected>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex">
-                            <div class="brand_logo_container4">
+                            <div class="brand_logo_container8">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-route"></i></span>
                                     </div>
                                     <input type="text" name="direccion" class="form-control input_user"
-                                           th:value="|${gimnasio.direccion.calleNro}, ${gimnasio.direccion.ciudad}.|" disabled
+                                           th:value="|${usuario.direccion.calleNro}, ${usuario.direccion.ciudad}.|" disabled
                                            selected>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex">
-                            <div class="brand_logo_container5">
+                            <div class="brand_logo_container9">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-map-signs"></i></span>
                                     </div>
                                     <input type="text" name="direccion" class="form-control input_user"
-                                           th:value="|${gimnasio.direccion.provincia}.|" disabled selected>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="brand_logo_container3">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
-                                    </div>
-                                    <input type="text" name="direccion" class="form-control input_user"
-                                           th:value="|Capacidad: ${gimnasio.capacidad}.|" disabled selected>
+                                           th:value="|${usuario.direccion.provincia}.|" disabled selected>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +241,7 @@
                                         <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
                                     </div>
                                     <input type="text" name="direccion" class="form-control input_user"
-                                           th:value="|${gimnasio.telefono}|" disabled selected>
+                                           th:value="|${usuario.telefono}|" disabled selected>
                                 </div>
 
                             </form>
@@ -267,7 +256,7 @@
 
 
                 <div class="d-inline-flex float-right mt-4 login_container">
-                    <a th:href="@{/gimnasios/editar/__${gimnasio.id}__}" class="btn login_btn"  role="button" >Editar Datos</a>
+                    <a th:href="@{/usuarios/editar/__${usuario.dni}__}" class="btn login_btn"  role="button" >Editar Datos</a>
                 </div>
 
             </div>
