@@ -111,6 +111,17 @@
                                 <input class="input--style-3" type="password" placeholder="Clave" name="password"
                                        th:field="*{clave}" required>
                             </div>
+                            
+                            <div class="input-group">
+                                <label class="input--style-3" for="imagen">Cargar Imagen</label>
+                                <input class="input--style-3" type="file" accept="image/*" name="file" id="imagen">
+                                
+<!--                                <input id="imagen" class="input--style-3" type="hidden" name="imagen"
+                                th:field="*{imagen}">-->
+                            </div>
+                            
+                            <input id="estado" class="input--style-3" type="hidden" name="estado"
+                                   th:field="*{estado}">
 
                             <!--agregar esto  pero no guarda
                             <div class="input-group">
