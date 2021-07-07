@@ -73,7 +73,7 @@ public class ReservasServicio {
 
         Reservas reserva = resrep.buscarPorUsuarioHorarioFecha(idGimnasio, usuario.getDni(), horario, fecha);
 
-        if (reserva != null&& reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
+        if (reserva != null && reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
 
             throw new ErrorServicio("Ya tiene una reserva creada");
 
@@ -141,22 +141,34 @@ public class ReservasServicio {
         return reservas;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public List<Reservas> buscarPorGimnasio(String id) {
 
         List<Reservas> reservas = new ArrayList();
+        LocalDate actual = LocalDate.now();
 
         for (Reservas reserva : resrep.buscarPorGimnasio(id)) {
+
+            LocalDate fecha = convertirDateALocal(reserva.getFecha());
+
+            if (fecha.isBefore(actual)) {
+
+                reserva.setEstado("TERMINADA");
+                resrep.save(reserva);
+            }
             if (reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
                 reservas.add(reserva);
             }
+
         }
         return reservas;
     }
 
     @Transactional(readOnly = true)
-    public List<Reservas> buscarTodos() {
-        List<Reservas> reservas = resrep.findAll();
+    public List<Reservas> buscarPorGimnasioTodas(String id) {
+
+        List<Reservas> reservas = resrep.buscarPorGimnasio(id);
+
         return reservas;
     }
 
@@ -200,7 +212,7 @@ public class ReservasServicio {
     }
 
     @Transactional
-    public void eliminar(String id) {
+    public void eliminar(String id) throws ErrorServicio {
         Optional<Reservas> reserva = resrep.findById(id);
 
         if (reserva.isPresent()) {
@@ -212,7 +224,8 @@ public class ReservasServicio {
                 resrep.save(r);
             } else {
 
-                System.out.println("La reserva se encuentra CANCELADA o TERMINADA. No se puede eliminar");
+                throw new ErrorServicio("La reserva se encuentra CANCELADA o TERMINADA. No se puede eliminar");
+                
 
             }
         }

@@ -22,7 +22,7 @@ public interface ReservasRepositorio extends JpaRepository<Reservas, String> {
     @Query("SELECT r FROM Reservas r WHERE usuario.dni=:usuario ORDER BY horario,fecha")
     List<Reservas> buscarPorUsuario(@Param("usuario") Long dni);
     
-    @Query("SELECT r FROM Reservas r WHERE gimnasio.id=:gimnasio")
+    @Query("SELECT r FROM Reservas r WHERE gimnasio.id=:gimnasio ORDER BY horario,fecha")
     List<Reservas> buscarPorGimnasio(@Param("gimnasio") String id);
    
 }
