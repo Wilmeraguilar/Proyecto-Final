@@ -93,9 +93,9 @@ public class GimnasioControlador {
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request) throws MessagingException {
+    public RedirectView guardar(@RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request, @RequestParam("file") MultipartFile imagen) throws MessagingException {
 
-            gimnasioServicio.crear(nombre, telefono, capacidad, email, clave, provincia, ciudad, calleNro);
+            gimnasioServicio.crear(nombre, telefono, capacidad, email, clave, provincia, ciudad, calleNro, imagen);
 
         try {
             request.login(email, clave);
@@ -146,8 +146,8 @@ public class GimnasioControlador {
         return new RedirectView("/");
     }*/
     @PostMapping("/modificar")
-    public RedirectView modificar(@RequestParam String id, @RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado) {
-        gimnasioServicio.modificar(id, nombre, telefono, capacidad, email, clave, idDireccion, provincia, ciudad, calleNro, estado);
+    public RedirectView modificar(@RequestParam String id, @RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado, @RequestParam("file") MultipartFile imagen) {
+        gimnasioServicio.modificar(id, nombre, telefono, capacidad, email, clave, idDireccion, provincia, ciudad, calleNro, estado, imagen);
         return new RedirectView("/gimnasios");
     }
 

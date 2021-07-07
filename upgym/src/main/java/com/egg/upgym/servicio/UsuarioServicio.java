@@ -71,8 +71,15 @@ public class UsuarioServicio implements UserDetailsService {
                 String idImagen = UUID.randomUUID().toString();
                 Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
                 Files.write(rutaCompleta, bytesImg);
+                usuario.setImagen(idImagen);
+                
 
-                usuario.setRol(rol);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        usuario.setRol(rol);
 
                 usuario.setDni(dni);
                 usuario.setNombre(nombre);
@@ -86,7 +93,6 @@ public class UsuarioServicio implements UserDetailsService {
                 direccion.setCalleNro(calleNro);
                 usuario.setDireccion(direccion);
                 usuario.setEstado("ACTIVO");
-                usuario.setImagen(idImagen);
 
                 rolrep.save(rol);
                 dirrep.save(direccion);
@@ -94,11 +100,6 @@ public class UsuarioServicio implements UserDetailsService {
                 emailServicio.enviarCorreoAsincrono(email, "Bienvenida a UPGYM", "Gracias por registrarte "+nombre);
                 
                 usurep.save(usuario);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 
@@ -195,7 +196,6 @@ public class UsuarioServicio implements UserDetailsService {
                 d.setCiudad(ciudad);
                 d.setCalleNro(calleNro);
                 u.setDireccion(d);
-                u.setImagen(u.getImagen());
 
                 dirrep.save(d);
                 usurep.save(u);

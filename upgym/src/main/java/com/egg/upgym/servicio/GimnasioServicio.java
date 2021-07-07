@@ -9,6 +9,7 @@ import com.egg.upgym.repositorio.DireccionRepositorio;
 import com.egg.upgym.repositorio.GimnasioRepositorio;
 import com.egg.upgym.repositorio.RolRepositorio;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,6 +34,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileSystemUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class GimnasioServicio implements UserDetailsService {
@@ -54,7 +56,7 @@ public class GimnasioServicio implements UserDetailsService {
     
    
    @Transactional
-    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro) throws MessagingException {
+    public void crear(String nombre, String telefono, Integer capacidad, String email, String clave, String provincia, String ciudad, String calleNro, MultipartFile imagen) throws MessagingException {
         Gimnasio gimnasio = new Gimnasio();
         Direccion direccion = new Direccion();
         Rol rol = new Rol();
@@ -66,6 +68,22 @@ public class GimnasioServicio implements UserDetailsService {
             }
         }
         
+        if (!imagen.isEmpty()) {
+            Path DirectorioImagenes = Paths.get("src//main//resources//static/imagenes");
+            String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
+
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                String idImagen = UUID.randomUUID().toString();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
+                Files.write(rutaCompleta, bytesImg);
+                gimnasio.setImagen(idImagen);
+                
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
                 
         gimnasio.setRol(rol);
         gimnasio.setNombre(nombre);
@@ -231,14 +249,31 @@ public class GimnasioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void modificar(String id, String nombre, String telefono, Integer capacidad, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado) {
+    public void modificar(String id, String nombre, String telefono, Integer capacidad, String email, String clave, String idDireccion, String provincia, String ciudad, String calleNro, String estado, MultipartFile imagen) {
 
         Optional<Gimnasio> gimnasio = gimrep.findById(id);
-        Optional<Direccion> direccion = dirrep.findById(id);
+        Optional<Direccion> direccion = dirrep.findById(idDireccion);
 
         if (gimnasio.isPresent()) {
             Gimnasio g = gimnasio.get();
             Direccion d = direccion.get();
+            
+            if (!imagen.isEmpty()) {
+            Path DirectorioImagenes = Paths.get("src//main//resources//static/imagenes");
+            String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
+
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                String idImagen = UUID.randomUUID().toString();
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
+                Files.write(rutaCompleta, bytesImg);
+                g.setImagen(idImagen);
+                
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
             if (g.getEstado().equalsIgnoreCase("ACTIVO")) {
                 g.setNombre(nombre);

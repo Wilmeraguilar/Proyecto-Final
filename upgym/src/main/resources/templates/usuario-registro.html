@@ -40,11 +40,9 @@
                         <form id="formulario" th:action="@{/usuarios/__${action}__}" method="POST" th:object="${usuario}" autocomplete="on"
                               enctype="multipart/form-data" novalidate>
                             <div class="input-group">
-<<<<<<< Updated upstream
+
                                 <input class="input--style-3" type="number" placeholder="DNI" name="dni" th:field="*{dni}" required th:readonly="${usuario.dni != null}">
-=======
-                                <input class="input--style-3" type="text" placeholder="DNI" name="dni" th:field="*{dni}" required th:readonly="${usuario.dni!=null}">
->>>>>>> Stashed changes
+
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3" type="text" placeholder="Nombre" name="nombre" th:field="*{nombre}" required>
@@ -101,11 +99,7 @@
                             </div>
                             <div class="input-group">
 
-<<<<<<< Updated upstream
-                                <input class="input--style-3" type="text" placeholder="Email" name="username" th:field="*{email}" th:readonly="${usuario.dni != null}">
-=======
                                 <input class="input--style-3" type="text" placeholder="Email" name="username" th:field="*{email}" required th:readonly="${usuario.dni!=null}">
->>>>>>> Stashed changes
 
                             </div>
                             <div class="input-group">
@@ -121,7 +115,7 @@
                             </div>
                             
                             <input id="estado" class="input--style-3" type="hidden" name="estado"
-                                th:field="*{estado}">
+                                   th:field="*{estado}">
 
                             <div class="p-t-10">
                                 <button class="btn2 btn--pill btn--green" type="submit" th:text="${action == 'guardar'} ? 'Registrar' : 'Guardar cambios'"></button>
