@@ -94,7 +94,11 @@ public class GimnasioControlador {
 
     @PostMapping("/guardar")
     public RedirectView guardar(@RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request) throws MessagingException {
+<<<<<<< Updated upstream
             gimnasioServicio.crear(nombre, telefono, capacidad, email, clave, provincia, ciudad, calleNro);
+=======
+        gimnasioServicio.crear(nombre, telefono, capacidad, email, clave, provincia, ciudad, calleNro);
+>>>>>>> Stashed changes
         try {
             request.login(email, clave);
         } catch (ServletException e) {

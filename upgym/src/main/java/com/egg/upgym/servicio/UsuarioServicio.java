@@ -79,6 +79,7 @@ public class UsuarioServicio implements UserDetailsService {
                 usuario.setApellido(apellido);
                 usuario.setTelefono(telefono);
                 usuario.setEmail(email);
+                usuario.setTelefono(telefono);
                 usuario.setClave(encoder.encode(clave));
                 direccion.setProvincia(provincia);
                 direccion.setCiudad(ciudad);
@@ -176,30 +177,31 @@ public class UsuarioServicio implements UserDetailsService {
                     String idImagen = UUID.randomUUID().toString();
                     Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
                     Files.write(rutaCompleta, bytesImg);
+                    u.setImagen(idImagen);
 
-                    if (u.getEstado().equalsIgnoreCase("ACTIVO")) {
-                        u.setNombre(nombre);
-                        u.setApellido(apellido);
-                        u.setTelefono(telefono);
-                        u.setEmail(email);
-                        u.setClave(encoder.encode(clave));
-                        u.setEstado(estado);
-                        d.setProvincia(provincia);
-                        d.setCiudad(ciudad);
-                        d.setCalleNro(calleNro);
-                        u.setDireccion(d);
-                        u.setImagen(imagen.getName());
-
-                        dirrep.save(d);
-                        usurep.save(u);
-                    } else {
-
-                        System.out.println("El usuario se encuentra INACTIVO. No se puede modificar");
-
-                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+
+            if (u.getEstado().equalsIgnoreCase("ACTIVO")) {
+                u.setNombre(nombre);
+                u.setApellido(apellido);
+                u.setTelefono(telefono);
+                u.setEmail(email);
+                u.setClave(encoder.encode(clave));
+                u.setEstado(estado);
+                d.setProvincia(provincia);
+                d.setCiudad(ciudad);
+                d.setCalleNro(calleNro);
+                u.setDireccion(d);
+                u.setImagen(u.getImagen());
+
+                dirrep.save(d);
+                usurep.save(u);
+            } else {
+
+                System.out.println("El usuario se encuentra INACTIVO. No se puede modificar");
 
             }
 
@@ -210,39 +212,36 @@ public class UsuarioServicio implements UserDetailsService {
 //    public void editar(Long dni, String nombre, String apellido, String email, String clave) {
 //        usurep.editar(dni, nombre, apellido, email, clave);
 //    }
-        @Transactional
-        public void eliminar
-        (Long dni
-        
-            ) {
+    @Transactional
+    public void eliminar(Long dni
+    ) {
         Optional<Usuario> usuario = usurep.findById(dni);
 
-            if (usuario.isPresent()) {
-                Usuario u = usuario.get();
+        if (usuario.isPresent()) {
+            Usuario u = usuario.get();
 
-                if (u.getEstado().equalsIgnoreCase("ACTIVO")) {
-                    u.setEstado("INACTIVO");
+            if (u.getEstado().equalsIgnoreCase("ACTIVO")) {
+                u.setEstado("INACTIVO");
 
-                    usurep.save(u);
-                } else {
+                usurep.save(u);
+            } else {
 
-                    System.out.println("El usuario se encuentra INACTIVO. No se puede eliminar");
+                System.out.println("El usuario se encuentra INACTIVO. No se puede eliminar");
 
-                }
             }
         }
-
-        @Override
-        public UserDetails loadUserByUsername
-        (String email) throws UsernameNotFoundException {
-            Usuario usuario = usurep.buscarPorUser(email);
-
-            if (usuario == null) {
-                throw new UsernameNotFoundException("No se encontro un usuario registrado con el email " + email);
-            }
-            GrantedAuthority rol = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getNombre());
-
-            return new User(usuario.getEmail(), usuario.getClave(), Collections.singletonList(rol));
-        }
-
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Usuario usuario = usurep.buscarPorUser(email);
+
+        if (usuario == null) {
+            throw new UsernameNotFoundException("No se encontro un usuario registrado con el email " + email);
+        }
+        GrantedAuthority rol = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getNombre());
+
+        return new User(usuario.getEmail(), usuario.getClave(), Collections.singletonList(rol));
+    }
+
+}

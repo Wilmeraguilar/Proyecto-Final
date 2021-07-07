@@ -40,7 +40,11 @@
                         <form id="formulario" th:action="@{/usuarios/__${action}__}" method="POST" th:object="${usuario}" autocomplete="on"
                               enctype="multipart/form-data" novalidate>
                             <div class="input-group">
+<<<<<<< Updated upstream
                                 <input class="input--style-3" type="number" placeholder="DNI" name="dni" th:field="*{dni}" required th:readonly="${usuario.dni != null}">
+=======
+                                <input class="input--style-3" type="text" placeholder="DNI" name="dni" th:field="*{dni}" required th:readonly="${usuario.dni!=null}">
+>>>>>>> Stashed changes
                             </div>
                             <div class="input-group">
                                 <input class="input--style-3" type="text" placeholder="Nombre" name="nombre" th:field="*{nombre}" required>
@@ -51,6 +55,10 @@
                             <div class="input-group">
                                 <input class="input--style-3" type="number" placeholder="Telefono" name="telefono" th:field="*{telefono}" required>
                             </div>
+                            
+                            <input id="direccion" class="input--style-3" type="hidden" name="direccion"
+                                th:field="*{direccion.id}">
+                            
                             <div class="input-group rs-select2 js-select-simple select--no-search ">
                                 <select name="provincia" id="provincias" class="form-select" aria-label="Elegir Provincia"
                                         th:field="*{direccion.provincia}" required>
@@ -93,7 +101,11 @@
                             </div>
                             <div class="input-group">
 
+<<<<<<< Updated upstream
                                 <input class="input--style-3" type="text" placeholder="Email" name="username" th:field="*{email}" th:readonly="${usuario.dni != null}">
+=======
+                                <input class="input--style-3" type="text" placeholder="Email" name="username" th:field="*{email}" required th:readonly="${usuario.dni!=null}">
+>>>>>>> Stashed changes
 
                             </div>
                             <div class="input-group">
@@ -102,8 +114,14 @@
 
                             <div class="input-group">
                                 <label class="input--style-3" for="imagen">Cargar Imagen</label>
-                                <input class="input--style-3" type="file" accept="image/*" name="file" id="imagen" required>
+                                <input class="input--style-3" type="file" accept="image/*" name="file" id="imagen">
+                                
+<!--                                <input id="imagen" class="input--style-3" type="hidden" name="imagen"
+                                th:field="*{imagen}">-->
                             </div>
+                            
+                            <input id="estado" class="input--style-3" type="hidden" name="estado"
+                                th:field="*{estado}">
 
                             <div class="p-t-10">
                                 <button class="btn2 btn--pill btn--green" type="submit" th:text="${action == 'guardar'} ? 'Registrar' : 'Guardar cambios'"></button>
