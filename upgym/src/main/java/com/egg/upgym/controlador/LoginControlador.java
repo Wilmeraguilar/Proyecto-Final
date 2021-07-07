@@ -14,6 +14,7 @@ public class LoginControlador {
     @GetMapping
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView("login");
+        mav.addObject("action", "login");
         return mav;
     }
 
