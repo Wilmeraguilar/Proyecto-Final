@@ -39,9 +39,10 @@
                     <div class="card-heading2"></div>
                     <div class="card-body">
 
-                        <div th:if="${mensaje !=null}" class="alert alert-success" style="background-color: chartreuse;" text="color=white" th:text="${mensaje}"></div>
-                        <div th:if="${error !=null}" class="btn2 btn--pill btn--green text-align mx-auto" text-align-center  type="text" th:text="${error}"></div>
-
+                        
+                        <div class="text-center">
+                            <div th:if="${error !=null}" class="btn2 btn--pill btn--green"  type="text" th:text="${error}"></div>
+                        </div>  
 
                         <h2 class="title">RESERVA DE HORA</h2>
                         <form th:action="@{/reservas/__${action}__}" method="POST" th:object="${reserva}" autocomplete="on"

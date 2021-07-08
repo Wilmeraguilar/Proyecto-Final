@@ -127,7 +127,7 @@ public class ReservasControlador {
     public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario, RedirectAttributes attributes) {
         try {
             reservasServicio.crear(fecha, horario, idGimnasio, emailUsuario);
-            attributes.addFlashAttribute("creado", "Reserva creada correctamente");
+            attributes.addFlashAttribute("creado", "Reserva creada");
 
         } catch (ErrorServicio e) {
             attributes.addFlashAttribute("error", e.getMessage());
@@ -152,10 +152,10 @@ public class ReservasControlador {
 
     @PostMapping("/eliminar/{id}")
     @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
-    public RedirectView eliminar(@PathVariable String id, Principal principal, RedirectAttributes attributes) throws ErrorServicio, MessagingException {
+    public RedirectView eliminar(@PathVariable String id, Principal principal, RedirectAttributes attributes) throws ErrorServicio, MessagingException{
         try {
             reservasServicio.eliminar(id, principal.getName());
-            attributes.addFlashAttribute("creado", "Reserva cancelada correctamente");
+            attributes.addFlashAttribute("creado", "Reserva cancelada");
         } catch (ErrorServicio e) {
 
             if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {

@@ -67,9 +67,17 @@ public class ReservasServicio {
         Usuario usuario = usurep.buscarPorUser(emailUsuario);
         Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
         Gimnasio g = gimnasio.get();
+       
+        
         List<Reservas> listaCap = resrep.buscarPorGymHorarioFecha(idGimnasio, horario, fecha);
+        List<Reservas> listaCapReal = new ArrayList();
+        for (Reservas reservas : listaCap) {
+            if (reservas.getEstado().equalsIgnoreCase("ACTIVA")) {
+                listaCapReal.add(reservas);
+            }
+        }
 
-        if (listaCap.size() > g.getCapacidad()) {
+        if (listaCapReal.size() > g.getCapacidad()) {
 
             throw new ErrorServicio("Horario/fecha supera capacidad disponible");
 
@@ -229,22 +237,20 @@ public class ReservasServicio {
                     emailServicio.enviarCorreoAsincrono(email, "Cancelacion Reserva", "Cancelaste la reserva de " + r.getUsuario().getNombre() + " " + r.getUsuario().getApellido());
                     emailServicio.enviarCorreoAsincrono(r.getUsuario().getEmail(), "Cancelacion Reserva", r.getGimnasio().getNombre() + " ha cancelado su reserva");
                 }
-                if(usurep.buscarPorUser(email)!=null){
-                   emailServicio.enviarCorreoAsincrono(email,"Cancelación Reserva","Cancelaste la reserva en "+r.getGimnasio().getNombre());
-                   emailServicio.enviarCorreoAsincrono(r.getGimnasio().getEmail(),"Cancelación Reserva",r.getUsuario().getNombre()+" "+r.getUsuario().getApellido()+" ha cancelado su reserva");
-                   
+                if (usurep.buscarPorUser(email) != null) {
+                    emailServicio.enviarCorreoAsincrono(email, "Cancelación Reserva", "Cancelaste la reserva en " + r.getGimnasio().getNombre());
+                    emailServicio.enviarCorreoAsincrono(r.getGimnasio().getEmail(), "Cancelación Reserva", r.getUsuario().getNombre() + " " + r.getUsuario().getApellido() + " ha cancelado su reserva");
+
                 }
 
                 resrep.save(r);
             } else {
-                if(r.getEstado().equalsIgnoreCase("CANCELADA")){
+                if (r.getEstado().equalsIgnoreCase("CANCELADA")) {
                     throw new ErrorServicio("La reserva ya se encuentra CANCELADA, no se puede cancelar");
                 }
-                 if(r.getEstado().equalsIgnoreCase("TERMINADA")){
+                if (r.getEstado().equalsIgnoreCase("TERMINADA")) {
                     throw new ErrorServicio("La reserva se encuentra TERMINADA, no se puede cancelar");
                 }
-
-                
 
             }
         }
