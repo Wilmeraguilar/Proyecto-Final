@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,9 @@ public class ReservasServicio {
 
     @Autowired
     GimnasioRepositorio gimrep;
+
+    @Autowired
+    EmailServicio emailServicio;
 
     @Transactional(rollbackFor = Exception.class)
     public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario) throws ErrorServicio {
@@ -212,7 +216,7 @@ public class ReservasServicio {
     }
 
     @Transactional
-    public void eliminar(String id) throws ErrorServicio {
+    public void eliminar(String id, String email) throws ErrorServicio,MessagingException {
         Optional<Reservas> reserva = resrep.findById(id);
 
         if (reserva.isPresent()) {
@@ -221,11 +225,16 @@ public class ReservasServicio {
             if (r.getEstado().equalsIgnoreCase("ACTIVA")) {
                 r.setEstado("CANCELADA");
 
+                if (gimrep.buscarPorGim(email) != null) {
+                    emailServicio.enviarCorreoAsincrono(email, "Cancelacion Reserva","Cancelaste la reserva de "+r.getUsuario().getNombre()+" "+r.getUsuario().getApellido());
+                    emailServicio.enviarCorreoAsincrono(r.getUsuario().getEmail(), "Cancelacion Reserva",r.getGimnasio().getNombre()+" ha cancelado su reserva");
+
+                }
+
                 resrep.save(r);
             } else {
 
                 throw new ErrorServicio("La reserva se encuentra CANCELADA o TERMINADA. No se puede eliminar");
-                
 
             }
         }
