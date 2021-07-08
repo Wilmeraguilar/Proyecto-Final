@@ -14,6 +14,7 @@ import com.egg.upgym.servicio.UsuarioServicio;
 
 import java.util.Date;
 import java.util.Map;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,21 +41,9 @@ public class ReservasControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
     
-    @GetMapping
-    @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
-    public ModelAndView mostrarTodos() {
-        ModelAndView mav = new ModelAndView("reservas-lista");
-        mav.addObject("reservas", reservasServicio.buscarTodos());
-        return mav;
-    }
+   
 
-//    @GetMapping("/buscar/dniFecha")
-//    public ModelAndView mostrarPorDniFecha(@RequestParam Long dni,@RequestParam Date fecha) {
-//        ModelAndView mav = new ModelAndView("reservas");
-//        mav.addObject("reservas", reservasServicio.buscarPorDniFecha(dni,fecha));
-//
-//        return mav;
-//    }
+
     @GetMapping("/usuario")
     public ModelAndView ReservaUsuario(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista");
@@ -142,8 +131,8 @@ public class ReservasControlador {
 
     @PostMapping("/eliminar/{id}")
     @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
-    public RedirectView eliminar(@PathVariable String id) {
-        reservasServicio.eliminar(id);
+    public RedirectView eliminar(@PathVariable String id, Principal principal)throws ErrorServicio,MessagingException {
+        reservasServicio.eliminar(id,principal.getName());
         return new RedirectView("/reservas/usuario");
     }
 
