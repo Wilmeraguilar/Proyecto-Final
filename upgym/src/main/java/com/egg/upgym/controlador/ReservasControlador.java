@@ -40,9 +40,6 @@ public class ReservasControlador {
     private GimnasioServicio gimnasioServicio;
     @Autowired
     private UsuarioServicio usuarioServicio;
-    
-   
-
 
     @GetMapping("/usuario")
     public ModelAndView ReservaUsuario(Principal principal) {
@@ -53,7 +50,8 @@ public class ReservasControlador {
 
         return mav;
     }
-     @GetMapping("/usuario/todas")
+
+    @GetMapping("/usuario/todas")
     public ModelAndView ReservaUsuarioTodas(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista");
         mav.addObject("reservas", reservasServicio.buscarPorUsuarioTodas(usuarioServicio.buscarPorEmail(principal.getName()).getDni()));
@@ -62,11 +60,21 @@ public class ReservasControlador {
 
         return mav;
     }
-    
+
     @GetMapping("/gimnasio")
     public ModelAndView ReservaGimnasio(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista2");
         mav.addObject("reservas", reservasServicio.buscarPorGimnasio(gimnasioServicio.buscarPorEmail(principal.getName()).getId()));
+        mav.addObject("title", "Crear Reserva");
+        mav.addObject("action", "guardar");
+
+        return mav;
+    }
+
+    @GetMapping("/gimnasio/todas")
+    public ModelAndView ReservaGimnasioTodas(Principal principal) {
+        ModelAndView mav = new ModelAndView("reservas-lista2");
+        mav.addObject("reservas", reservasServicio.buscarPorGimnasioTodas(gimnasioServicio.buscarPorEmail(principal.getName()).getId()));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
 
@@ -131,12 +139,39 @@ public class ReservasControlador {
 
     @PostMapping("/eliminar/{id}")
     @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
-    public RedirectView eliminar(@PathVariable String id, Principal principal)throws ErrorServicio,MessagingException {
-        reservasServicio.eliminar(id,principal.getName());
-        return new RedirectView("/reservas/usuario");
+    public RedirectView eliminar(@PathVariable String id, Principal principal, RedirectAttributes attributes) throws ErrorServicio, MessagingException {
+        try {
+            reservasServicio.eliminar(id, principal.getName());
+        } catch (ErrorServicio e) {
+
+            if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
+                attributes.addFlashAttribute("error", e.getMessage());
+                return new RedirectView("/reservas/gimnasio/todas");
+
+            }
+            if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
+                attributes.addFlashAttribute("error", e.getMessage());
+                return new RedirectView("/reservas/usuario/todas");
+
+            }
+
+        }
+
+        if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
+            return new RedirectView("/reservas/gimnasio/todas");
+        }
+        if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
+
+            return new RedirectView("/reservas/usuario/todas");
+
+        }
+        
+        return new RedirectView("/");
+       
+
     }
 
-     @GetMapping("/horarios")
+    @GetMapping("/horarios")
     public ModelAndView Horarios() {
         ModelAndView mav = new ModelAndView("horarios");
         mav.addObject("action", "staff");
@@ -144,5 +179,5 @@ public class ReservasControlador {
         return mav;
 
     }
-    
+
 }

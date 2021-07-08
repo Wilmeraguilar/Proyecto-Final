@@ -375,7 +375,7 @@ public class GimnasioServicio implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Gimnasio gimnasio = gimrep.buscarPorGim(email);
+        Gimnasio gimnasio = gimrep.buscarPorEmail(email);
 
         if (gimnasio == null) {
             throw new UsernameNotFoundException("No se encontro un gimnasio registrado con el email " + email);
