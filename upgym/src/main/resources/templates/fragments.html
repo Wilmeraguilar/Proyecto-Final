@@ -18,7 +18,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                     </li>
-                    <li class="nav-item" th:if="${action == '!login'}" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item" th:unless="${action == 'login'}"  sec:authorize="!isAuthenticated()">
                         <a  class="nav-link" th:href="@{/login/elegir}">Registrarse</a>
                     </li>
 
@@ -39,8 +39,8 @@
                         </li>-->
 
                 </ul>
-                <ul class="navbar-nav mr-auto">
-                    <li th:if="${action == '!login'}" sec:authorize="!isAuthenticated()">
+                <ul    class="navbar-nav mr-auto">
+                    <li th:unless="${action == 'login'}"  sec:authorize="!isAuthenticated()">
                         <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
                     </li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
