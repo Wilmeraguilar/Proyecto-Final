@@ -35,8 +35,8 @@ public class ReservasServicio {
     @Autowired
     EmailServicio emailServicio;
 
-    @Transactional(rollbackFor = Exception.class)
-    public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario) throws ErrorServicio {
+    @Transactional
+    public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario) throws ErrorServicio, MessagingException {
 
         validar(fecha, horario, idGimnasio, emailUsuario);
 
@@ -50,6 +50,9 @@ public class ReservasServicio {
         reservas.setGimnasio(g);
         reservas.setUsuario(usuario);
         reservas.setEstado("ACTIVA");
+        
+        emailServicio.enviarCorreoAsincrono(reservas.getUsuario().getEmail(),"Reserva Creada ", "Creaste una reserva en "+reservas.getGimnasio().getNombre()+ticket(reservas));
+        emailServicio.enviarCorreoAsincrono(reservas.getGimnasio().getEmail(),"Reserva Creada ", reservas.getUsuario().getNombre()+" "+reservas.getUsuario().getApellido()+" ha creado una reserva"+ticket(reservas));
 
         resrep.save(reservas);
 
@@ -67,8 +70,7 @@ public class ReservasServicio {
         Usuario usuario = usurep.buscarPorUser(emailUsuario);
         Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
         Gimnasio g = gimnasio.get();
-       
-        
+
         List<Reservas> listaCap = resrep.buscarPorGymHorarioFecha(idGimnasio, horario, fecha);
         List<Reservas> listaCapReal = new ArrayList();
         for (Reservas reservas : listaCap) {
@@ -224,6 +226,18 @@ public class ReservasServicio {
     }
 
     @Transactional
+    public String ticket(Reservas r) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+
+        String fecha = formato.format(r.getFecha());
+        
+        String ticket="\n\n           DATOS DE RESERVA\n\n"+"        Fecha:       "+fecha+"\n        Horario:    "+r.getHorario()+"\n        Usuario:    "+r.getUsuario().getNombre()+" "+r.getUsuario().getApellido()+" \n"+"        Gimnasio:  "+r.getGimnasio().getNombre()+"\n        Estado:      "+r.getEstado()+"\n\n                                            UPGYM.";
+        
+        return ticket;
+        
+    }
+
+    @Transactional
     public void eliminar(String id, String email) throws ErrorServicio, MessagingException {
         Optional<Reservas> reserva = resrep.findById(id);
 
@@ -234,12 +248,12 @@ public class ReservasServicio {
                 r.setEstado("CANCELADA");
 
                 if (gimrep.buscarPorEmail(email) != null) {
-                    emailServicio.enviarCorreoAsincrono(email, "Cancelacion Reserva", "Cancelaste la reserva de " + r.getUsuario().getNombre() + " " + r.getUsuario().getApellido());
-                    emailServicio.enviarCorreoAsincrono(r.getUsuario().getEmail(), "Cancelacion Reserva", r.getGimnasio().getNombre() + " ha cancelado su reserva");
+                    emailServicio.enviarCorreoAsincrono(email, "Cancelacion Reserva", "Cancelaste la reserva de " + r.getUsuario().getNombre() + " " + r.getUsuario().getApellido()+ticket(r));
+                    emailServicio.enviarCorreoAsincrono(r.getUsuario().getEmail(), "Cancelacion Reserva", r.getGimnasio().getNombre() + " ha cancelado su reserva"+ticket(r));
                 }
                 if (usurep.buscarPorUser(email) != null) {
-                    emailServicio.enviarCorreoAsincrono(email, "Cancelación Reserva", "Cancelaste la reserva en " + r.getGimnasio().getNombre());
-                    emailServicio.enviarCorreoAsincrono(r.getGimnasio().getEmail(), "Cancelación Reserva", r.getUsuario().getNombre() + " " + r.getUsuario().getApellido() + " ha cancelado su reserva");
+                    emailServicio.enviarCorreoAsincrono(email, "Cancelación Reserva", "Cancelaste la reserva en " + r.getGimnasio().getNombre()+ticket(r));
+                    emailServicio.enviarCorreoAsincrono(r.getGimnasio().getEmail(), "Cancelación Reserva", r.getUsuario().getNombre() + " " + r.getUsuario().getApellido() + " ha cancelado su reserva"+ticket(r));
 
                 }
 
