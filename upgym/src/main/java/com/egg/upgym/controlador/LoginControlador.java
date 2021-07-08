@@ -26,6 +26,8 @@ public class LoginControlador {
     @GetMapping("/elegir")
     public ModelAndView GimnasioUsuario() {
         ModelAndView mav = new ModelAndView("gimnasioOUsuario");
+        mav.addObject("action", "login");
+        mav.addObject("actividad", "elegir");
 
         return mav;
 
