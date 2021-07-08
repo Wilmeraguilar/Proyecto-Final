@@ -118,6 +118,13 @@
                 <div class="card card-3">
                     <div class="card-heading6"></div>
                     <div class="card-body">
+                        <div class="text-center">
+                            <div th:if="${error !=null}" class="btn2 btn--pill btn--green text-align mx-auto"
+                            text-align-center type="text" th:text="${error}">
+                        </div>
+                         </div> 
+                        
+                        <br>
                         <h2 class="title">MIS RESERVAS</h2>
                         <div class="p-t-10 text-center ">
                             <form th:action="@{/reservas/usuario/todas}"><button class="btn2 btn--pill btn--green "  type="submit">Ver todas</button></form>
