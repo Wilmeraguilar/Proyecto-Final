@@ -119,15 +119,15 @@
                                 <input class="input--style-3" type="password" placeholder="Clave" name="password"
                                        th:field="*{clave}" required>
                             </div>
-                            
+
                             <div class="input-group">
                                 <label class="input--style-3" for="imagen">Cargar Imagen</label>
                                 <input class="input--style-3" type="file" accept="image/*" name="file" id="imagen">
-                                
-                <!--        <input id="imagen" class="input--style-3" type="hidden" name="imagen"
-                                th:field="*{imagen}">-->
+
+                                <!--        <input id="imagen" class="input--style-3" type="hidden" name="imagen"
+                                                th:field="*{imagen}">-->
                             </div>
-                            
+
                             <input id="estado" class="input--style-3" type="hidden" name="estado"
                                    th:field="*{estado}">
 
@@ -158,20 +158,12 @@
                             
                             -->
 
-                            <div class="p-t-10">
+
+                            <<div class="btn-group">
+                                <a th:href="@{/}" class="btn2 btn--pill btn--green">Home</a>
                                 <button class="btn2 btn--pill btn--green" type="submit"> Guardar</button>
                             </div>
-                            <div class="p-t-10">
-                                
-                                    <div class="btn-group">
-                                        <td>
-                                            <a class="btn btn-sm d-flex btn-outline-light justify-content-between align-items-center" th:href="@{/}">Volver al inicio</a>
-                                        </td>
-                                    </div>
-                                </div>
-                         
 
-                            
                         </form>
                     </div>
                 </div>
