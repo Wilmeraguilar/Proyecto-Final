@@ -20,6 +20,6 @@ public interface GimnasioRepositorio extends JpaRepository<Gimnasio, String> {
     List<Gimnasio> buscarPorCiudad(@Param("ciudad") String ciudad);
 
     @Query("SELECT g from Gimnasio g WHERE g.email = :email")
-    Gimnasio buscarPorGim(@Param("email") String email);
+    Gimnasio buscarPorEmail(@Param("email") String email);
 
 }

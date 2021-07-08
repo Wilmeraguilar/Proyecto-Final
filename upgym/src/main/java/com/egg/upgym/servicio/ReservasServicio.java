@@ -216,7 +216,7 @@ public class ReservasServicio {
     }
 
     @Transactional
-    public void eliminar(String id, String email) throws ErrorServicio,MessagingException {
+    public void eliminar(String id, String email) throws ErrorServicio, MessagingException {
         Optional<Reservas> reserva = resrep.findById(id);
 
         if (reserva.isPresent()) {
@@ -225,16 +225,26 @@ public class ReservasServicio {
             if (r.getEstado().equalsIgnoreCase("ACTIVA")) {
                 r.setEstado("CANCELADA");
 
-                if (gimrep.buscarPorGim(email) != null) {
-                    emailServicio.enviarCorreoAsincrono(email, "Cancelacion Reserva","Cancelaste la reserva de "+r.getUsuario().getNombre()+" "+r.getUsuario().getApellido());
-                    emailServicio.enviarCorreoAsincrono(r.getUsuario().getEmail(), "Cancelacion Reserva",r.getGimnasio().getNombre()+" ha cancelado su reserva");
-
+                if (gimrep.buscarPorEmail(email) != null) {
+                    emailServicio.enviarCorreoAsincrono(email, "Cancelacion Reserva", "Cancelaste la reserva de " + r.getUsuario().getNombre() + " " + r.getUsuario().getApellido());
+                    emailServicio.enviarCorreoAsincrono(r.getUsuario().getEmail(), "Cancelacion Reserva", r.getGimnasio().getNombre() + " ha cancelado su reserva");
+                }
+                if(usurep.buscarPorUser(email)!=null){
+                   emailServicio.enviarCorreoAsincrono(email,"Cancelación Reserva","Cancelaste la reserva en "+r.getGimnasio().getNombre());
+                   emailServicio.enviarCorreoAsincrono(r.getGimnasio().getEmail(),"Cancelación Reserva",r.getUsuario().getNombre()+" "+r.getUsuario().getApellido()+" ha cancelado su reserva");
+                   
                 }
 
                 resrep.save(r);
             } else {
+                if(r.getEstado().equalsIgnoreCase("CANCELADA")){
+                    throw new ErrorServicio("La reserva ya se encuentra CANCELADA, no se puede cancelar");
+                }
+                 if(r.getEstado().equalsIgnoreCase("TERMINADA")){
+                    throw new ErrorServicio("La reserva se encuentra TERMINADA, no se puede cancelar");
+                }
 
-                throw new ErrorServicio("La reserva se encuentra CANCELADA o TERMINADA. No se puede eliminar");
+                
 
             }
         }
