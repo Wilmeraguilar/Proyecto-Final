@@ -139,6 +139,7 @@ public class ReservasControlador {
      @GetMapping("/horarios")
     public ModelAndView Horarios() {
         ModelAndView mav = new ModelAndView("horarios");
+        mav.addObject("action", "staff");
 
         return mav;
 

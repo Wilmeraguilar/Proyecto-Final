@@ -18,8 +18,19 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                     </li>
-                    <li class="nav-item" th:unless="${action == 'login'}"  sec:authorize="!isAuthenticated()">
+                    <li class="nav-item" th:unless="${action == 'login'}" sec:authorize="!isAuthenticated()">
                         <a  class="nav-link" th:href="@{/login/elegir}">Registrarse</a>
+                    </li>
+                    
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a  class="nav-link" th:href="@{/roles/crear}">Crear Roles</a>
+                    </li>
+                    
+                    <li th:if ="${action == 'staff'}" class="nav-item">
+                        <a class="nav-link" href="https://www.nutrinfo.com">Nutrición</a>
+                    </li>
+                    <li th:if ="${action == 'staff'}">
+                        <a class="nav-link" href="https://lawebdelasalud.com">Salud</a>
                     </li>
 
 
@@ -43,6 +54,10 @@
                     <li th:unless="${action == 'login'}"  sec:authorize="!isAuthenticated()">
                         <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
                     </li>
+                    <li th:if="${actividad == 'elegir'}">
+                        <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
+                    </li>
+                    
                     <li class="dropdown" sec:authorize="isAuthenticated()">
                         <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -86,7 +101,7 @@
 
     <!-- navbar de Staff-->
 
-    <nav th:fragment="navbar-Staff-Horarios"  class="font-robo navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<!--    <nav th:fragment="navbar-Staff-Horarios"  class="font-robo navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">UPGYM</a>
@@ -133,10 +148,10 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav>-->
 
 <!--NAVBAR = registro-->
-<nav th:fragment="navbar-Registro"  class="font-robo navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<!--<nav th:fragment="navbar-Registro"  class="font-robo navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/}">UPGYM</a>
@@ -171,7 +186,7 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </nav>-->
 
 <!-- le agrego el th:fragment="nombre que le quiera poner" -->
 

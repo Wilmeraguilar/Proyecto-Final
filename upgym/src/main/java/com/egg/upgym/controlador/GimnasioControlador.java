@@ -160,6 +160,7 @@ public class GimnasioControlador {
     @GetMapping("/staff")
     public ModelAndView GimnasioStaff() {
         ModelAndView mav = new ModelAndView("gimnasioStaff");
+        mav.addObject("action", "staff");
 
         return mav;
 
