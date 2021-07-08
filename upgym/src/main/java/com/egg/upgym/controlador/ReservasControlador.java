@@ -42,8 +42,13 @@ public class ReservasControlador {
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/usuario")
-    public ModelAndView ReservaUsuario(Principal principal) {
+    public ModelAndView ReservaUsuario(Principal principal, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("reservas-lista");
+        Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+        if (flashMap != null) {
+            mav.addObject("mensaje", flashMap.get("creado"));
+            mav.addObject("error", flashMap.get("error"));
+        }
         mav.addObject("reservas", reservasServicio.buscarPorUsuario(usuarioServicio.buscarPorEmail(principal.getName()).getDni()));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
@@ -52,8 +57,13 @@ public class ReservasControlador {
     }
 
     @GetMapping("/usuario/todas")
-    public ModelAndView ReservaUsuarioTodas(Principal principal) {
+    public ModelAndView ReservaUsuarioTodas(Principal principal, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("reservas-lista");
+         Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+        if (flashMap != null) {
+            mav.addObject("mensaje", flashMap.get("creado"));
+            mav.addObject("error", flashMap.get("error"));
+        }
         mav.addObject("reservas", reservasServicio.buscarPorUsuarioTodas(usuarioServicio.buscarPorEmail(principal.getName()).getDni()));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
@@ -83,14 +93,16 @@ public class ReservasControlador {
 
     @GetMapping("/crear/{id}")
     @PreAuthorize("hasAnyRole('USUARIO,ADMIN,GIMNASIO')")
-    public ModelAndView crearReserva(@PathVariable String id, Principal principal, HttpServletRequest request) {
+    public ModelAndView crearReserva(@PathVariable String id, Principal principal,HttpServletRequest request) {
 
         ModelAndView mav = new ModelAndView("reservas");
+        
         Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
         if (flashMap != null) {
             mav.addObject("mensaje", flashMap.get("creado"));
             mav.addObject("error", flashMap.get("error"));
         }
+
         mav.addObject("reserva", new Reservas());
         mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
         mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
@@ -126,7 +138,8 @@ public class ReservasControlador {
             return new RedirectView("/reservas/crear/" + idGimnasio);
 
         }
-        return new RedirectView("/");
+
+        return new RedirectView("/reservas/usuario");
 
     }
 
@@ -142,6 +155,7 @@ public class ReservasControlador {
     public RedirectView eliminar(@PathVariable String id, Principal principal, RedirectAttributes attributes) throws ErrorServicio, MessagingException {
         try {
             reservasServicio.eliminar(id, principal.getName());
+            attributes.addFlashAttribute("creado", "Reserva cancelada correctamente");
         } catch (ErrorServicio e) {
 
             if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
@@ -165,9 +179,8 @@ public class ReservasControlador {
             return new RedirectView("/reservas/usuario/todas");
 
         }
-        
+
         return new RedirectView("/");
-       
 
     }
 
