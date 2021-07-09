@@ -70,8 +70,10 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a  sec:authorize="hasRole('USUARIO')" class="dropdown-item" th:href="@{/usuarios/perfil}">Perfil</a></li>
                             <li><a  sec:authorize="hasRole('GIMNASIO')" class="dropdown-item" th:href="@{/gimnasios/perfil}">Perfil</a></li>
+                            <li><a  sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/usuarios/perfil}">Perfil</a></li>
                             <li><a sec:authorize="hasRole('USUARIO')" class="dropdown-item" th:href="@{/reservas/usuario}">Mis Reservas</a></li>
                             <li><a sec:authorize="hasRole('GIMNASIO')" class="dropdown-item" th:href="@{/reservas/gimnasio}">Mis Reservas</a></li>
+                            <li><a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/reservas/usuario}">Mis Reservas</a></li>
                             <form th:action="@{/logout}" method="post">
                                 <button class="dropdown-item" type="submit">Cerrar Sesion</button>
                             </form>

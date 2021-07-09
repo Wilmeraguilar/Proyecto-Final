@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/css/**", "/imagenes/**", "/assets/**", "/js/**", "/vendor/**", "/usuarios/crear", "/usuarios/guardar", "gimnasios/crear", "gimnasios/guardar").permitAll()
-                    .antMatchers("/**").permitAll()
+                    .antMatchers("/**").authenticated()
                 .and()
                     .exceptionHandling().accessDeniedPage("/error-403")
                 .and()
