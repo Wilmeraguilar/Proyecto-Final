@@ -188,45 +188,7 @@ public class ReservasServicio {
         return reservas;
     }
 
-    @Transactional
-    public void modificar(String id, Date fecha,
-            String horario, String idGimnasio,
-            Long idUsuario, String estado
-    ) {
-
-        Optional<Reservas> reserva = resrep.findById(id);
-        Optional<Usuario> usuario = usurep.findById(idUsuario);
-        Optional<Gimnasio> gimnasio = gimrep.findById(idGimnasio);
-
-        List<Reservas> listaCap = resrep.buscarPorGymHorarioFecha(idGimnasio, horario, fecha);
-
-        if (listaCap.size() < gimnasio.get().getCapacidad()) {
-            if (reserva.isPresent()) {
-                Reservas r = reserva.get();
-                Gimnasio g = gimnasio.get();
-                Usuario u = usuario.get();
-
-                if (r.getEstado().equalsIgnoreCase("ACTIVA")) {
-                    r.setFecha(fecha);
-                    r.setHorario(horario);
-                    r.setGimnasio(g);
-                    r.setUsuario(u);
-                    r.setEstado(estado);
-
-                    resrep.save(r);
-                } else {
-
-                    System.out.println("La reserva se encuentra INACTIVA o TERMINADA. No se puede modificar");
-
-                }
-
-            }
-        } else {
-            System.out.println("La capacidad ha sido excedida");
-        }
-
-    }
-
+   
     @Transactional
     public String ticket(Reservas r) {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");

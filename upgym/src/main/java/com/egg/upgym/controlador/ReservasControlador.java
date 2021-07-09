@@ -112,15 +112,7 @@ public class ReservasControlador {
         return mav;
     }
 
-    @GetMapping("/editar/{id}")
-    @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
-    public ModelAndView editarReserva(@PathVariable String id) {
-        ModelAndView mav = new ModelAndView("reservas");
-        mav.addObject("reserva", reservasServicio.buscarPorId(id));
-        mav.addObject("title", "Editar Reserva");
-        mav.addObject("action", "modificar");
-        return mav;
-    }
+    
 
     @PostMapping("/guardar")
     @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
@@ -143,13 +135,7 @@ public class ReservasControlador {
 
     }
 
-    @PostMapping("/modificar")
-    @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
-    public RedirectView modificar(@RequestParam String id, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam String idGimnasio, @RequestParam Long dniUsuario, @RequestParam String estado) {
-        reservasServicio.modificar(id, fecha, horario, idGimnasio, dniUsuario, estado);
-        return new RedirectView("/");
-    }
-
+    
     @PostMapping("/eliminar/{id}")
     @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
     public RedirectView eliminar(@PathVariable String id, Principal principal, RedirectAttributes attributes) throws ErrorServicio, MessagingException{
