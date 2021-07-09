@@ -43,7 +43,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
-    
+
     @Autowired
     private EmailServicio emailServicio;
 
@@ -53,15 +53,19 @@ public class UsuarioServicio implements UserDetailsService {
         Direccion direccion = new Direccion();
 
         Rol rol = new Rol();
+        if (usurep.findAll().isEmpty()) {
+            rol = rolrep.buscarPorNombre("ADMIN");
+        } else {
+            for (Rol roles : rolrep.findAll()) {
 
-        for (Rol roles : rolrep.findAll()) {
+                if (roles.getEstado().equalsIgnoreCase("ACTIVO") && roles.getNombre().equalsIgnoreCase("USUARIO")) {
+                    rol = roles;
 
-            if (roles.getEstado().equalsIgnoreCase("ACTIVO") && roles.getNombre().equalsIgnoreCase("USUARIO")) {
-                rol = roles;
+                }
 
             }
-
         }
+
         if (!imagen.isEmpty()) {
             Path DirectorioImagenes = Paths.get("src//main//resources//static/imagenes");
             String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
@@ -72,34 +76,33 @@ public class UsuarioServicio implements UserDetailsService {
                 Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
                 Files.write(rutaCompleta, bytesImg);
                 usuario.setImagen(idImagen);
-                
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        
+
         usuario.setRol(rol);
 
-                usuario.setDni(dni);
-                usuario.setNombre(nombre);
-                usuario.setApellido(apellido);
-                usuario.setTelefono(telefono);
-                usuario.setEmail(email);
-                usuario.setTelefono(telefono);
-                usuario.setClave(encoder.encode(clave));
-                direccion.setProvincia(provincia);
-                direccion.setCiudad(ciudad);
-                direccion.setCalleNro(calleNro);
-                usuario.setDireccion(direccion);
-                usuario.setEstado("ACTIVO");
+        usuario.setDni(dni);
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setTelefono(telefono);
+        usuario.setEmail(email);
+        usuario.setTelefono(telefono);
+        usuario.setClave(encoder.encode(clave));
+        direccion.setProvincia(provincia);
+        direccion.setCiudad(ciudad);
+        direccion.setCalleNro(calleNro);
+        usuario.setDireccion(direccion);
+        usuario.setEstado("ACTIVO");
 
-                rolrep.save(rol);
-                dirrep.save(direccion);
-                
-                emailServicio.enviarCorreoAsincrono(email, "Bienvenida a UPGYM", "Gracias por registrarte "+nombre);
-                
-                usurep.save(usuario);
+        rolrep.save(rol);
+        dirrep.save(direccion);
+
+        emailServicio.enviarCorreoAsincrono(email, "Bienvenida a UPGYM", "Gracias por registrarte " + nombre);
+
+        usurep.save(usuario);
 
     }
 
