@@ -50,9 +50,9 @@ public class ReservasServicio {
         reservas.setGimnasio(g);
         reservas.setUsuario(usuario);
         reservas.setEstado("ACTIVA");
-        
-        emailServicio.enviarCorreoAsincrono(reservas.getUsuario().getEmail(),"Reserva Creada ", "Creaste una reserva en "+reservas.getGimnasio().getNombre()+ticket(reservas));
-        emailServicio.enviarCorreoAsincrono(reservas.getGimnasio().getEmail(),"Reserva Creada ", reservas.getUsuario().getNombre()+" "+reservas.getUsuario().getApellido()+" ha creado una reserva"+ticket(reservas));
+
+        emailServicio.enviarCorreoAsincrono(reservas.getUsuario().getEmail(), "Reserva Creada ", "Creaste una reserva en " + reservas.getGimnasio().getNombre() + ticket(reservas));
+        emailServicio.enviarCorreoAsincrono(reservas.getGimnasio().getEmail(), "Reserva Creada ", reservas.getUsuario().getNombre() + " " + reservas.getUsuario().getApellido() + " ha creado una reserva" + ticket(reservas));
 
         resrep.save(reservas);
 
@@ -85,12 +85,14 @@ public class ReservasServicio {
 
         }
 
-        Reservas reserva = resrep.buscarPorUsuarioHorarioFecha(idGimnasio, usuario.getDni(), horario, fecha);
+        List<Reservas> reservasPorDia = resrep.buscarPorUsuarioHorarioFecha(idGimnasio, usuario.getDni(), horario, fecha);
 
-        if (reserva != null && reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
+        for (Reservas reserva : reservasPorDia) {
+            if (reserva != null && reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
 
-            throw new ErrorServicio("Ya tiene una reserva creada");
+                throw new ErrorServicio("Ya tiene una reserva creada");
 
+            }
         }
 
         LocalDate fechaActual = LocalDate.now();
@@ -230,11 +232,11 @@ public class ReservasServicio {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 
         String fecha = formato.format(r.getFecha());
-        
-        String ticket="\n\n           DATOS DE RESERVA\n\n"+"        Fecha:       "+fecha+"\n        Horario:    "+r.getHorario()+"\n        Usuario:    "+r.getUsuario().getNombre()+" "+r.getUsuario().getApellido()+" \n"+"        Gimnasio:  "+r.getGimnasio().getNombre()+"\n        Estado:      "+r.getEstado()+"\n\n                                            UPGYM.";
-        
+
+        String ticket = "\n\n           DATOS DE RESERVA\n\n" + "        Fecha:       " + fecha + "\n        Horario:    " + r.getHorario() + "\n        Usuario:    " + r.getUsuario().getNombre() + " " + r.getUsuario().getApellido() + " \n" + "        Gimnasio:  " + r.getGimnasio().getNombre() + "\n        Estado:      " + r.getEstado() + "\n\n                                            UPGYM.";
+
         return ticket;
-        
+
     }
 
     @Transactional
@@ -248,12 +250,12 @@ public class ReservasServicio {
                 r.setEstado("CANCELADA");
 
                 if (gimrep.buscarPorEmail(email) != null) {
-                    emailServicio.enviarCorreoAsincrono(email, "Cancelacion Reserva", "Cancelaste la reserva de " + r.getUsuario().getNombre() + " " + r.getUsuario().getApellido()+ticket(r));
-                    emailServicio.enviarCorreoAsincrono(r.getUsuario().getEmail(), "Cancelacion Reserva", r.getGimnasio().getNombre() + " ha cancelado su reserva"+ticket(r));
+                    emailServicio.enviarCorreoAsincrono(email, "Cancelacion Reserva", "Cancelaste la reserva de " + r.getUsuario().getNombre() + " " + r.getUsuario().getApellido() + ticket(r));
+                    emailServicio.enviarCorreoAsincrono(r.getUsuario().getEmail(), "Cancelacion Reserva", r.getGimnasio().getNombre() + " ha cancelado su reserva" + ticket(r));
                 }
                 if (usurep.buscarPorUser(email) != null) {
-                    emailServicio.enviarCorreoAsincrono(email, "Cancelación Reserva", "Cancelaste la reserva en " + r.getGimnasio().getNombre()+ticket(r));
-                    emailServicio.enviarCorreoAsincrono(r.getGimnasio().getEmail(), "Cancelación Reserva", r.getUsuario().getNombre() + " " + r.getUsuario().getApellido() + " ha cancelado su reserva"+ticket(r));
+                    emailServicio.enviarCorreoAsincrono(email, "Cancelación Reserva", "Cancelaste la reserva en " + r.getGimnasio().getNombre() + ticket(r));
+                    emailServicio.enviarCorreoAsincrono(r.getGimnasio().getEmail(), "Cancelación Reserva", r.getUsuario().getNombre() + " " + r.getUsuario().getApellido() + " ha cancelado su reserva" + ticket(r));
 
                 }
 
