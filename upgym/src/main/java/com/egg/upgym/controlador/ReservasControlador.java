@@ -124,7 +124,7 @@ public class ReservasControlador {
 
     @PostMapping("/guardar")
     @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
-    public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario, RedirectAttributes attributes) {
+    public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario, RedirectAttributes attributes) throws MessagingException {
         try {
             reservasServicio.crear(fecha, horario, idGimnasio, emailUsuario);
             attributes.addFlashAttribute("creado", "Reserva creada");
