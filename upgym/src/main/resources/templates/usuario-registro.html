@@ -48,7 +48,7 @@
     <body>
 
 
-        <div class="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins">
+        <div class="page-wrapper bg-gra-02 p-t-180 p-b-100 font-poppins">
             <div class="wrapper wrapper--w780">
                 <div class="card card-3">
                     <div class="card-heading"></div>
@@ -135,12 +135,17 @@
                             <input id="estado" class="input--style-3" type="hidden" name="estado"
                                    th:field="*{estado}">
 
-                            <div class="p-t-10">
-
-                                <a th:href="@{/}" class="btn2 btn--pill btn--green">Volver al inicio</a>
-
-
-                                <button class="btn2 btn--pill btn--green" type="submit" th:text="${action == 'guardar'} ? 'Registrar' : 'Guardar cambios'"></button>
+                            <div class="card card-3">
+                                <div>
+                                    <div class="p-t-10">
+                                        <STYLE>A {text-decoration: none;} </STYLE><a role="button" class="btn2 btn--pill btn--azul" th:href="@{/}" > Volver </a>
+                                    </div >
+                                </div >
+                                <div class="card-body3">
+                                    <div class="p-t-10">
+                                        <button class="btn2 btn--pill btn--green" type="submit">Guardar</button>
+                                    </div>
+                                </div>
                             </div>
 
                         </form>

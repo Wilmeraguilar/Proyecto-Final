@@ -646,6 +646,13 @@ input {
   display: table-cell;
 }
 
+.card-3 .card-body3 {
+  margin: auto;;
+  display: table-cell;
+  padding-left: 5px;
+}
+
+
 
 
 @media (max-width: 767px) {
