@@ -13,7 +13,7 @@
 
         <!-- Title Page-->
         <title>Reserva de Hora</title>
-  <link rel="shortcut icon" href="../imagenes/logos/logo_paginas.png">
+        <link rel="shortcut icon" href="../imagenes/logos/logo_paginas.png">
         <!-- Icons font CSS-->
         <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
         <link th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
@@ -28,69 +28,57 @@
 
         <!-- Main CSS-->
         <link th:href="@{/css/formulario.css}" rel="stylesheet" media="all">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+
     </head>
 
     <body>
 
-        <header>
-            <nav th:replace="fragments :: navbar"></nav>
-        </header>
-
-
         
+
+
+
         <div class="page-wrapper bg-gra-02 p-t-181 p-b-100 font-poppins">
             <div class="wrapper wrapper--w780">
                 <div class="card card-3">
 
                     <div class="card-heading2"></div>
-                    <div class="card-body">
+                    <div class="card-body1">
 
-                        
+
                         <div class="text-center">
                             <div th:if="${error !=null}" class="btn2 btn--pill btn--green"  type="text" th:text="${error}"></div>
                         </div>  
 
-                        <h2 class="title">RESERVA DE HORA</h2>
+                        <h2 class="title2">RESERVA DE HORA</h2>
                         <form th:action="@{/reservas/__${action}__}" method="POST" th:object="${reserva}" autocomplete="on"
                               novalidate>
 
 
 
-                            <div class="input-group2">
-                                <input class="input--style-3" type="text" label="Usuario" placeholder="Usuario :">
+                            <!--                            <div class="input-group2">
+                            
+                                                            <input id="usuario" class="input--style-3" type="hidden" label="Usuario" name="usuario"
+                                                                   th:value="${usuario.email}" required>
+                                                            <input id="usuario" class="input--style-3" type="text" label="Usuario" name="usuario"
+                                                                   th:value="|Usuario: ${usuario.nombre}  ${usuario.apellido}|" disabled selected required>
+                            
+                                                        </div>-->
 
-                                <input id="usuario" class="input--style-3" type="hidden" label="Usuario" name="usuario"
+
+                            <div class="input-group2">
+                                <input id="usuario" class="input--style-4" type="hidden" label="Usuario" name="usuario"
                                        th:value="${usuario.email}" required>
-                                <input id="usuario" class="input--style-3" type="text" label="Usuario" name="usuario"
-                                       th:value="|${usuario.nombre}  ${usuario.apellido}|" disabled selected required>
-
-                            </div>
-
-
-                            <div class="input-group2">
-                                <input class="input--style-3" type="text" aria-label="Gimnasio" placeholder="Gimnasio :">
+                                <input id="usuario" class="input--style-4" type="text" label="Usuario" name="usuario"
+                                       th:value="|USUARIO:   ${usuario.nombre} ${usuario.apellido}|" disabled selected required>
                                 <input id="gimnasio" type="hidden" name="gimnasio" th:value="${gimnasio.id}" />
-                                <input id="gimnasio" class="input--style-3" type="text" th:value="|${gimnasio.nombre} |"
+                                <input id="gimnasio" class="input--style-4" type="text" th:value="|GIMNASIO:   ${gimnasio.nombre} |"
                                        disabled selected required>
-                                <input id="gimnasio" class="input--style-3" type="text"
+                                <input id="gimnasio" class="input--style-4" type="text"
                                        th:value="|${gimnasio.direccion.ciudad} - ${gimnasio.direccion.provincia} |" disabled
                                        selected required>
-                            </div>
 
-                            <!-- <div class="input-group">
-                                    <input class="input--style-3 js-datepicker" type="text" placeholder="Fecha" name="fecha"
-                                           th:field="*{fecha}" required>
-                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-                                </div>  versión Wilmer no funciona Date-->
-
-                            <div class="input-group2">
-                                <input id="fecha" class="form-control" type="date" th:field="*{fecha}" required />
-                                <label for="fecha">Fecha </label>
-                                <div class="invalid-feedback">La fecha es obligatorio</div>
-                            </div>
-
-                            <div class="input-group">
-                                <div class="rs-select2 js-select-simple select--no-search">
+                                <div class=" input-group3 rs-select2 js-select-simple select--no-search">
                                     <select name="horario" id="horario" aria-label="Elegir horario" th:field="*{horario}"
                                             required>
                                         <option value="" selected>Elige un horario</option>
@@ -112,7 +100,55 @@
                                     </select>
                                     <div class="select-dropdown"></div>
                                 </div>
+
+<!--                                <input id="fecha" class="" type="date" th:field="*{fecha}" required />-->
+
+                                <div class="input-group3">
+                                    <input class="input--style-3 js-datepicker" type="text" placeholder="Fecha" name="fecha"
+                                           th:field="*{fecha}" required>
+                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                </div>
+
+
+
                             </div>
+
+                            <!-- <div class="input-group">
+                                    <input class="input--style-3 js-datepicker" type="text" placeholder="Fecha" name="fecha"
+                                           th:field="*{fecha}" required>
+                                    <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                </div>  versión Wilmer no funciona Date-->
+
+                            <!--                            <div class="input-group2">
+                                                            <input id="fecha" class="form-control" type="date" th:field="*{fecha}" required />
+                                                            <label for="fecha">Fecha </label>
+                                                            <div class="invalid-feedback">La fecha es obligatorio</div>
+                                                        </div>
+                            
+                                                        <div class="input-group">
+                                                            <div class="rs-select2 js-select-simple select--no-search">
+                                                                <select name="horario" id="horario" aria-label="Elegir horario" th:field="*{horario}"
+                                                                        required>
+                                                                    <option value="" selected>Elige un horario</option>
+                                                                    <option value="08:00">08:00</option>
+                                                                    <option value="09:00">09:00</option>
+                                                                    <option value="10:00">10:00</option>
+                                                                    <option value="11:00">11:00</option>
+                                                                    <option value="12:00">12:00</option>
+                                                                    <option value="13:00">13:00</option>
+                                                                    <option value="14:00">14:00</option>
+                                                                    <option value="15:00">15:00</option>
+                                                                    <option value="16:00">16:00</option>
+                                                                    <option value="17:00">17:00</option>
+                                                                    <option value="18:00">18:00</option>
+                                                                    <option value="19:00">19:00</option>
+                                                                    <option value="20:00">20:00</option>
+                                                                    <option value="21:00">21:00</option>
+                                                                    <option value="22:00">22:00</option>
+                                                                </select>
+                                                                <div class="select-dropdown"></div>
+                                                            </div>
+                                                        </div>-->
 
                             <!--                            <div class="input-group">
                                                                 <input id="gimnasio" class="input--style-3" type="text" th:placeholder="#{reserva.gimnasio}" name="gimnasio"
@@ -125,10 +161,10 @@
                                                                        th:value="${gimnasio.nombre}" required/>
                                                             </div>-->
 
-                            <div class="input-group2">
-                                <label>- </label>
-
-                            </div>
+                            <!--                            <div class="input-group2">
+                                                            <label>- </label>
+                            
+                                                        </div>-->
 
 
 
@@ -174,11 +210,18 @@
                                                                 <label for="id">ID</label>
                                                                 <div class="invalid-feedback">El id es obligatorio</div>
                                                             </div>-->
-
-                            <div class="p-t-10">
-                                <button class="btn2 btn--pill btn--green" type="submit"> Guardar</button>
-                            </div>
-
+                            <div class="card card-3">
+                                <div>
+                                    <div class="p-t-10">
+                                        <STYLE>A {text-decoration: none;} </STYLE><a role="button" class="btn2 btn--pill btn--azul" th:href="@{/}" > Volver </a>
+                                    </div >
+                                </div >
+                                <div class="card-body2">
+                                    <div class="p-t-10">
+                                        <button class="btn2 btn--pill btn--green" type="submit">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>    
                         </form>
                     </div>
 
@@ -186,13 +229,12 @@
             </div>
 
         </div>
-        <!-- Jquery JS-->
-        <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-        <!-- Vendor JS-->
-        <script th:src="@{/vendor/select2/select2.min.js}"></script>
-        <script th:src="@{/vendor/datepicker/moment.min.js}"></script>
-        <script th:src="@{/vendor/datepicker/daterangepicker.js}"></script>
-
+        <!--         Jquery JS
+        -->        <script th:src="@{/vendor/jquery/jquery.min.js}"></script><!--
+                 Vendor JS
+-->                <script th:src="@{/vendor/select2/select2.min.js}"></script>
+                <script th:src="@{/vendor/datepicker/moment.min.js}"></script>
+                <script th:src="@{/vendor/datepicker/daterangepicker.js}"></script>
         <!-- Main JS-->
         <script th:src="@{/js/global.js}"></script>
 

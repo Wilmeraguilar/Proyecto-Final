@@ -11,6 +11,8 @@ import java.security.Principal;
 import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.ReservasServicio;
 import com.egg.upgym.servicio.UsuarioServicio;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.Map;
@@ -116,16 +118,19 @@ public class ReservasControlador {
 
     @PostMapping("/guardar")
     @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
-    public RedirectView guardar(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario, RedirectAttributes attributes) throws MessagingException {
+    public RedirectView guardar(@RequestParam("fecha") String fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario, RedirectAttributes attributes) throws MessagingException, ParseException {
+//       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataFormateada = formato.parse(fecha);
         try {
-            reservasServicio.crear(fecha, horario, idGimnasio, emailUsuario);
+            reservasServicio.crear(dataFormateada, horario, idGimnasio, emailUsuario);
             attributes.addFlashAttribute("creado", "Reserva creada");
 
         } catch (ErrorServicio e) {
             attributes.addFlashAttribute("error", e.getMessage());
             attributes.addFlashAttribute("gimnasio", gimnasioServicio.buscarPorId(idGimnasio));
             attributes.addFlashAttribute("usuario", usuarioServicio.buscarPorEmail(emailUsuario));
-            attributes.addFlashAttribute("fecha", fecha);
+            attributes.addFlashAttribute("fecha", dataFormateada);
             attributes.addFlashAttribute("horario", horario);
             return new RedirectView("/reservas/crear/" + idGimnasio);
 

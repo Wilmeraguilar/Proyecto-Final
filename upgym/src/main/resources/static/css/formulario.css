@@ -281,8 +281,16 @@ h6 {
   background: #c0392b;
 }
 
+.btn--azul {
+  background: #0d6efd;
+}
+
+.btn--azul:hover {
+  background: #073780;
+}
+
 .btn--green:hover {
-  background: #c0392b ;
+  background: #9b291c ;
 }
 
 /* ==========================================================================
@@ -378,11 +386,26 @@ input {
   margin-bottom: 33px;
 }
 
+.input-group3{
+  position: relative;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5px 0;
+}
+
 .input--style-3 {
   padding: 5px 0;
   font-size: 16px;
   color: #ccc;
   background: transparent;
+}
+
+.input--style-4 {
+  padding: 5px 0;
+  font-size: 16px;
+  color: #ccc;
+  background: transparent;
+  margin-bottom: 10px;
 }
 
 .input--style-3::-webkit-input-placeholder {
@@ -433,11 +456,13 @@ input {
 
 .rs-select2 .select2-container .select2-selection--single .select2-selection__rendered {
   line-height: 36px;
-  padding-left: 0;
+  padding-left: 7;
   color: #ccc;
   font-size: 16px;
   font-family: inherit;
 }
+
+
 
 .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow {
   height: 34px;
@@ -504,6 +529,14 @@ input {
   color: #fff;
   font-weight: 600;
   margin-bottom: 36px;
+}
+
+.title2 {
+  font-size: 24px;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 /* ==========================================================================
@@ -600,6 +633,20 @@ input {
   padding-bottom: 65px;
   display: table-cell;
 }
+
+.card-3 .card-body1 {
+  margin: auto;
+  padding: 40px 40px;
+  padding-bottom: 40px;
+  display: table-cell;
+}
+
+.card-3 .card-body2 {
+  margin: auto;;
+  display: table-cell;
+}
+
+
 
 @media (max-width: 767px) {
   .card-3 {

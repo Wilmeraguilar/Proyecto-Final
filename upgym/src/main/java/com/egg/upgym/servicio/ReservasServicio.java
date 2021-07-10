@@ -36,8 +36,10 @@ public class ReservasServicio {
     EmailServicio emailServicio;
 
     @Transactional
-    public void crear(Date fecha, String horario, String idGimnasio, String emailUsuario) throws ErrorServicio, MessagingException {
+    public void crear(Date dataFormateada, String horario, String idGimnasio, String emailUsuario) throws ErrorServicio, MessagingException {
 
+        Date fecha = dataFormateada;
+        
         validar(fecha, horario, idGimnasio, emailUsuario);
 
         Reservas reservas = new Reservas();
