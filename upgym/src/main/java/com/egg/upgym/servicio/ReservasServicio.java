@@ -138,7 +138,7 @@ public class ReservasServicio {
 
             LocalDate fecha = convertirDateALocal(reserva.getFecha());
 
-            if (fecha.isBefore(actual)) {
+            if (fecha.isBefore(actual)&&reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
 
                 reserva.setEstado("TERMINADA");
                 resrep.save(reserva);
