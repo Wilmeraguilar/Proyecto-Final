@@ -299,8 +299,8 @@
 
                         <div class="d-flex justify-content-between align-items-center">
                           <div class="btn-group">
-                            <td><a class="btn btn-sm btn-outline-danger" href="https://www.eventbrite.com.ar/e/upgym-tickets-162425287407">Asociate</a></td>
-                            <td><a class="btn btn-sm btn-outline-danger" th:href="@{/reservas/crear/__${gimnasio.id}__}">Turnos</a></td>
+                            <td><a class="btn btn-sm btn-outline-danger" href="https://www.eventbrite.com.ar/e/upgym-tickets-162425287407"sec:authorize="hasAnyRole('USUARIO,ADMIN')">Asociate</a></td>
+                            <td><a class="btn btn-sm btn-outline-danger" th:href="@{/reservas/crear/__${gimnasio.id}__}"sec:authorize="hasAnyRole('USUARIO,ADMIN')">Turnos</a></td>
                           </div>
                           <small class="text-muted">UpGym</small>
                         </div>

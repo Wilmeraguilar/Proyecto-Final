@@ -45,6 +45,9 @@ public class GimnasioControlador {
             if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
                  mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
             }
+            if(gimnasioServicio.buscarPorEmail(principal.getName())!=null){
+                mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
+            }
             
            
         }catch(Exception e){
@@ -60,6 +63,9 @@ public class GimnasioControlador {
         try{
             if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
                  mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+            if(gimnasioServicio.buscarPorEmail(principal.getName())!=null){
+                mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
             }
         }catch(Exception e){
             
