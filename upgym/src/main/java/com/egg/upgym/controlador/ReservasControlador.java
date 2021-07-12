@@ -46,6 +46,15 @@ public class ReservasControlador {
     @GetMapping("/usuario")
     public ModelAndView ReservaUsuario(Principal principal, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("reservas-lista");
+        try{
+            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
+                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+            
+           
+        }catch(Exception e){
+            
+        }
         Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
         if (flashMap != null) {
             mav.addObject("mensaje", flashMap.get("creado"));
@@ -61,6 +70,14 @@ public class ReservasControlador {
     @GetMapping("/usuario/todas")
     public ModelAndView ReservaUsuarioTodas(Principal principal, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("reservas-lista");
+        try{
+            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
+                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+           
+        }catch(Exception e){
+            
+        }
          Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
         if (flashMap != null) {
             mav.addObject("mensaje", flashMap.get("creado"));
@@ -76,6 +93,15 @@ public class ReservasControlador {
     @GetMapping("/gimnasio")
     public ModelAndView ReservaGimnasio(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista2");
+        try{
+            
+            if(gimnasioServicio.buscarPorEmail(principal.getName())!=null){
+                mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
+            }
+           
+        }catch(Exception e){
+            
+        }
         mav.addObject("reservas", reservasServicio.buscarPorGimnasio(gimnasioServicio.buscarPorEmail(principal.getName()).getId()));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
@@ -86,6 +112,15 @@ public class ReservasControlador {
     @GetMapping("/gimnasio/todas")
     public ModelAndView ReservaGimnasioTodas(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista2");
+        try{
+            
+            if(gimnasioServicio.buscarPorEmail(principal.getName())!=null){
+                mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
+            }
+           
+        }catch(Exception e){
+            
+        }
         mav.addObject("reservas", reservasServicio.buscarPorGimnasioTodas(gimnasioServicio.buscarPorEmail(principal.getName()).getId()));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
@@ -176,8 +211,19 @@ public class ReservasControlador {
     }
 
     @GetMapping("/horarios")
-    public ModelAndView Horarios() {
+    public ModelAndView Horarios(Principal principal) {
         ModelAndView mav = new ModelAndView("horarios");
+        try{
+            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
+                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+            if(gimnasioServicio.buscarPorEmail(principal.getName())!=null){
+                mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
+            }
+           
+        }catch(Exception e){
+            
+        }
         mav.addObject("action", "staff");
 
         return mav;

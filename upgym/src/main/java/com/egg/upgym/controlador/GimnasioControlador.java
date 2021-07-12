@@ -32,19 +32,38 @@ public class GimnasioControlador {
 
     @Autowired
     private GimnasioServicio gimnasioServicio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     
 
     @GetMapping
 
-    public ModelAndView mostrarTodos() {
+    public ModelAndView mostrarTodos(Principal principal) {
         ModelAndView mav = new ModelAndView("gimnasio");
+        try{
+            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
+                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+            
+           
+        }catch(Exception e){
+            
+        }
         mav.addObject("gimnasios", gimnasioServicio.buscarTodos());
         return mav;
     }
     @GetMapping("/buscar/provinciaCiudad")
-    public ModelAndView mostrarTodosPorProvinciaCiudad(@RequestParam String provincia, @RequestParam String ciudad) {
+    public ModelAndView mostrarTodosPorProvinciaCiudad(@RequestParam String provincia, @RequestParam String ciudad,Principal principal) {
+        
         ModelAndView mav = new ModelAndView("gimnasio");
+        try{
+            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
+                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+        }catch(Exception e){
+            
+        }
         mav.addObject("gimnasios", gimnasioServicio.buscarPorprovinciaCiudad(provincia, ciudad));
         return mav;
     }
@@ -158,8 +177,19 @@ public class GimnasioControlador {
     }
 
     @GetMapping("/staff")
-    public ModelAndView GimnasioStaff() {
+    public ModelAndView GimnasioStaff(Principal principal) {
         ModelAndView mav = new ModelAndView("gimnasioStaff");
+        try{
+            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
+                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+            if(gimnasioServicio.buscarPorEmail(principal.getName())!=null){
+                mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
+            }
+           
+        }catch(Exception e){
+            
+        }
         mav.addObject("action", "staff");
 
         return mav;

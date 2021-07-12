@@ -60,9 +60,14 @@
                     <li th:if="${actividad == 'elegir'}">
                         <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
                     </li>
-                    <div >
-                        <img th:src="@{/imagenes/Perfil/perfil.jpg}" width="38" height="38"class="rounded-circle me-2">
+                   <!--  Funciona a medias                      -->
+                    <div sec:authorize="hasRole('USUARIO')">
+                        <img th:src="@{'/imagenes/'+ ${usuario.imagen}}" width="38" height="38"class="rounded-circle me-2">
                     </div>
+                    <div sec:authorize="hasRole('GIMNASIO')">
+                        <img th:src="@{'/imagenes/'+ ${gimnasio.imagen}}" width="38" height="38"class="rounded-circle me-2">
+                    </div>
+                   <!--  Funciona a medias                      -->
                          
                     <li class="dropdown" sec:authorize="isAuthenticated()"> 
                         <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
