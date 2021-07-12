@@ -54,7 +54,9 @@ public class UsuarioServicio implements UserDetailsService {
 
         Rol rol = new Rol();
         if (usurep.findAll().isEmpty()) {
-            rol = rolrep.buscarPorNombre("ADMIN");
+            rol.setNombre("ADMIN");
+            rol.setEstado("ACTIVO");
+           
         } else {
             for (Rol roles : rolrep.findAll()) {
 
