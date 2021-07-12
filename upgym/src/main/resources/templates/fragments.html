@@ -52,19 +52,22 @@
                           </ul>
                         </li>-->
 
-                </ul>
-                <ul    class="navbar-nav mr-auto">
+                </ul>               
+                <ul    class="navbar-nav mr-auto">                    
                     <li th:unless="${action == 'login'}"  sec:authorize="!isAuthenticated()">
-                        <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
-                    </li>
+                        <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>                        
+                    </li>                  
                     <li th:if="${actividad == 'elegir'}">
                         <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
                     </li>
-                    
-                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                    <div >
+                        <img th:src="@{/imagenes/Perfil/perfil.jpg}" width="38" height="38"class="rounded-circle me-2">
+                    </div>
+                         
+                    <li class="dropdown" sec:authorize="isAuthenticated()"> 
                         <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span sec:authentication="name"></span>
+                            <span sec:authentication="name"></span>     
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -78,8 +81,12 @@
                                 <button class="dropdown-item" type="submit">Cerrar Sesion</button>
                             </form>
                         </ul>
+                        
                     </li>
+                    
+                   
                 </ul>
+                
 
                 <!--                <div class="nav-link" th:if="${action == 'guardar'}">
                                         <FONT COLOR="white"><a th:text="'¡ Hola'"></a> 
