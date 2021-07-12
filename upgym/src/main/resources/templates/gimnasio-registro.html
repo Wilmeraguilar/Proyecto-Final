@@ -41,9 +41,12 @@
     </head>
 
     <body>
+ <header>
+    <nav th:replace="fragments :: navbar"></nav>
+  </header>
 
 
-        <div class="page-wrapper bg-gra-02 p-t-180 p-b-100 font-poppins">
+        <div class="page-wrapper bg-gra-02 p-t-182 p-b-100 font-poppins">
             <div class="wrapper wrapper--w780">
                 <div class="card card-3">
                     <div class="card-heading1"></div>
@@ -186,7 +189,7 @@
                     </div>
                 </div>
             </div>
-
+ </div>
             <!-- Jquery JS-->
             <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
             <!-- Vendor JS-->

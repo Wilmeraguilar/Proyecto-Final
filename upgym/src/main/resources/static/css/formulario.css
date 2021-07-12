@@ -911,3 +911,12 @@ footer{
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
   background-color: #c0392b !important;
 }
+
+/* ==========================================================================
+   #sin top / Gimnasio Staff
+   ========================================================================== */
+
+.py-5-bis {
+    
+    padding-bottom: 3rem!important;
+}
