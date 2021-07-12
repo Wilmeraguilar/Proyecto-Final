@@ -18,14 +18,10 @@ public class LoginControlador {
     UsuarioServicio usuarioServicio;
 
     @GetMapping
-    public ModelAndView login(Principal principal)throws Exception {
+    public ModelAndView login(Principal principal) {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("action", "login");
-        try{
-            mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
-        }catch(Exception e){
-            
-        }
+       
         
         return mav;
     }
