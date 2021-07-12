@@ -90,6 +90,7 @@ public class UsuarioControlador {
         
         try {
             request.login(email, clave);
+            usuarioServicio.buscarPorEmail(email);
         } catch (ServletException e) {
             e.printStackTrace();
         }

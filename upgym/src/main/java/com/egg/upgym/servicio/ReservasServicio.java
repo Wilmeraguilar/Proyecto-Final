@@ -39,7 +39,7 @@ public class ReservasServicio {
     public void crear(Date dataFormateada, String horario, String idGimnasio, String emailUsuario) throws ErrorServicio, MessagingException {
 
         Date fecha = dataFormateada;
-        
+
         validar(fecha, horario, idGimnasio, emailUsuario);
 
         Reservas reservas = new Reservas();
@@ -135,10 +135,16 @@ public class ReservasServicio {
         LocalDate actual = LocalDate.now();
 
         for (Reservas reserva : resrep.buscarPorUsuario(dni)) {
+            
+            LocalDate fechaActual=LocalDate.now();
 
             LocalDate fecha = convertirDateALocal(reserva.getFecha());
 
-            if (fecha.isBefore(actual)&&reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
+            LocalTime horaActual = LocalTime.now();
+
+            LocalTime horaElegida = LocalTime.of(Integer.valueOf(reserva.getHorario().substring(0, 2)), 00, 00);
+
+            if (fecha.isBefore(actual) && reserva.getEstado().equalsIgnoreCase("ACTIVA")||fecha.isEqual(fechaActual) && horaElegida.isBefore(horaActual)) {
 
                 reserva.setEstado("TERMINADA");
                 resrep.save(reserva);
@@ -190,7 +196,6 @@ public class ReservasServicio {
         return reservas;
     }
 
-   
     @Transactional
     public String ticket(Reservas r) {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
