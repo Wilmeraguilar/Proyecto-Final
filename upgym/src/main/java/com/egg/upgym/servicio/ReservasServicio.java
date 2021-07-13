@@ -144,7 +144,7 @@ public class ReservasServicio {
 
             LocalTime horaElegida = LocalTime.of(Integer.valueOf(reserva.getHorario().substring(0, 2)), 00, 00);
 
-            if (fecha.isBefore(actual) && reserva.getEstado().equalsIgnoreCase("ACTIVA")||fecha.isEqual(fechaActual) && horaElegida.isBefore(horaActual)) {
+            if (fecha.isBefore(actual) && reserva.getEstado().equalsIgnoreCase("ACTIVA")||fecha.isEqual(fechaActual) && horaElegida.isBefore(horaActual)&& reserva.getEstado().equalsIgnoreCase("ACTIVA")) {
 
                 reserva.setEstado("TERMINADA");
                 resrep.save(reserva);
