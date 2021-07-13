@@ -627,6 +627,12 @@ input {
   width: 30%;
 }
 
+.card-3 .card-heading8 {
+  background: url("../imagenes/admin/usuario.jpg") top right/cover no-repeat;
+  display: table-cell;
+  width: 30%;
+}
+
 .card-3 .card-body {
   margin: auto;
   padding: 57px 65px;
