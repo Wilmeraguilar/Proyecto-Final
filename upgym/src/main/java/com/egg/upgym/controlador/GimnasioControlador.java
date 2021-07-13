@@ -130,50 +130,11 @@ public class GimnasioControlador {
         return new RedirectView("/");
     }
 
-    /*con FOTO - en Carpeta*/
- /*@Secured("ROLE_ADMIN")*/
- /*@PostMapping("/form")
-    public String guardar(@Valid Gimnasio gimnasio, BindingResult result, Model model,@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status,
-    Locale locale) {
-    if (result.hasErrors()){
-    model.addAtributte("titulo", messageSource.getMessage("text.gimnasio.form.titulo", null, locale));
-    return "form";
-    }
-    
-        if (!foto.isEmpty()) {
-            if (gimnasio.getId() !=null && gimnasio.getId().length() > 0 && gimnasio.getFoto() != null && gimnasio.getFoto().length() > 0) {
-                
-           gimnasioServicio.delete(gimnasio.getFoto());
-            }
- 
-        }
-    
-        String uniqueFilename = null;
-        try {
-            uniqueFilename = gimnasioServicio.copy(foto);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        flash.addFlashAtribute(messageSource.getMessage("text.cliente.flash.foto.subir.success", null, locale)
-                + " ´ " + uniqueFilename + " ´ ");
-        gimnasio.setFoto(uniqueFilename);
-    }*/
- /*con FOTO MSQL https://www.youtube.com/watch?v=hMWNM6pT65s&list=PLgwlfcqa5h3w10Dz95B3QY2iinOskVf9t&index=12 */
- /*  @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre,@RequestParam String telefono,@RequestParam Integer capacidad,@RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam MultipartFile foto, HttpServletRequest request) {
-        gimnasioServicio.crear(nombre,telefono,capacidad,email,clave,provincia, ciudad, calleNro, foto);
-        try {
-        request.login(email, clave);
-    } catch (ServletException e) {
-        e.printStackTrace();
-    }
-        return new RedirectView("/");
-    }*/
+
     @PostMapping("/modificar")
     public RedirectView modificar(@RequestParam String id, @RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado, @RequestParam("file") MultipartFile imagen) {
         gimnasioServicio.modificar(id, nombre, telefono, capacidad, email, clave, idDireccion, provincia, ciudad, calleNro, estado, imagen);
-        return new RedirectView("/gimnasios");
+        return new RedirectView("/");
     }
 
     @PostMapping("/eliminar/{id}")
