@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/login")
 public class LoginControlador {
-    
+
     @Autowired
     UsuarioServicio usuarioServicio;
     @Autowired
@@ -24,25 +24,36 @@ public class LoginControlador {
     public ModelAndView login(Principal principal) {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("action", "login");
-        try{
-            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
-                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+        try {
+            if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
+                mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
             }
-            if(gimnasioServicio.buscarPorEmail(principal.getName())!=null){
+            if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
                 mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
             }
-           
-        }catch(Exception e){
-            
+
+        } catch (Exception e) {
+
         }
-       
-        
+
         return mav;
     }
 
     @PostMapping("/login")
-    public RedirectView inicio() {
-        
+    public RedirectView inicio(Principal principal) {
+
+        try {
+            if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
+                usuarioServicio.buscarPorEmail(principal.getName());
+            }
+            if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
+                gimnasioServicio.buscarPorEmail(principal.getName());
+            }
+
+        } catch (Exception e) {
+
+        }
+
         return new RedirectView("/");
     }
 

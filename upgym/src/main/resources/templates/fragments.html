@@ -11,7 +11,7 @@
         <div class="container-fluid">
             
             <a class="navbar-brand" th:href="@{/}">
-            <img class="img-responsive" th:src="@{/imagenes/logos/logonavbar.png}"/>       UPGYM
+            <img class="img-responsive" src="../imagenes/logos/logonavbar.png">       UPGYM
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -20,13 +20,6 @@
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
-                       
-                    </li>
-                    <li  class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://www.nutrinfo.com">Nutrición</a>
-                    </li>
-                    <li >
-                        <a class="nav-link" target="_blank" href="https://lawebdelasalud.com">Salud</a>
                     </li>
                     <li class="nav-item" th:unless="${action == 'login'}" sec:authorize="!isAuthenticated()">
                         <a  class="nav-link" th:href="@{/login/elegir}">Registrarse</a>
@@ -36,7 +29,12 @@
                         <a  class="nav-link" th:href="@{/roles/crear}">Crear Roles</a>
                     </li>
                     
-                    
+                    <li th:if ="${action == 'staff'}" class="nav-item">
+                        <a class="nav-link" href="https://www.nutrinfo.com">Nutrición</a>
+                    </li>
+                    <li th:if ="${action == 'staff'}">
+                        <a class="nav-link" href="https://lawebdelasalud.com">Salud</a>
+                    </li>
 
 
                     <!--<li class="nav-item dropdown">
@@ -131,16 +129,16 @@
                 <p>Copyright (c) 2021 UPGYM Todos los derechos reservados.</p>
             </div>
             <div class="social-media">
-                <a target="_blank" href="https://www.instagram.com/upgym_arg/?hl=es-la" class="social-media-icon">
+                <a href="https://www.instagram.com/upgym_arg/?hl=es-la" class="social-media-icon">
                     <i class='bx bxl-instagram' ></i>
                 </a>
-                <a target="_blank" href="https://open.spotify.com/playlist/5UF7vvIRJ38uDrgffvFhxY?si=f806a0d9431247bd" class="social-media-icon">
+                <a href="https://open.spotify.com/playlist/5UF7vvIRJ38uDrgffvFhxY?si=f806a0d9431247bd" class="social-media-icon">
                     <i class='bx bxl-spotify' ></i>
                 </a>
-                <a target="_blank" href="https://www.facebook.com/profile.php?id=100070592501875" class="social-media-icon">
+                <a href="https://www.facebook.com/profile.php?id=100070592501875" class="social-media-icon">
                     <i class='bx bxl-facebook'></i>
                 </a>
-                <a target="_blank" href="https://www.youtube.com/" class="social-media-icon">
+                <a href="https://www.youtube.com/" class="social-media-icon">
                     <i class='bx bxl-youtube' ></i>
                 </a>
             </div>

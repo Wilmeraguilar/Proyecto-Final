@@ -89,8 +89,9 @@ public class UsuarioControlador {
         usuarioServicio.crear(dni, nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro, imagen);
         
         try {
+             usuarioServicio.buscarPorEmail(email);
             request.login(email, clave);
-            usuarioServicio.buscarPorEmail(email);
+           
         } catch (ServletException e) {
             e.printStackTrace();
         }
@@ -101,6 +102,7 @@ public class UsuarioControlador {
     @PostMapping("/modificar")
     public RedirectView modificar(@RequestParam Long dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String telefono, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado, @RequestParam("file") MultipartFile imagen) throws IOException {
         usuarioServicio.modificar(dni, nombre, apellido, telefono, email, clave, idDireccion, provincia, ciudad, calleNro, estado, imagen);
+        usuarioServicio.buscarPorEmail(email);
         return new RedirectView("/");
     }
 

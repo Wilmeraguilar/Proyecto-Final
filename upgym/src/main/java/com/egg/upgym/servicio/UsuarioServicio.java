@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -179,9 +180,11 @@ public class UsuarioServicio implements UserDetailsService {
                 String rutaAbsoluta = DirectorioImagenes.toFile().getAbsolutePath();
 
                 try {
+                    String extension=StringUtils.getFilenameExtension(imagen.getOriginalFilename());
                     byte[] bytesImg = imagen.getBytes();
-                    String idImagen = UUID.randomUUID().toString();
+                    String idImagen = UUID.randomUUID().toString()+"."+extension;
                     Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
+                    System.out.println (rutaCompleta);
                     Files.write(rutaCompleta, bytesImg);
                     u.setImagen(idImagen);
 
