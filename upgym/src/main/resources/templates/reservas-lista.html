@@ -112,7 +112,7 @@
         </div>
     </div>
    
-    <div th:unless="${reservas.isEmpty()}" class="table-responsive">
+    <div id="formulario" th:unless="${reservas.isEmpty()}" class="table-responsive">
         <div class="page-wrapper bg-gra-02 p-t-182 p-b-100 font-poppins">
             <div class="wrapper wrapper--w1200">
                 <div class="card card-3">
@@ -157,8 +157,8 @@
                                     <td class="input--style-3" th:text="${reserva.estado}"></td>
                                     <td class="input--style-3 d-flex justify-content-around w-100">
                                        
-                                        <form th:action="@{/reservas/eliminar/__${reserva.id}__}" method="post">
-                                            <button class="btn btn-danger btn-sm" type="submit">Cancelar</button>
+                                        <form th:id="${reserva.id}" th:action="@{/reservas/eliminar/__${reserva.id}__}" method="post">
+                                            <button class="btn btn-danger btn-sm" type="button" th:attr="onclick=|cancelar('${reserva.id}')|">Cancelar</button>
                                         </form>
                                     </td>
 
@@ -195,6 +195,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+
+            function cancelar(id) {
+            
+            
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+            document.getElementById(id).submit();
+            }
+            })
+            }
+            
+        </script>
 </body>
 
 </html>
