@@ -1,5 +1,6 @@
 package com.egg.upgym.controlador;
 
+import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.UsuarioServicio;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,24 @@ public class LoginControlador {
     
     @Autowired
     UsuarioServicio usuarioServicio;
+    @Autowired
+    GimnasioServicio gimnasioServicio;
 
     @GetMapping
     public ModelAndView login(Principal principal) {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("action", "login");
+        try{
+            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
+                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+            if(gimnasioServicio.buscarPorEmail(principal.getName())!=null){
+                mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
+            }
+           
+        }catch(Exception e){
+            
+        }
        
         
         return mav;
@@ -28,6 +42,7 @@ public class LoginControlador {
 
     @PostMapping("/login")
     public RedirectView inicio() {
+        
         return new RedirectView("/");
     }
 
