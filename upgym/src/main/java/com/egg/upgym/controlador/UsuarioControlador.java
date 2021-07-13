@@ -34,9 +34,10 @@ public class UsuarioControlador {
     private UsuarioServicio usuarioServicio;
 
     @GetMapping
-    public ModelAndView mostrarTodos() {
+    public ModelAndView mostrarTodos(Principal principal) {
         ModelAndView mav = new ModelAndView("usuarios-lista");
         mav.addObject("usuarios", usuarioServicio.buscarTodos());
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
         return mav;
     }
 
