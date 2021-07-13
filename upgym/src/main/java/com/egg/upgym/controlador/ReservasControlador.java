@@ -209,6 +209,31 @@ public class ReservasControlador {
         return new RedirectView("/");
 
     }
+    
+    @PostMapping("/usuarios/{dni}")
+    public ModelAndView ReservaPorUsuario(@PathVariable Long dni, Principal principal, HttpServletRequest request) throws ErrorServicio, MessagingException{
+        
+        ModelAndView mav = new ModelAndView("reservas-lista");
+        try{
+            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
+                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+           
+        }catch(Exception e){
+            
+        }
+         Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+        if (flashMap != null) {
+            mav.addObject("mensaje", flashMap.get("creado"));
+            mav.addObject("error", flashMap.get("error"));
+        }
+        mav.addObject("reservas", reservasServicio.buscarPorUsuarioTodas(dni));
+        mav.addObject("title", "Crear Reserva");
+        mav.addObject("action", "guardar");
+
+        return mav;
+
+    }
 
     @GetMapping("/horarios")
     public ModelAndView Horarios(Principal principal) {

@@ -35,7 +35,7 @@ public class UsuarioControlador {
 
     @GetMapping
     public ModelAndView mostrarTodos() {
-        ModelAndView mav = new ModelAndView("usuario");
+        ModelAndView mav = new ModelAndView("usuarios-lista");
         mav.addObject("usuarios", usuarioServicio.buscarTodos());
         return mav;
     }

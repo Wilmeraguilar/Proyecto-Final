@@ -11,7 +11,7 @@
         <div class="container-fluid">
             
             <a class="navbar-brand" th:href="@{/}">
-            <img class="img-responsive" src="../imagenes/logos/logonavbar.png">       UPGYM
+            <img class="img-responsive" th:src="@{/imagenes/logos/logonavbar.png}">       UPGYM
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,10 +29,10 @@
                         <a  class="nav-link" th:href="@{/roles/crear}">Crear Roles</a>
                     </li>
                     
-                    <li th:if ="${action == 'staff'}" class="nav-item">
+                    <li  class="nav-item">
                         <a class="nav-link" href="https://www.nutrinfo.com">Nutrición</a>
                     </li>
-                    <li th:if ="${action == 'staff'}">
+                    <li >
                         <a class="nav-link" href="https://lawebdelasalud.com">Salud</a>
                     </li>
 
@@ -62,10 +62,10 @@
                     </li>
                  
                     <div sec:authorize="hasAnyRole('USUARIO,ADMIN')">
-                        <img th:src="@{'/imagenes/'+ ${usuario.imagen}}" width="38" height="38"class="rounded-circle me-2">
+                        <img th:src="@{|/obtener-imagen/${usuario.imagen}|}" width="38" height="38"class="rounded-circle me-2">
                     </div>
                     <div sec:authorize="hasRole('GIMNASIO')">
-                        <img th:src="@{'/imagenes/'+ ${gimnasio.imagen}}" width="38" height="38"class="rounded-circle me-2">
+                        <img th:src="@{|/obtener-imagen/${gimnasio.imagen}|}" width="38" height="38"class="rounded-circle me-2">
                     </div>
                   
                          
