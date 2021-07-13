@@ -182,7 +182,7 @@ public class UsuarioServicio implements UserDetailsService {
                 try {
                     String extension=StringUtils.getFilenameExtension(imagen.getOriginalFilename());
                     byte[] bytesImg = imagen.getBytes();
-                    String idImagen = UUID.randomUUID().toString()+"."+extension;
+                    String idImagen = UUID.randomUUID().toString();
                     Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idImagen);
                     System.out.println (rutaCompleta);
                     Files.write(rutaCompleta, bytesImg);
