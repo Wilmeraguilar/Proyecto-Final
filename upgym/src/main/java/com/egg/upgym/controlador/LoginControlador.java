@@ -21,38 +21,15 @@ public class LoginControlador {
     GimnasioServicio gimnasioServicio;
 
     @GetMapping
-    public ModelAndView login(Principal principal) {
+    public ModelAndView login() {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("action", "login");
-        try {
-            if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
-                mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
-            }
-            if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
-                mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
-            }
-
-        } catch (Exception e) {
-
-        }
 
         return mav;
     }
 
     @PostMapping("/login")
-    public RedirectView inicio(Principal principal) {
-
-        try {
-            if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
-                usuarioServicio.buscarPorEmail(principal.getName());
-            }
-            if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
-                gimnasioServicio.buscarPorEmail(principal.getName());
-            }
-
-        } catch (Exception e) {
-
-        }
+    public RedirectView inicio() {
 
         return new RedirectView("/");
     }
