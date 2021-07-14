@@ -90,6 +90,7 @@ public class GimnasioControlador {
     }
 
     @GetMapping("/crear")
+    @PreAuthorize("!hasAnyRole('USUARIO,GIMNASIO')")
     public ModelAndView crearGimnasio() {
         ModelAndView mav = new ModelAndView("gimnasio-registro");
         mav.addObject("gimnasio", new Gimnasio());
@@ -100,6 +101,7 @@ public class GimnasioControlador {
     }
 
     @GetMapping("/perfil")
+    @PreAuthorize("hasAnyRole('ADMIN,GIMNASIO')")
     public ModelAndView perfil(Principal principal) {
         ModelAndView mav = new ModelAndView("Perfil-gym");
         mav.addObject("gimnasio", gimnasioServicio.buscarPorEmail(principal.getName()));
@@ -109,6 +111,7 @@ public class GimnasioControlador {
    
 
     @GetMapping("/editar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN,GIMNASIO')")
     public ModelAndView editarGimnasio(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("gimnasio-registro");
         mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
@@ -118,6 +121,7 @@ public class GimnasioControlador {
     }
 
     @PostMapping("/guardar")
+    @PreAuthorize("hasAnyRole('ADMIN,GIMNASIO')")
     public RedirectView guardar(@RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request, @RequestParam("file") MultipartFile imagen) throws MessagingException {
 
             gimnasioServicio.crear(nombre, telefono, capacidad, email, clave, provincia, ciudad, calleNro, imagen);
@@ -132,12 +136,14 @@ public class GimnasioControlador {
 
 
     @PostMapping("/modificar")
+    @PreAuthorize("hasAnyRole('ADMIN,GIMNASIO')")
     public RedirectView modificar(@RequestParam String id, @RequestParam String nombre, @RequestParam String telefono, @RequestParam Integer capacidad, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado, @RequestParam("file") MultipartFile imagen) {
         gimnasioServicio.modificar(id, nombre, telefono, capacidad, email, clave, idDireccion, provincia, ciudad, calleNro, estado, imagen);
         return new RedirectView("/");
     }
 
     @PostMapping("/eliminar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN,GIMNASIO')")
     public RedirectView eliminar(@PathVariable String id) {
         gimnasioServicio.eliminar(id);
         return new RedirectView("/gimnasios");
