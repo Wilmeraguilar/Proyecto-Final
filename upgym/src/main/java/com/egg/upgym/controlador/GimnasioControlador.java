@@ -168,5 +168,14 @@ public class GimnasioControlador {
         return mav;
 
     }
+    
+    @GetMapping("/todos")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ModelAndView todos(Principal principal) {
+        ModelAndView mav = new ModelAndView("gimnasios-lista");
+        mav.addObject("gimnasios", gimnasioServicio.buscarTodos());
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
+        return mav;
+    }
 
 }

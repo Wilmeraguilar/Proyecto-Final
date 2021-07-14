@@ -214,8 +214,42 @@ public class ReservasControlador {
 
     }
     
+    @PostMapping("/eliminar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public RedirectView eliminarAdmin(@PathVariable String id, Principal principal, RedirectAttributes attributes) throws ErrorServicio, MessagingException{
+        try {
+            reservasServicio.eliminar(id, principal.getName());
+            attributes.addFlashAttribute("creado", "Reserva cancelada");
+        } catch (ErrorServicio e) {
+
+            if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
+                attributes.addFlashAttribute("error", e.getMessage());
+                return new RedirectView("/reservas/gimnasio/todas");
+
+            }
+            if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
+                attributes.addFlashAttribute("error", e.getMessage());
+                return new RedirectView("/reservas/usuario/todas");
+
+            }
+
+        }
+
+        if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
+            return new RedirectView("/reservas/gimnasio/todas");
+        }
+        if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
+
+            return new RedirectView("/reservas/usuario/todas");
+
+        }
+
+        return new RedirectView("/");
+
+    }
+    
     @PostMapping("/usuarios/{dni}")
-    @PreAuthorize("hasAnyRole('GIMNASIO')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView ReservaPorUsuario(@PathVariable Long dni, Principal principal, HttpServletRequest request) throws ErrorServicio, MessagingException{
         
         ModelAndView mav = new ModelAndView("reservas-lista");
@@ -233,6 +267,32 @@ public class ReservasControlador {
             mav.addObject("error", flashMap.get("error"));
         }
         mav.addObject("reservas", reservasServicio.buscarPorUsuarioTodas(dni));
+        mav.addObject("title", "Crear Reserva");
+        mav.addObject("action", "guardar");
+
+        return mav;
+
+    }
+    
+    @PostMapping("/gimnasios/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ModelAndView ReservaPorGimnasio(@PathVariable String id, Principal principal, HttpServletRequest request) throws ErrorServicio, MessagingException{
+        
+        ModelAndView mav = new ModelAndView("reservas-lista2");
+        try{
+            if(usuarioServicio.buscarPorEmail(principal.getName())!=null){
+                 mav.addObject("usuario",usuarioServicio.buscarPorEmail(principal.getName()));
+            }
+           
+        }catch(Exception e){
+            
+        }
+         Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+        if (flashMap != null) {
+            mav.addObject("mensaje", flashMap.get("creado"));
+            mav.addObject("error", flashMap.get("error"));
+        }
+        mav.addObject("reservas", reservasServicio.buscarPorGimnasioTodas(id));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
 

@@ -34,8 +34,8 @@ public class UsuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @GetMapping
-    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
+    @GetMapping("/todos")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView mostrarTodos(Principal principal) {
         ModelAndView mav = new ModelAndView("usuarios-lista");
         mav.addObject("usuarios", usuarioServicio.buscarTodos());
