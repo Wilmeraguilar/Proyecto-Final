@@ -9,6 +9,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 @Controller
@@ -28,8 +29,9 @@ public class ImagenControlador {
         if (!recurso.exists()|| !recurso.isReadable()) {
             throw new RuntimeException("Error al cargar la imagen");
         }
+        String extension=StringUtils.getFilenameExtension(recurso.getFilename());
 
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"").body(recurso);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE,"image/"+extension).body(recurso);
     }
     
 }
