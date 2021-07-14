@@ -8,6 +8,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ImagenControlador {
     
     @GetMapping("/obtener-imagen/{imagen:.+}")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN,GIMNASIO')")
     public ResponseEntity<Resource> obtenerFoto(@PathVariable String imagen) {
         Path rutaDeArchivo = Paths.get("src//main//resources//static//imagenes").resolve(imagen).toAbsolutePath();
         Resource recurso = null;

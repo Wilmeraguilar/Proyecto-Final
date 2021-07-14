@@ -15,6 +15,7 @@ import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ public class UsuarioControlador {
     private UsuarioServicio usuarioServicio;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public ModelAndView mostrarTodos(Principal principal) {
         ModelAndView mav = new ModelAndView("usuarios-lista");
         mav.addObject("usuarios", usuarioServicio.buscarTodos());
@@ -42,6 +44,7 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/buscar/dni")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public ModelAndView mostrarPorDni(@RequestParam Long dni) {
         ModelAndView mav = new ModelAndView("usuario");
         mav.addObject("usuario", usuarioServicio.buscarPorId(dni));
@@ -50,6 +53,7 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/buscar/apellido")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public ModelAndView mostrarPorApellido(@RequestParam String apellido) {
         ModelAndView mav = new ModelAndView("usuario");
         mav.addObject("usuarios", usuarioServicio.buscarPorApellido(apellido));
@@ -58,6 +62,7 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/crear")
+    @PreAuthorize("!hasAnyRole('USUARIO,ADMIN,GIMNASIO')")
     public ModelAndView crearUsuario() {
         ModelAndView mav = new ModelAndView("usuario-registro");
         mav.addObject("usuario", new Usuario());
@@ -69,6 +74,7 @@ public class UsuarioControlador {
     
     
     @GetMapping("/perfil")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public ModelAndView perfil(Principal principal) {
         ModelAndView mav = new ModelAndView("Perfil");
         mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
@@ -76,6 +82,7 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/editar/{dni}")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public ModelAndView editarUsuario(@PathVariable Long dni) {
         ModelAndView mav = new ModelAndView("usuario-registro");
         mav.addObject("usuario", usuarioServicio.buscarPorId(dni));
@@ -85,6 +92,7 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/guardar")
+    @PreAuthorize("!hasAnyRole('USUARIO,ADMIN,GIMNASIO')")
     public RedirectView guardar(@RequestParam Long dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String telefono, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, HttpServletRequest request, @RequestParam("file") MultipartFile imagen) throws MessagingException {
 
         usuarioServicio.crear(dni, nombre, apellido, telefono, email, clave, provincia, ciudad, calleNro, imagen);
@@ -101,6 +109,7 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/modificar")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public RedirectView modificar(@RequestParam Long dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String telefono, @RequestParam String email, @RequestParam String clave, @RequestParam("direccion.id") String idDireccion, @RequestParam("direccion.provincia") String provincia, @RequestParam("direccion.ciudad") String ciudad, @RequestParam("direccion.calleNro") String calleNro, @RequestParam String estado, @RequestParam("file") MultipartFile imagen) throws IOException {
         usuarioServicio.modificar(dni, nombre, apellido, telefono, email, clave, idDireccion, provincia, ciudad, calleNro, estado, imagen);
         usuarioServicio.buscarPorEmail(email);
@@ -108,6 +117,7 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/eliminar/{dni}")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public RedirectView eliminar(@PathVariable Long dni) {
         usuarioServicio.eliminar(dni);
         return new RedirectView("/");

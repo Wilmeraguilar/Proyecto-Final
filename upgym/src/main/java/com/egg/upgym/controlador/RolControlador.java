@@ -3,6 +3,7 @@ package com.egg.upgym.controlador;
 import com.egg.upgym.entidades.Rol;
 import com.egg.upgym.servicio.RolServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,12 +15,14 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/roles")
+@PreAuthorize("hasAnyRole('ADMIN')")
 public class RolControlador {
     
     @Autowired
     private RolServicio rolServicio;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView mostrarTodos() {
         ModelAndView mav = new ModelAndView("rol");
         mav.addObject("roles", rolServicio.buscarTodos());
@@ -27,6 +30,7 @@ public class RolControlador {
     }
 
     @GetMapping("/crear")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView crearRol() {
         ModelAndView mav = new ModelAndView("rol");
         mav.addObject("rol", new Rol());
@@ -36,6 +40,7 @@ public class RolControlador {
     }
 
     @GetMapping("/editar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView editarRol(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("rol");
         mav.addObject("rol", rolServicio.buscarPorId(id));
@@ -45,18 +50,21 @@ public class RolControlador {
     }
 
     @PostMapping("/guardar")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public RedirectView guardar( @RequestParam String nombre) {
         rolServicio.crear( nombre);
         return new RedirectView("/");
     }
 
     @PostMapping("/modificar")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public RedirectView modificar(@RequestParam String id,@RequestParam String nombre,@RequestParam String estado) {
         rolServicio.modificar(id,nombre,estado);
         return new RedirectView("/");
     }
 
     @PostMapping("/eliminar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public RedirectView eliminar(@PathVariable String id) {
         rolServicio.eliminar(id);
         return new RedirectView("/");

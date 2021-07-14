@@ -4,6 +4,7 @@ import com.egg.upgym.servicio.GimnasioServicio;
 import com.egg.upgym.servicio.UsuarioServicio;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ public class LoginControlador {
     }
 
     @GetMapping("/elegir")
+    @PreAuthorize("!hasAnyRole('ADMIN,GIMNASIO,USUARIO')")
     public ModelAndView GimnasioUsuario() {
         ModelAndView mav = new ModelAndView("gimnasioOUsuario");
         mav.addObject("action", "login");

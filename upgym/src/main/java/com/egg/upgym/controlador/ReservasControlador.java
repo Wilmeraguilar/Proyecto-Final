@@ -44,6 +44,7 @@ public class ReservasControlador {
     private UsuarioServicio usuarioServicio;
 
     @GetMapping("/usuario")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public ModelAndView ReservaUsuario(Principal principal, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("reservas-lista");
         try{
@@ -68,6 +69,7 @@ public class ReservasControlador {
     }
 
     @GetMapping("/usuario/todas")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public ModelAndView ReservaUsuarioTodas(Principal principal, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("reservas-lista");
         try{
@@ -91,6 +93,7 @@ public class ReservasControlador {
     }
 
     @GetMapping("/gimnasio")
+    @PreAuthorize("hasAnyRole('GIMNASIO')")
     public ModelAndView ReservaGimnasio(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista2");
         try{
@@ -110,6 +113,7 @@ public class ReservasControlador {
     }
 
     @GetMapping("/gimnasio/todas")
+    @PreAuthorize("hasAnyRole('GIMNASIO')")
     public ModelAndView ReservaGimnasioTodas(Principal principal) {
         ModelAndView mav = new ModelAndView("reservas-lista2");
         try{
@@ -129,7 +133,7 @@ public class ReservasControlador {
     }
 
     @GetMapping("/crear/{id}")
-    @PreAuthorize("hasAnyRole('USUARIO,ADMIN,GIMNASIO')")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public ModelAndView crearReserva(@PathVariable String id, Principal principal,HttpServletRequest request) {
 
         ModelAndView mav = new ModelAndView("reservas");
@@ -152,7 +156,7 @@ public class ReservasControlador {
     
 
     @PostMapping("/guardar")
-    @PreAuthorize("hasAnyRole('USUARIO,GIMNASIO,ADMIN')")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public RedirectView guardar(@RequestParam("fecha") String fecha, @RequestParam String horario, @RequestParam("gimnasio") String idGimnasio, @RequestParam("usuario") String emailUsuario, RedirectAttributes attributes) throws MessagingException, ParseException {
 //       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -211,6 +215,7 @@ public class ReservasControlador {
     }
     
     @PostMapping("/usuarios/{dni}")
+    @PreAuthorize("hasAnyRole('GIMNASIO')")
     public ModelAndView ReservaPorUsuario(@PathVariable Long dni, Principal principal, HttpServletRequest request) throws ErrorServicio, MessagingException{
         
         ModelAndView mav = new ModelAndView("reservas-lista");
