@@ -73,113 +73,10 @@
             <nav th:replace="fragments :: navbar"></nav>
         </header>
 
-
-        <!--
-                <div class="container mt-5 main">
-                    <h1 th:text></h1>
-                    <h1>Mis Reservas</h1>
-                    <hr class="mb-5"/>
-                    <div th:if="${reservas.isEmpty()}">
-                        <h5>Todavía no hay reservas cargadas.<a th:href="@{/gimnasios}">Agregar Reserva</a></h5>
-                    </div>
-                    <div th:unless="${reservas.isEmpty()}" class="table-responsive">
-        
-                        <table class="table table-hover table-sm table-bordered">
-                            <thead class="table-secondary text-center">
-                                <tr>
-                                    <th class="col-md-4 px-md-2" scope="col">Gimnasio</th>
-                                    <th class="col-md-4 px-md-2" scope="col">Fecha</th>
-                                    <th class="col-md-4 px-md-2" scope="col">Horario</th>
-                                    <th class="col-md-4 px-md-2" scope="col">Estado</th>
-                                    <th class="col-md-4 px-md-2" scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="reserva : ${reservas}">
-                                    <td class="col-md-4 px-md-2" th:text="${reserva.gimnasio.nombre}"></td>
-                                    <td class="col-md-4 px-md-2" th:text="${reserva.fecha}"></td>
-                                    <td class="col-md-4 px-md-2" th:text="${reserva.horario}"></td>
-                                    <td class="col-md-4 px-md-2" th:text="${reserva.estado}"></td>
-                                    <td class="col-md-4 px-md-2 d-flex justify-content-around w-100">
-                                        <a class="btn btn-secondary btn-sm" th:href="@{/reservas/editar/__${reserva.id}__}">Editar</a>
-                                        <form th:action="@{/reservas/eliminar/__${reserva.id}__}" method="post">
-                                            <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                                        </form>
-                                    </td>
-                                </tr>
-        
-                            </tbody>
-                        </table>
-                    </div>
-                </div>-->
-
-<!--        <div th:if="${reservas.isEmpty()}">
-            <div class="page-wrapper bg-gra-02 p-t-183 p-b-100 font-poppins">
-                <div class="wrapper wrapper--w960">
-                    <div class="card card-3">
-                        <div class="card-heading7"></div>
-                        <div class="card-body">
-                            <h3 class="input--style-3 ">Todavía no hay reservas cargadas. <a th:href="@{/gimnasios}">Agregar Reserva</a></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div th:unless="${reservas.isEmpty()}" class="table-responsive">
-            <div class="page-wrapper bg-gra-02 p-t-182 p-b-100 font-poppins">
-                <div class="wrapper wrapper--w1200">
-                    <div class="card card-3">
-                        <div class="card-heading6"></div>
-                        <div class="card-body">
-                            <h2 class="title">MIS RESERVAS</h2>
-
-                            <table class="table table-bordered text-center">
-
-                                <thead>
-
-                                    <tr class="input-group2">
-
-                                        <th class="input--style-3 " >Gimnasio</th>
-                                        <th class="input--style-3" >Fecha</th>
-                                        <th class="input--style-3" >Horario</th>
-                                        <th class="input--style-3" >Estado</th>
-                                        <th class="input--style-3" >Acciones</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr th:each="reserva : ${reservas}" class="input-group2">
-
-                                        <td class="input--style-3" th:text="${reserva.gimnasio.nombre}"></td>
-                                        <td class="input--style-3" th:text="${reserva.fecha}"></td>
-                                        <td class="input--style-3" th:text="${reserva.horario}"></td>
-                                        <td class="input--style-3" th:text="${reserva.estado}"></td>
-                                        <td class="input--style-3 d-flex justify-content-around w-100">
-                                            <a class="btn btn-secondary btn-sm" th:href="@{/reservas/editar/__${reserva.id}__}">Editar</a>
-                                            <form th:action="@{/reservas/eliminar/__${reserva.id}__}" method="post">
-                                                <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                                            </form>
-                                        </td>
-
-
-                                    </tr>
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
         <div class="page-wrapper bg-gra-02 p-t-182 font-poppins">
             <div class="wrapper wrapper--w780">
                 <div class="card card-3">
-
-
-
-
-                    <div class="card-body">
+                   <div class="card-body">
                         <div class=" pl-sm-5">
                             <div class="brand_logo_container2">
                                 <img th:src="@{'/imagenes/' + ${gimnasio.imagen}}" class="img-fluid brand_logo2" alt="Logo">
@@ -199,8 +96,6 @@
                         </div>
                     </div>
                     <div class="card-body">
-
-
                         <div class="">
                             <div class="brand_logo_container6">
                                 <div class="input-group mb-3">
@@ -255,19 +150,11 @@
                                     <input type="text" name="direccion" class="form-control input_user"
                                            th:value="|${gimnasio.telefono}|" disabled selected>
                                 </div>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-
-
-                </div>
-
-
-                <div class="d-inline-flex float-right mt-4 login_container">
+                              </form>
+                            </div>
+                         </div>
+                      </div>
+                     <div class="d-inline-flex float-right mt-4 login_container">
                     <a th:href="@{/gimnasios/editar/__${gimnasio.id}__}" class="btn login_btn"  role="button" >Editar Datos</a>
                 </div>
 
@@ -278,22 +165,8 @@
 
 
 
-
-
-
-
-
                 <footer th:replace="fragments :: footer"></footer>
 
-
-<!--        <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-         Vendor JS
-        <script th:src="@{/vendor/select2/select2.min.js}"></script>
-        <script th:src="@{/vendor/datepicker/moment.min.js}"></script>
-        <script th:src="@{/vendor/datepicker/daterangepicker.js}"></script>-->
-
-<!--         Main JS
-        <script th:src="@{/js/global.js}"></script>-->
 
         <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 

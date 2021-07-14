@@ -8,9 +8,9 @@
 
     <nav th:fragment="navbar"  class="font-robo navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            
+
             <a class="navbar-brand" th:href="@{/}">
-            <img class="img-responsive" th:src="@{/imagenes/logos/logonavbar.png}">       UPGYM
+                <img class="img-responsive" th:src="@{/imagenes/logos/logonavbar.png}">       UPGYM
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -23,19 +23,15 @@
                     <li class="nav-item" th:unless="${action == 'login'}" sec:authorize="!isAuthenticated()">
                         <a  class="nav-link" th:href="@{/login/elegir}">Registrarse</a>
                     </li>
-                    
                     <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                         <a  class="nav-link" th:href="@{/roles/crear}">Crear Roles</a>
                     </li>
-                    
                     <li  class="nav-item">
                         <a class="nav-link" href="https://www.nutrinfo.com" target="_blank">Nutrición</a>
                     </li>
                     <li >
                         <a class="nav-link" href="https://lawebdelasalud.com" target="_blank">Salud</a>
                     </li>
-
-
                 </ul>               
                 <ul    class="navbar-nav mr-auto">                    
                     <li th:unless="${action == 'login'}"  sec:authorize="!isAuthenticated()">
@@ -44,15 +40,14 @@
                     <li th:if="${actividad == 'elegir'}">
                         <a class="btn btn-outline-warning" th:href="@{/login}">Iniciar Sesion</a>
                     </li>
-                 
                     <div sec:authorize="hasAnyRole('USUARIO,ADMIN')">
                         <img th:src="@{|/obtener-imagen/${usuario.imagen}|}" width="38" height="38"class="rounded-circle me-2">
                     </div>
                     <div sec:authorize="hasRole('GIMNASIO')">
                         <img th:src="@{|/obtener-imagen/${gimnasio.imagen}|}" width="38" height="38"class="rounded-circle me-2">
                     </div>
-                  
-                         
+
+
                     <li class="dropdown" sec:authorize="isAuthenticated()"> 
                         <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,12 +65,8 @@
                                 <button class="dropdown-item" type="submit">Cerrar Sesion</button>
                             </form>
                         </ul>
-                        
                     </li>
-                    
-                   
                 </ul>
-                    
             </div>
         </div>
     </nav>
