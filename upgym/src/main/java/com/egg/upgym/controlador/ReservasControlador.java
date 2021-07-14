@@ -214,33 +214,37 @@ public class ReservasControlador {
 
     }
     
-    @PostMapping("/eliminar/{id}")
+    @PostMapping("/eliminar/{email}/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public RedirectView eliminarAdmin(@PathVariable String id, Principal principal, RedirectAttributes attributes) throws ErrorServicio, MessagingException{
+    public RedirectView eliminarAdmin(@PathVariable String email, @PathVariable String id, Principal principal, RedirectAttributes attributes) throws ErrorServicio, MessagingException{
+        
+    
+        
+        
         try {
-            reservasServicio.eliminar(id, principal.getName());
+            reservasServicio.eliminar(id, email);
             attributes.addFlashAttribute("creado", "Reserva cancelada");
         } catch (ErrorServicio e) {
 
-            if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
+            if (gimnasioServicio.buscarPorEmail(email) != null) {
                 attributes.addFlashAttribute("error", e.getMessage());
-                return new RedirectView("/reservas/gimnasio/todas");
+                return new RedirectView("/gimnasios/todos");
 
             }
-            if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
+            if (usuarioServicio.buscarPorEmail(email) != null) {
                 attributes.addFlashAttribute("error", e.getMessage());
-                return new RedirectView("/reservas/usuario/todas");
+                return new RedirectView("/usuarios/todos");
 
             }
 
         }
 
-        if (gimnasioServicio.buscarPorEmail(principal.getName()) != null) {
-            return new RedirectView("/reservas/gimnasio/todas");
+        if (gimnasioServicio.buscarPorEmail(email) != null) {
+            return new RedirectView("/gimnasios/todos");
         }
-        if (usuarioServicio.buscarPorEmail(principal.getName()) != null) {
+        if (usuarioServicio.buscarPorEmail(email) != null) {
 
-            return new RedirectView("/reservas/usuario/todas");
+            return new RedirectView("/usuarios/todos");
 
         }
 
@@ -295,6 +299,7 @@ public class ReservasControlador {
         mav.addObject("reservas", reservasServicio.buscarPorGimnasioTodas(id));
         mav.addObject("title", "Crear Reserva");
         mav.addObject("action", "guardar");
+        mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
 
         return mav;
 

@@ -125,7 +125,7 @@
                         
                         <br>
                         <h2 class="title">MIS RESERVAS</h2>
-                        <div class="p-t-10 text-center ">
+                        <div sec:authorize="!hasRole('ADMIN')" class="p-t-10 text-center ">
                             <form th:action="@{/reservas/usuario/todas}"><button class="btn2 btn--pill btn-primary btn-smo "  type="submit">Ver todas</button></form>
                             
     
@@ -155,9 +155,15 @@
                                     <td class="input--style-3" th:text="${reserva.fecha}"></td>
                                     <td class="input--style-3" th:text="${reserva.horario}"></td>
                                     <td class="input--style-3" th:text="${reserva.estado}"></td>
-                                    <td class="input--style-3 d-flex justify-content-around w-100">
+                                    <td sec:authorize="!hasRole('ADMIN')"class="input--style-3 d-flex justify-content-around w-100">
                                        
                                         <form th:id="${reserva.id}" th:action="@{/reservas/eliminar/__${reserva.id}__}" method="post">
+                                            <button class="btn btn-danger btn-sm" type="button" th:attr="onclick=|cancelar('${reserva.id}')|">Cancelar</button>
+                                        </form>
+                                    </td>
+                                    <td sec:authorize="hasRole('ADMIN')" class="input--style-3 d-flex justify-content-around w-100">
+                                       
+                                        <form th:id="${reserva.id}" th:action="@{/reservas/eliminar/__${usuario.email}__/__${reserva.id}__}" method="post">
                                             <button class="btn btn-danger btn-sm" type="button" th:attr="onclick=|cancelar('${reserva.id}')|">Cancelar</button>
                                         </form>
                                     </td>
