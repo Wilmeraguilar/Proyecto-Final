@@ -96,3 +96,9 @@ body {
 .navbar-brand1 {
     max-width: 50%; }
 
+.color_fuente {
+    color: red;
+    font-weight: 400; 
+    //font-family: fantasy;
+    font-variant-ligatures: normal;
+}
