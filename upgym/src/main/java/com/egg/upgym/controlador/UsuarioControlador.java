@@ -78,9 +78,30 @@ public class UsuarioControlador {
     public ModelAndView perfil(Principal principal) {
         ModelAndView mav = new ModelAndView("Perfil");
         mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
+        mav.addObject("usuario1", usuarioServicio.buscarPorEmail(principal.getName()));
+        return mav;
+    }
+    
+    @PostMapping("/perfil/{email}/{dni}")
+    @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
+    public ModelAndView perfilUsuario(@PathVariable String email, @PathVariable Long dni, Principal principal) {
+        ModelAndView mav = new ModelAndView("Perfil");
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
+        mav.addObject("usuario1", usuarioServicio.buscarPorId(dni));
         return mav;
     }
 
+    @GetMapping("/modificar/{dni}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ModelAndView modificarUsuario(@PathVariable Long dni, Principal principal ) {
+        ModelAndView mav = new ModelAndView("usuario-registro");
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
+        mav.addObject("usuario1", usuarioServicio.buscarPorId(dni));
+        mav.addObject("title", "Editar Usuario");
+        mav.addObject("action", "modificar");
+        return mav;
+    }
+    
     @GetMapping("/editar/{dni}")
     @PreAuthorize("hasAnyRole('USUARIO,ADMIN')")
     public ModelAndView editarUsuario(@PathVariable Long dni) {

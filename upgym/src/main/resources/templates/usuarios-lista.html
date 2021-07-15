@@ -90,7 +90,7 @@
                                         <th class="input--style-3">Apellido</th>
                                         <th class="input--style-3">Telefono</th>
                                         <th class="input--style-3">Email</th>
-                                        <th class="input--style-3">Dirección</th>
+                                        <th class="input--style-3">Usuario</th>
                                         <th class="input--style-3">Reservas</th>
 
                                     </tr>
@@ -104,7 +104,11 @@
                                         <td class="input--style-3" th:text="${usuario1.apellido}"></td>
                                         <td class="input--style-3" th:text="${usuario1.telefono}"></td>
                                         <td class="input--style-3" th:text="${usuario1.email}"></td>
-                                        <td class="input--style-3" th:text="${usuario1.direccion.provincia}"></td>
+                                        <td class="col-md-4 px-md-2">
+                                            <form th:id="${usuario1.dni}" th:action="@{/usuarios/perfil/__${usuario1.email}__/__${usuario1.dni}__}" method="post">
+                                                <button class="btn btn-info btn-sm" type="submit">Ver Perfil</button>
+                                            </form>
+                                        </td>
                                         <td class="input--style-3 d-flex justify-content-around w-100">
 
                                             <form th:id="${usuario1.dni}" th:action="@{/reservas/usuarios/__${usuario1.dni}__}" method="post">

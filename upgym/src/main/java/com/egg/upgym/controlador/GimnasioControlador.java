@@ -108,12 +108,32 @@ public class GimnasioControlador {
         return mav;
     }
     
+    @PostMapping("/perfil/{email}/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ModelAndView perfilGimnasio(@PathVariable String email, @PathVariable String id, Principal principal) {
+        ModelAndView mav = new ModelAndView("Perfil-gym");
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
+        mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
+        return mav;
+    }
+    
    
 
     @GetMapping("/editar/{id}")
     @PreAuthorize("hasAnyRole('ADMIN,GIMNASIO')")
     public ModelAndView editarGimnasio(@PathVariable String id) {
         ModelAndView mav = new ModelAndView("gimnasio-registro");
+        mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
+        mav.addObject("title", "Editar Gimnasio");
+        mav.addObject("action", "modificar");
+        return mav;
+    }
+    
+    @GetMapping("/modificar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ModelAndView editarPorAdmin(@PathVariable String id, Principal principal) {
+        ModelAndView mav = new ModelAndView("gimnasio-registro");
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
         mav.addObject("gimnasio", gimnasioServicio.buscarPorId(id));
         mav.addObject("title", "Editar Gimnasio");
         mav.addObject("action", "modificar");
