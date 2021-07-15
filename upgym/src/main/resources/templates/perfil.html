@@ -57,7 +57,7 @@
             <nav th:replace="fragments :: navbar"></nav>
         </header>
 
-        <div class="page-wrapper bg-gra-02 p-t-182 font-poppins">
+        <div sec:authorize="!hasRole('ADMIN')" class="page-wrapper bg-gra-02 p-t-182 font-poppins">
             <div class="wrapper wrapper--w780">
                 <div class="card card-3">
                     <div class="card-body">
@@ -130,6 +130,86 @@
 
                 <div class="d-inline-flex float-right mt-4 login_container">
                     <a th:href="@{/usuarios/editar/__${usuario.dni}__}" class="btn login_btn"  role="button" >Editar Datos</a>
+                </div>
+            </div>
+        </div>
+        
+        <div sec:authorize="hasRole('ADMIN')" class="page-wrapper bg-gra-02 p-t-182 font-poppins">
+            <div class="wrapper wrapper--w780">
+                <div class="card card-3">
+                    <div class="card-body">
+                        <div class=" pl-sm-5">
+                            <div class="brand_logo_container2">
+                                <img th:src="@{'/imagenes/' + ${usuario1.imagen}}" class="img-fluid brand_logo2" alt="Logo">
+                            </div>
+                        </div>
+                        <div class="d-flex form_container2 pl-sm-5">
+                            
+                            <form class="">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="far fa-user"></i></span>
+                                    </div>
+                                    <input type="username" name="username" class="form-control input_user"
+                                           th:value="|${usuario1.nombre} ${usuario1.apellido}|" disabled selected>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="">
+                            <div class="brand_logo_container7">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+                                    </div>
+                                    <input type="email" name="email" class="form-control input_user" value=""
+                                           th:value="|${usuario1.email}|" disabled selected>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="brand_logo_container8">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-route"></i></span>
+                                    </div>
+                                    <input type="text" name="direccion" class="form-control input_user"
+                                           th:value="|${usuario1.direccion.calleNro}, ${usuario1.direccion.ciudad}.|" disabled
+                                           selected>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="brand_logo_container9">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-map-signs"></i></span>
+                                    </div>
+                                    <input type="text" name="direccion" class="form-control input_user"
+                                           th:value="|${usuario1.direccion.provincia}.|" disabled selected>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <form class="">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                                    </div>
+                                    <input type="text" name="direccion" class="form-control input_user"
+                                           th:value="|${usuario1.telefono}|" disabled selected>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-inline-flex float-right mt-4 login_container">
+                    <a th:href="@{/usuarios/modificar/__${usuario1.dni}__}" class="btn login_btn"  role="button" >Editar Datos</a>
+                </div>
+                <div th:unless="${usuario1.dni == usuario.dni }" class="d-inline-flex float-right mt-4 login_container">
+                    <a th:href="@{/usuarios/todos}" class="btn login_btn"  role="button" >Volver a Usuarios</a>
                 </div>
             </div>
         </div>
