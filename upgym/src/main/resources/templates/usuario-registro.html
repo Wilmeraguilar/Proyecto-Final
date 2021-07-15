@@ -40,7 +40,6 @@
 
         <!-- Main CSS-->
         <link th:href="@{/css/formulario.css}" rel="stylesheet" media="all">
-        <link th:href="@{/css/formulario.css}" rel="stylesheet" media="all">
 
     </head>
 
@@ -50,7 +49,7 @@
     <nav th:replace="fragments :: navbar"></nav>
   </header>
 
-        <div class="page-wrapper bg-gra-02 p-t-182 p-b-100 font-poppins">
+        <div sec:authorize="!hasRole('ADMIN')" class="page-wrapper bg-gra-02 p-t-182 p-b-100 font-poppins">
             <div class="wrapper wrapper--w780">
                 <div class="card card-3">
                     <div class="card-heading"></div>
@@ -138,7 +137,111 @@
                             <div class="card card-3">
                                 <div>
                                     <div class="p-t-10">
-                                        <STYLE>A {text-decoration: none;} </STYLE><a role="button" class="btn2 btn--pill btn--azul" th:href="@{/login/elegir}" > Volver </a>
+                                        <STYLE>A {text-decoration: none;} </STYLE><a role="button" class="btn2 btn--pill btn--azul" th:href="@{/}" > Volver </a>
+                                    </div >
+                                </div >
+                                <div class="card-body3">
+                                    <div class="p-t-10">
+                                        <button class="btn2 btn--pill btn--green" type="submit">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <div  sec:authorize="hasRole('ADMIN')" class="page-wrapper bg-gra-02 p-t-182 p-b-100 font-poppins">
+            <div class="wrapper wrapper--w780">
+                <div class="card card-3">
+                    <div class="card-heading"></div>
+                    <div class="card-body">
+                        <h2 class="title">REGISTRO</h2>
+                        <form id="formulario" th:action="@{/usuarios/__${action}__}" method="POST" th:object="${usuario1}" autocomplete="on"
+                              enctype="multipart/form-data" novalidate>
+                            <div class="input-group">
+
+                                <input class="input--style-3" type="number" placeholder="DNI" name="dni" th:field="*{dni}" required th:readonly="${usuario1.dni != null}">
+
+                            </div>
+                            <div class="input-group">
+                                <input class="input--style-3" type="text" placeholder="Nombre" name="nombre" th:field="*{nombre}" required>
+                            </div>
+                            <div class="input-group">
+                                <input class="input--style-3" type="text" placeholder="Apellido" name="apellido" th:field="*{apellido}" required>
+                            </div>
+                            <div class="input-group">
+                                <input class="input--style-3" type="number" placeholder="Telefono" name="telefono" th:field="*{telefono}" required>
+                            </div>
+
+                            <input id="direccion" class="input--style-3" type="hidden" name="direccion"
+                                   th:field="*{direccion.id}">
+
+                            <div class="input-group rs-select2 js-select-simple select--no-search ">
+                                <select name="provincia" id="provincias" class="form-select" aria-label="Elegir Provincia"
+                                        th:field="*{direccion.provincia}" required>
+                                    <option value="" disabled selected>Elegir Provincia</option>
+                                    <option value="Buenos Aires">Buenos Aires</option>
+                                    <option value="Catamarca">Catamarca</option>
+                                    <option value="Chaco">Chaco</option>
+                                    <option value="Chubut">Chubut</option>
+                                    <option value="Cordoba">Córdoba</option>
+                                    <option value="Corrientes">Corrientes</option>
+                                    <option value="Entre Ríos">Entre Ríos</option><!-- nofunciona -->
+                                    <option value="Formosa">Formosa</option>
+                                    <option value="Jujuy">Jujuy</option>
+                                    <option value="La Pampa">La Pampa</option>
+                                    <option value="La Rioja">La Rioja</option>
+                                    <option value="Mendoza">Mendoza</option>
+                                    <option value="Misiones">Misiones</option>
+                                    <option value="Neuquen">Neuquén</option>
+                                    <option value="Rio Negro">Río Negro</option>
+                                    <option value="Salta">Salta</option>
+                                    <option value="San Juan">San Juan</option>
+                                    <option value="San Luis">San Luis</option>
+                                    <option value="santa cruz">Santa Cruz</option><!-- nofunciona -->
+                                    <option value="Santa Fe">Santa Fe</option>
+                                    <option value="Santiago del Estero">Santiago del Estero</option><!-- nofunciona -->
+                                    <option value="Tierra del Fuego">Tierra del Fuego</option>
+                                    <option value="Tucuman">Tucumán</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                            </div>
+                            <div class="input-group rs-select2 js-select-simple select--no-search">
+                                <select name="ciudad" id="municipios" class="form-select"  aria-label="Elegir Ciudad" th:field="*{direccion.ciudad}" required>
+                                    <option value="" disabled selected>Elegir Ciudad</option>
+                                    <option value="ciudad1">Ciudad1</option>
+                                </select>
+                                <div class="select-dropdown"></div>
+                            </div>               
+                            <div class="input-group">
+                                <input class="input--style-3" type="text" placeholder="Dirección" name="dirección" th:field="*{direccion.calleNro}" required>
+                            </div>
+                            <div class="input-group">
+
+
+                                <input class="input--style-3" type="text" placeholder="Email" name="username" th:field="*{email}" required th:readonly="${usuario1.dni!=null}">
+
+                            </div>
+                            <div class="input-group">
+                                <input class="input--style-3" type="password" placeholder="Clave" name="password" th:field="*{clave}" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="input--style-3" for="imagen">Cargar Imagen</label>
+                                <input class="input--style-3" type="file" accept="image/*" name="file" id="imagen">
+
+                            </div>
+
+                            <input id="estado" class="input--style-3" type="hidden" name="estado"
+                                   th:field="*{estado}">
+
+                            <div class="card card-3">
+                                <div>
+                                    <div class="p-t-10">
+                                        <STYLE>A {text-decoration: none;} </STYLE><a role="button" class="btn2 btn--pill btn--azul" th:href="@{/}" > Volver </a>
                                     </div >
                                 </div >
                                 <div class="card-body3">
