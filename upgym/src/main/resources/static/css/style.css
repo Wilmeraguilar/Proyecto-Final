@@ -98,7 +98,12 @@ body {
 
 .color_fuente {
     color: red;
-    font-weight: 400; 
+    font-weight: 900; 
     //font-family: fantasy;
     font-variant-ligatures: normal;
+}
+
+.color_inicio {
+    color: #ffc107;
+    
 }
