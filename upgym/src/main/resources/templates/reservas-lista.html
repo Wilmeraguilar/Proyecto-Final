@@ -7,7 +7,7 @@
     <meta name="description" content="Proyecto UPGYM">
     <meta name="author" content="Carla-Wilmer-Eze-Gonza">
     <meta name="generator" content="Hugo 0.83.1">
-    <title>Mis Reservas</title>
+    <title>Reservas Usuarios</title>
       <link rel="shortcut icon" href="../imagenes/logos/logo_paginas.png">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -28,10 +28,7 @@
     <!-- Vendor CSS-->
     <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all">
     <link th:href="@{/vendor/datepicker/daterangepicker.css}" rel="stylesheet" media="all">
-
     <link th:href="@{/css/formulario.css}" rel="stylesheet" media="all">
-
-
 
 
     <style>
@@ -58,47 +55,7 @@
         <nav th:replace="fragments :: navbar"></nav>
     </header>
 
-
-    <!--
-                <div class="container mt-5 main">
-                    <h1 th:text></h1>
-                    <h1>Mis Reservas</h1>
-                    <hr class="mb-5"/>
-                    <div th:if="${reservas.isEmpty()}">
-                        <h5>Todavía no hay reservas cargadas.<a th:href="@{/gimnasios}">Agregar Reserva</a></h5>
-                    </div>
-                    <div th:unless="${reservas.isEmpty()}" class="table-responsive">
-        
-                        <table class="table table-hover table-sm table-bordered">
-                            <thead class="table-secondary text-center">
-                                <tr>
-                                    <th class="col-md-4 px-md-2" scope="col">Gimnasio</th>
-                                    <th class="col-md-4 px-md-2" scope="col">Fecha</th>
-                                    <th class="col-md-4 px-md-2" scope="col">Horario</th>
-                                    <th class="col-md-4 px-md-2" scope="col">Estado</th>
-                                    <th class="col-md-4 px-md-2" scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="reserva : ${reservas}">
-                                    <td class="col-md-4 px-md-2" th:text="${reserva.gimnasio.nombre}"></td>
-                                    <td class="col-md-4 px-md-2" th:text="${reserva.fecha}"></td>
-                                    <td class="col-md-4 px-md-2" th:text="${reserva.horario}"></td>
-                                    <td class="col-md-4 px-md-2" th:text="${reserva.estado}"></td>
-                                    <td class="col-md-4 px-md-2 d-flex justify-content-around w-100">
-                                        <a class="btn btn-secondary btn-sm" th:href="@{/reservas/editar/__${reserva.id}__}">Editar</a>
-                                        <form th:action="@{/reservas/eliminar/__${reserva.id}__}" method="post">
-                                            <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                                        </form>
-                                    </td>
-                                </tr>
-        
-                            </tbody>
-                        </table>
-                    </div>
-                </div>-->
-
-    <div th:if="${reservas.isEmpty()}">
+  <div th:if="${reservas.isEmpty()}">
         <div class="page-wrapper bg-gra-02 p-t-183 p-b-100 font-poppins">
             <div class="wrapper wrapper--w960">
                 <div class="card card-3">
@@ -127,11 +84,8 @@
                         <h2 class="title">MIS RESERVAS</h2>
                         <div sec:authorize="!hasRole('ADMIN')" class="p-t-10 text-center ">
                             <form th:action="@{/reservas/usuario/todas}"><button class="btn2 btn--pill btn-primary btn-smo "  type="submit">Ver todas</button></form>
-                            
-    
-                        </div>
-                       
-                        <br>
+                           </div>
+                         <br>
 
                         <table class="table table-bordered text-center mx-auto">
 
