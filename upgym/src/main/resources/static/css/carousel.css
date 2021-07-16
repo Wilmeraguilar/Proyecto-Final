@@ -165,7 +165,7 @@ El fondo rojo esta en el CSS formulario en la linea 181*/
     margin-top: 7rem;
   }
 }
-/*media queries pasra pantalla cel*/
+/*media queres para pantalla cel*/
 @media (max-width: 375px) {
   .formatoimagen {
     width: 100vw;

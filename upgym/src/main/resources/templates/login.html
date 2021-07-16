@@ -32,8 +32,6 @@
         <link th:href="@{/css/login.css}" rel="stylesheet" media="all">
 
 
-
-
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -72,7 +70,7 @@
                     <div class="d-flex justify-content-center form_container">
                         <form id="formulario" th:action="@{/logincheck}" method="post">
                             <div class="text-center mb-3">
-                            <div th:if="${error !=null}" class="btn2 btn--pill btn--green text-align-center" >Error al iniciar sesion</div>
+                            <div th:if="${error !=null}" class="btn2 btn--pill btn--amarillo text-align-center" >Error al iniciar sesión</div>
                          </div> 
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -106,11 +104,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
 
 
         <footer th:replace="fragments :: footer"></footer>
