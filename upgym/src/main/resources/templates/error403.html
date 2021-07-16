@@ -8,9 +8,27 @@
         <meta name="generator" content="Hugo 0.82.0">
         <title>Error-403</title>
 
-        <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
-        <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-        <link rel="stylesheet" th:href="@{/css/style.css}" />
+        <link rel="shortcut icon" href="../imagenes/logos/logo_paginas.png">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/" />
+    <!-- Vendor CSS-->
+    <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{/vendor/datepicker/daterangepicker.css}" rel="stylesheet" media="all">
+
+    <link th:href="@{/css/formulario.css}" rel="stylesheet" media="all">
 
     <!-- Bootstrap core CSS -->
     <link th:href="@{/assets/dist/css/bootstrap.min.css}" rel="stylesheet">
@@ -34,15 +52,17 @@
     
     <!-- Custom styles for this template -->
   </head>
-  <body class="text-center" th:background="@{/imagenes/minion-403.jpg}"  >
+  <body class="text-align background-size:cover background-attachment:fixed background-imagen:imagenes/minion-403.jpg" th:background="@{/imagenes/minion-403.jpg}"  >
 
   
-    <h3 style="text-align: center" class="animate__zoomInDown color_fuente"> No esta autorizado para ver esta página </h3>
+    <h3  margin="10"  > No esta autorizado para ver esta página (ERROR 403) </h3>
     <p></p>
     
-    <a th:href="@{/}" style="text-align: center "> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill color_inicio" viewBox="0 0 16 16">
+    <button class="btn2 btn--pill btn--azul" th:action="@{/}"  type="submit"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-house-door-fill color_inicio" viewBox="0 0 16 16">
       <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
-    </svg>  Volver al Inicio </a>
+    </svg>  Volver al Inicio </button>
+
+    
 
 
  
