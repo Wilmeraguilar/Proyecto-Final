@@ -7,17 +7,18 @@
         <meta name="author" content="Carla-Wilmer-Eze-Gonza">
         <meta name="generator" content="Hugo 0.83.1">
         <title>Mi Perfil</title>
-          <link rel="shortcut icon" href="../imagenes/logos/logo_paginas.png">
+        <link rel="shortcut icon" href="../imagenes/logos/logo_paginas.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        
-       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
               integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
         <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" th:href="@{assets/dist/css/bootstrap.min.css}" />
+        <link th:href="@{/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
         <link th:href="@{/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
+        
         <!-- Font special for pages-->
         <link
             href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
@@ -27,9 +28,7 @@
         <!-- Vendor CSS-->
         <link th:href="@{/vendor/select2/select2.min.css}" rel="stylesheet" media="all">
         <link th:href="@{/vendor/datepicker/daterangepicker.css}" rel="stylesheet" media="all">
-
         <link th:href="@{/css/formulario_1.css}" rel="stylesheet" media="all">
-
         <link rel="stylesheet" th:href="@{assets/dist/css/bootstrap.min.css}" />
 
 
@@ -57,6 +56,8 @@
             <nav th:replace="fragments :: navbar"></nav>
         </header>
 
+        
+        
         <div sec:authorize="!hasRole('ADMIN')" class="page-wrapper bg-gra-02 p-t-182 font-poppins">
             <div class="wrapper wrapper--w780">
                 <div class="card card-3">
