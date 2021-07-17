@@ -618,7 +618,7 @@ input {
 .card-3 .card-heading6 {
   background: url("../imagenes/reserva/Reserva2.jpg") top right/cover no-repeat;
   display: table-cell;
-  width: 20%;
+  width: 30%;
 }
 
 .card-3 .card-heading7 {
@@ -628,7 +628,13 @@ input {
 }
 
 .card-3 .card-heading8 {
-  background: url("../imagenes/admin/usuario.jpg") top right/cover no-repeat;
+  background: url("../imagenes/admin/usuario4.jpg") top right/cover no-repeat;
+  display: table-cell;
+  width: 30%;
+}
+
+.card-3 .card-heading9 {
+  background: url("../imagenes/admin/gimnasio1.jpg") top right/cover no-repeat;
   display: table-cell;
   width: 30%;
 }
