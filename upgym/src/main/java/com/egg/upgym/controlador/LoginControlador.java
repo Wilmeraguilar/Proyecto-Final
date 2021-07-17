@@ -34,6 +34,7 @@ public class LoginControlador {
     LoginServicio logser;
 
     @GetMapping
+    @PreAuthorize("!hasAnyRole('GIMNASIO,ADMIN,USUARIO')")
     public ModelAndView login(@RequestParam(required = false) String error) {
         ModelAndView mav = new ModelAndView("login");
         mav.addObject("error", error);

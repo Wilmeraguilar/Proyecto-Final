@@ -2,6 +2,8 @@ package com.egg.upgym.controlador;
 
 import com.egg.upgym.entidades.Rol;
 import com.egg.upgym.servicio.RolServicio;
+import com.egg.upgym.servicio.UsuarioServicio;
+import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,25 +19,29 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/roles")
 @PreAuthorize("hasAnyRole('ADMIN')")
 public class RolControlador {
-    
+
     @Autowired
     private RolServicio rolServicio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ModelAndView mostrarTodos() {
+    public ModelAndView mostrarTodos(Principal principal) {
         ModelAndView mav = new ModelAndView("rol");
         mav.addObject("roles", rolServicio.buscarTodos());
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
         return mav;
     }
 
     @GetMapping("/crear")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ModelAndView crearRol() {
+    public ModelAndView crearRol(Principal principal) {
         ModelAndView mav = new ModelAndView("rol");
         mav.addObject("rol", new Rol());
         mav.addObject("title", "Crear Rol");
         mav.addObject("action", "guardar");
+        mav.addObject("usuario", usuarioServicio.buscarPorEmail(principal.getName()));
         return mav;
     }
 
@@ -51,15 +57,15 @@ public class RolControlador {
 
     @PostMapping("/guardar")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public RedirectView guardar( @RequestParam String nombre) {
-        rolServicio.crear( nombre);
+    public RedirectView guardar(@RequestParam String nombre) {
+        rolServicio.crear(nombre);
         return new RedirectView("/");
     }
 
     @PostMapping("/modificar")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public RedirectView modificar(@RequestParam String id,@RequestParam String nombre,@RequestParam String estado) {
-        rolServicio.modificar(id,nombre,estado);
+    public RedirectView modificar(@RequestParam String id, @RequestParam String nombre, @RequestParam String estado) {
+        rolServicio.modificar(id, nombre, estado);
         return new RedirectView("/");
     }
 
@@ -69,5 +75,5 @@ public class RolControlador {
         rolServicio.eliminar(id);
         return new RedirectView("/");
     }
-    
+
 }
